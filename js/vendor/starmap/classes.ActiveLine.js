@@ -7,9 +7,9 @@ var classes = classes || {}; // Giving a namespace to the class we're creating. 
 	ready, we will add it to our classes object to be used by an outside application.
 	*/
 
-	//function NavLine(canvas, id, x, y, vx, vy, vr) {
-	function NavLine(settings) {
-		//console.log('NavLine constructor');
+	//function ActiveLine(canvas, id, x, y, vx, vy, vr) {
+	function ActiveLine(settings) {
+		//console.log('ActiveLine constructor');
 		this.Shape_constructor();
 		// Assign properties from what is passed in.
 		this.canvas		= settings.canvas;			// We could just use "stage", but I like writing things in a similar pattern.
@@ -27,9 +27,9 @@ var classes = classes || {}; // Giving a namespace to the class we're creating. 
 
 	// extend() builds our temporary object up with the parent as it's prototype. It then returns the new prototype, 
 	// so we could give this a shorter variable name if we wanted to.
-	NavLine.prototype = createjs.extend(NavLine, createjs.Shape);
+	ActiveLine.prototype = createjs.extend(ActiveLine, createjs.Shape);
 
-	NavLine.prototype.update = function() {
+	ActiveLine.prototype.update = function() {
 
 		this.graphics.clear();
         
@@ -84,6 +84,6 @@ var classes = classes || {}; // Giving a namespace to the class we're creating. 
 	object to avoid polluting the global namespace.
 	*/
 	
-	classes.NavLine = createjs.promote(NavLine, "Shape");
+	classes.ActiveLine = createjs.promote(ActiveLine, "Shape");
 
 }());
