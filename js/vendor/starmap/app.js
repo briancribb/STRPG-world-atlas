@@ -66,7 +66,7 @@ var Starmap = Starmap || (function() {
 			origin : null,
 			destination : null
 		},
-		activeLine : null,
+		navLine : null,
 		regions : [],		
 		pause: function() {
 			//console.log('APP.pause()');
@@ -397,14 +397,14 @@ var Starmap = Starmap || (function() {
 
 				/* Create Travel Line. */
 				/* ============================================================== */
-				APP.activeLine = new classes.ActiveLine({
+				APP.navLine = new classes.NavLine({
 					canvas:	APP.canvas, 
 					name:'travel',  
 					radius:1, 
 					color: 'rgba(255,255,255,0.5)' 
 				});
-				APP.container.addChild(APP.activeLine);
-				APP.container.setChildIndex(APP.activeLine, 0);
+				APP.container.addChild(APP.navLine);
+				APP.container.setChildIndex(APP.navLine, 0);
 			}
 		},
 		tick: function(event) {
@@ -455,8 +455,8 @@ var Starmap = Starmap || (function() {
 
 			/* Set start of travel line. */
 			//console.log('Set start of travel line.');
-			Starmap.activeLine.startPoint.x = coords.x;
-			Starmap.activeLine.startPoint.y = coords.y;
+			Starmap.navLine.startPoint.x = coords.x;
+			Starmap.navLine.startPoint.y = coords.y;
 		},
 		setDestination: function(x,y) {
 			/* This is only called from outside, in the STRPG service via the World Atlas controller. */
@@ -467,9 +467,9 @@ var Starmap = Starmap || (function() {
 
 			/* Set end of travel line. */
 			//console.log('Set end of travel line.');
-			Starmap.activeLine.endPoint.x = coords.x;
-			Starmap.activeLine.endPoint.y = coords.y;
-			Starmap.activeLine.alpha = 1;
+			Starmap.navLine.endPoint.x = coords.x;
+			Starmap.navLine.endPoint.y = coords.y;
+			Starmap.navLine.alpha = 1;
 		},
 		clearMap: function() {
 			APP.props.hideIcons = true;
@@ -598,8 +598,8 @@ var Starmap = Starmap || (function() {
 			APP.container.scaleX = APP.container.scaleY = APP.props.scaleXY;
 
 			/* Active line only appears if there's a proper origin and destination. */
-			if ( APP.activeLine.startPoint.x === null || APP.activeLine.endPoint.x === null ) {
-				APP.activeLine.alpha = 0;
+			if ( APP.navLine.startPoint.x === null || APP.navLine.endPoint.x === null ) {
+				APP.navLine.alpha = 0;
 			}
 
 			/* Hide selections if required. */
@@ -607,10 +607,10 @@ var Starmap = Starmap || (function() {
 				_.each(APP.selections, function(item){
 					item.alpha = 0;
 				});
-				APP.activeLine.alpha = 0;
+				APP.navLine.alpha = 0;
 			}
 
-			APP.activeLine.update();
+			APP.navLine.update();
 
 
 
