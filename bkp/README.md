@@ -1,0 +1,2 @@
+<h1>Star Trek RPG Starmap</h1>
+<p>This might be combined with the world atlas at some point, but for now I want to tinker with this on it's own. It's just a simple 2D starmap from the old role-playing game. I know it should really be a 3D map, but I'm not going to create depth for this thing. I'm just going to play with the numbers and make a pretty starmap.</p>

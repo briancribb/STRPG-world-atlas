@@ -1,0 +1,65 @@
+<div class="container-fluid wa-sort">
+	<p class="lead">Sort Planets by their properties.</p>
+
+	<div class="row">
+		<div class="col-sm-8 col-xs-12">
+			<div class="apply-half-rhythm">
+				<wa-typeahead inputid="sort-place" name="sort-place" type="origin"></wa-typeahead>
+			</div>
+		</div>
+		<div class="col-sm-4 col-xs-12">
+			<div class="apply-rhythm">
+				<button id="sort-to-location" class="btn btn-info" type="button" ng-click="sort.setPlace()">Use Current Selection</button>
+			</div>
+		</div>
+	</div>
+	<span ng-show="sort.place.name"><p class="lead">{{sort.place.name}}<span ng-show="sort.place.type"> ({{sort.place.type}})</span>: {{sort.place.displayCoords.full}}</p></span>
+
+
+
+
+
+	<div class="list-group">
+		<li class="list-group-item list-group-item-btn" ng-click="sort.setResults('distance')"><button type="button" class="btn btn-info btn-sm"><span class="glyphicon glyphicon glyphicon-sort-by-attributes"></span></button>Distance</li>
+		<li class="list-group-item list-group-item-btn" ng-click="sort.setResults('climate')"><button type="button" class="btn btn-info btn-sm"><span class="glyphicon glyphicon glyphicon-sort-by-attributes"></span></button>Climate</li>
+	</div>
+
+
+	<div class="panel panel-info open">
+		<wa-panel-toggle type="info" name="Trade Profile"></wa-panel-toggle>
+		<div class="list-group panel-slider">
+			<li class="list-group-item list-group-item-btn" ng-repeat="tradeProfile in sort.tradeProfiles"`><button type="button" class="btn btn-info btn-sm" ng-click="sort.setResults('tradeProfile', tradeProfile.prop, 'rating')"><span class="glyphicon glyphicon glyphicon-sort-by-attributes"></span></button>{{tradeProfile.name}}</li>
+		</div>
+	</div>
+
+
+	<div ng-show="sort.results">
+		<p class="lead">Results by <span class="wa-capitalize">{{sort.resultType}}<span ng-show="sort.resultTypeSub">: {{sort.resultTypeSub}}</span></span></p>
+
+		<div class="panel panel-primary" ng-repeat="result in sort.results" ng-class='{open:$first}'>
+			<wa-panel-toggle type="primary" name="{{result.keyName}} ({{result.places.length}})"></wa-panel-toggle>
+			<div class="panel-slider">
+				<table class="table table-striped simplecols">
+					<tbody>
+						<tr ng-repeat="place in result.places">
+							<td>
+								{{place.name}}</td><td>{{place.distanceFrom}}
+							</td>
+							<td>
+								<button type="button" class="btn btn-info btn-sm pull-right search-btn-info" data-test="myTest" ng-click="showDetails(place.id)"><span class="glyphicon glyphicon glyphicon-info-sign"></span></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+

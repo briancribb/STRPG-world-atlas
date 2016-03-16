@@ -1,0 +1,88 @@
+<div class="container-fluid wa-course">
+	<p class="lead">Get travel info or set a new course for the map.</p>
+	<div id="course-by-name" class="course-by-name">
+		<div class="row">
+			<div class="col-sm-6">
+				<label for="course-origin">New Origin</label>
+				<div class="input-group apply-rhythm">
+					<wa-typeahead inputid="course-origin" name="course-origin" type="origin"></wa-typeahead>
+					<span class="input-group-btn">
+					<button ng-click="course.useLocation()" class="btn btn-info" type="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<label for="course-destination">New Destination</label>
+				<div class="input-group apply-rhythm">
+					<wa-typeahead inputid="course-destination" name="course-destination" type="destination"></wa-typeahead>
+					<span class="input-group-btn">
+					<button ng-click="course.useLocationDest()" class="btn btn-success" type="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="course-by-coords apply-rhythm">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label>Origin: {{course.startName}}</label>
+					<input name="course-startX" ng-model="course.startX" class="form-control apply-half-rhythm" type="number" tabindex="3" placeholder="x: ex. -9.5">
+					<input name="course-startY" ng-model="course.startY" class="form-control apply-half-rhythm" type="number" tabindex="4" placeholder="y: ex. 5.2">
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label>Destination: {{course.finishName}}</label>
+					<input name="course-finishX" ng-model="course.finishX" class="form-control apply-half-rhythm" type="number" tabindex="3" placeholder="x: ex. -9.5">
+					<input name="course-finishY" ng-model="course.finishY" class="form-control apply-half-rhythm" type="number" tabindex="4" placeholder="y: ex. 5.2">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 col-sm-4">
+			<label for="course-warp-factor">Warp Factor</label>
+			<input name="course-warp-factor" ng-model="course.warpFactor" ng-change="course.applyResults()" class="form-control form-group" type="number" min="0" max="15" tabindex="7" placeholder="ex. 4.8">
+		</div>
+		<div class="col-xs-6 col-sm-4">
+			<label for="course-known-distance">Known Distance</label>
+			<input name="course-known-distance" ng-model="course.knownDistance" class="form-control form-group apply-rhythm" type="number" min="0" tabindex="-1" placeholder="ex. 20.5">
+		</div>
+		<div class="col-xs-12 col-sm-4">
+			<label for="course-partial-time">Partial Time</label>
+			<input name="course-partial-time" ng-model="course.partialTime" ng-change="course.getPartialDistance()" class="form-control form-group apply-rhythm" type="number" min="1" tabindex="-1" placeholder="Days" >
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div id="course-actions" class="course-actions btn-group btn-group-justified apply-half-rhythm">
+				<a id="wa-nav-info" ng-click="course.applyResults(false)" class="btn btn-info"><span class="glyphicon glyphicon glyphicon-info-sign"></span><span class="hidden-xs disable-pointer">&nbsp;Test</span></a>
+				<a id="wa-nav-plot" ng-click="course.applyResults(true)" class="btn btn-primary"><span class="glyphicon glyphicon glyphicon-screenshot"></span><span class="hidden-xs disable-pointer">&nbsp;Plot</span></a>
+				<a id="wa-nav-reset" ng-click="course.resetForm()" class="btn btn-danger"><span class="glyphicon glyphicon glyphicon-remove"></span><span class="hidden-xs disable-pointer">&nbsp;Clear</span></a>
+			</div>
+			<div class="well well-small">
+				<p ng-show="course.results" class="remove-rhythm">Travelling <strong>{{course.results.distance}} parsecs</strong> will take <strong>{{course.results.time}} days</strong> travelling at <strong>Warp Factor {{course.results.rate}}</strong>.</p>
+				<p ng-show="course.results" class="remove-rhythm">Partial time of <strong>{{course.partialTime}} day(s)</strong> results in a distance of <strong>{{course.partialDistance}} parsec(s)</strong>.</p>
+				<p ng-show="course.plotted" class="remove-rhythm">Origin and destination has have been set for the map.</p>
+				<p ng-show="!course.results" class="remove-rhythm">Enter coordinates for a travel estimate.</p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<h2>Instructions</h2>
+			<h3>Origin and Destination</h3>
+			<p>Choosing a location from the dropdowns will populate the coordinates on this page for testing purposes. (Coordinates may also be entered manually.)</p>
+			<p>Clicking the blue or green map-market buttons will set coordinates to the map's current origin or destination, respectively. You'll see the system name change to reflect this.</p>
+			<h3>Known Distance</h3>
+			<p>If you know exactly how far you're going, there's no need to punch in coordinates. You can just enter the distance in parsecs and see how long the trip would take at the current warp factor.</p>
+			<h3>Partial Time</h3>
+			<p>If you want to get coordinates for an interrupted trip, enter the time in days. This defaults to 1, but can be changed to anything less-than or equal-to the resulting time.</p>
+			<h3>Control Buttons</h3>
+			<p><strong>Test</strong>: Just return the results from the current form values.
+			<p><strong>Plot</strong>: Same as test, but sets the map's origin and destination to the current coordinates.
+			<p><strong>Clear</strong>: Resets the form.
+		</div>
+	</div>
+</div>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WorldAtlas">
+	<head>
+		<meta charset="utf-8">
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<title>STRPG World Atlas</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
+	<body>
+		<div id="atlas" class="atlas center-block" ng-controller="WorldAtlasCtrl as WAtlas">
+			<div id="map" class="map">
+				<div id="map-nav" class="map-nav bg-info clearfix">
+					<button type="button" id="map-btn-zoom-in" class="btn btn-sm btn-info btn-zoom-inn" ng-click="WAtlas.changeScale(true)"><span class="glyphicon glyphicon-zoom-in"></span></button>
+					<button type="button" id="map-btn-zoom-out" class="btn btn-sm btn-info btn-zoom-out" ng-click="WAtlas.changeScale(false)"><span class="glyphicon glyphicon-zoom-out"></span></button>
+
+
+					<wa-typeahead inputid="WAtlas-place" name="WAtlas-place" type="origin"></wa-typeahead>
+
+					<wa-app-toggle action="open" icon="chevron-left"></wa-app-toggle>
+				</div>
+				<div id="canvas-container" class="canvas-container">
+					<button type="button" id="map-btn-origin" class="btn btn-sm btn-info btn-origin" ng-click="WAtlas.setOrigin()"><span class="glyphicon glyphicon-map-marker"><span class="hidden-xs">&nbsp;Origin</span></span></button>
+					<button type="button" id="map-btn-destination" class="btn btn-sm btn-success btn-destination" ng-click="WAtlas.setDestination()"><span class="glyphicon glyphicon-map-marker"><span class="hidden-xs">&nbsp;Destination</span></span></button>
+					<button type="button" id="map-btn-clear" class="btn btn-sm btn-danger btn-clear" ng-click="WAtlas.clearMap()"><span class="glyphicon glyphicon-remove"><span class="hidden-xs">&nbsp;Clear</span></span></button>
+				</div>
+			</div>
+			<div id="wa" class="wa trans-left">
+				<div id="wa-nav" class="wa-nav bg-info clearfix">
+					<div class="btn-group btn-group-justified pull-left">
+						<a id="wa-nav-plot" class="btn btn-info" ng-class="{ active:WAtlas.isSelected('/course') }" ng-click="WAtlas.selectPage('/course')"><span class="glyphicon glyphicon glyphicon-screenshot"></span><span class="hidden-xs">&nbsp;Course</span></a>
+						<a id="wa-nav-details" class="btn btn-info" ng-class="{ active:WAtlas.isSelected('/details') }" ng-click="WAtlas.selectPage('/details')"><span class="glyphicon glyphicon glyphicon-info-sign"></span><span class="hidden-xs">&nbsp;Details</span></a>
+						<a id="wa-nav-sort" class="btn btn-info" ng-class="{ active:WAtlas.isSelected('/sort') }" ng-click="WAtlas.selectPage('/sort')"><span class="glyphicon glyphicon glyphicon-sort"></span><span class="hidden-xs">&nbsp;Sort</span></a>
+					</div>
+					<!--<button type="button" id="btn-app-close" class="btn btn-sm btn-info btn-app-close pull-right"><span class="glyphicon glyphicon-chevron-right"></span></button>-->
+					<wa-app-toggle action="close" icon="chevron-right"></wa-app-toggle>
+				</div>
+				<div id="wa-scroll-wrapper" class="wa-scroll-wrapper">
+					<div id="wa-view" class="wa-view">
+						<div ng-view></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Vendor -->
+		<script src="js/vendor/jquery-2.1.4.min.js"></script>
+		<script src="js/vendor/underscore-min.js"></script>
+		<script src="js/vendor/typeahead.bundle.min.js"></script>
+		
+<!--
+-->
+		<script src="js/vendor/createjs/preloadjs-0.6.1.min.js"></script>
+		<script src="js/vendor/createjs/easeljs-0.8.1.min.js"></script>
+		<script src="js/vendor/starmap/classes.Star.js"></script>
+		<script src="js/vendor/starmap/classes.Selection.js"></script>
+		<script src="js/vendor/starmap/classes.ActiveLine.js"></script>
+		<script src="js/vendor/starmap/classes.Region.js"></script>
+		<script src="js/vendor/starmap/app.js"></script>
+
+
+
+		<script src="js/vendor/angular/1.4.5/angular.js"></script>
+		<script src="js/vendor/angular/1.4.5/angular-route.min.js"></script>
+
+		<script src="js/app.js"></script>
+		<script src="js/routes.js"></script>
+
+
+		<!-- Services -->
+		<script src="js/services/STRPG.js"></script>
+
+		<!-- Controllers -->
+		<script src="js/controllers/world-atlas-controller.js"></script>
+		<script src="js/controllers/course-controller.js"></script>
+		<script src="js/controllers/details-controller.js"></script>
+		<script src="js/controllers/sort-controller.js"></script>
+
+		<!-- Directives -->
+		<script src="js/directives/wa-typeahead.js"></script>
+		<script src="js/directives/wa-app-toggle.js"></script>
+		<script src="js/directives/wa-panel-toggle.js"></script>
+
+
+	</body>
+</html>

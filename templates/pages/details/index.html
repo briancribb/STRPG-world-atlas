@@ -1,0 +1,190 @@
+<div class="container-fluid wa-details">
+	<p class="lead">Select a planet or system to see its details.</p>
+	<div class="apply-rhythm">
+		<wa-typeahead inputid="details-place" name="details-place" type="origin"></wa-typeahead>
+	</div>
+
+	<div id="details-system-data" class="panel panel-primary closed">
+		<div class="panel-heading">System: {{details.system.name}}</div>
+		<!-- Table -->
+		<div class="panel-slider">
+			<table class="table table-striped simplecols">
+				<tbody>
+					<tr>
+						<td>Coordinates</td>
+						<td>{{details.system.displayCoords.full}}</td>
+					</tr>
+					<tr>
+						<td>Number of Class M</td>
+						<td>{{details.system.numClassM}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<ul id="details-planets" class="nav nav-tabs apply-rhythm" role="tablist">
+		<li id="{{planet.name}}" class="details-planet" ng-class="{ active: details.isSelectedTab(planet.id) }" ng-repeat="planet in details.system.planets"><a ng-click="details.selectTab(planet.id)">{{planet.name}}</a></li>
+	</ul>
+	<div id="details-desc" class="panel panel-primary open">
+		<wa-panel-toggle type="primary" name="Description"></wa-panel-toggle>
+		<div class="panel-slider">
+			<div class="panel-body">
+				<p ng-repeat="paragraph in details.planet.desc">{{paragraph}}</p>
+			</div>
+		</div>
+	</div>
+	<div id="details-planetary-data" class="panel panel-primary">
+		<wa-panel-toggle type="primary" name="Planetary Data"></wa-panel-toggle>
+		<div class="panel-slider">
+			<table class="table table-striped simplecols">
+				<tbody>
+				<tr><td>Position</td><td>{{details.planet.systemPosition}}</td></tr>
+				<tr><td>Satellites</td><td>{{details.planet.satellites}}</td></tr>
+				<tr><td>Gravity</td><td>{{details.planet.gravity}}</td></tr>
+			</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="details-tech-social" class="panel panel-primary">
+		<wa-panel-toggle type="primary" name="TechSocial Index: {{details.planet.techSocIndex.rating}}"></wa-panel-toggle>
+		<div class="panel-slider">
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+						<td>Space Science Index</td>
+						<td>
+							<div class="details-index-rating">{{details.planet.techSocIndex.spaceScience.rating}}:</div>
+							<div class="details-index-desc">{{ details.getTechSocialDetails(details.planet.techSocIndex.spaceScience.index, details.planet.techSocIndex.spaceScience.rating) }}</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Engineering Index</td>
+						<td>
+							<div class="details-index-rating">{{details.planet.techSocIndex.engineering.rating}}:</div>
+							<div class="details-index-desc">{{ details.getTechSocialDetails(details.planet.techSocIndex.engineering.index, details.planet.techSocIndex.engineering.rating) }}</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Life/Medical Science Index</td>
+						<td>
+							<div class="details-index-rating">{{details.planet.techSocIndex.lifeMedScience.rating}}:</div>
+							<div class="details-index-desc">{{ details.getTechSocialDetails(details.planet.techSocIndex.lifeMedScience.index, details.planet.techSocIndex.lifeMedScience.rating) }}</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Physical Science Index</td>
+						<td>
+							<div class="details-index-rating">{{details.planet.techSocIndex.physicalScience.rating}}:</div>
+							<div class="details-index-desc">{{ details.getTechSocialDetails(details.planet.techSocIndex.physicalScience.index, details.planet.techSocIndex.physicalScience.rating) }}</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Planetary Science Index</td>
+						<td>
+							<div class="details-index-rating">{{details.planet.techSocIndex.planetaryScience.rating}}:</div>
+							<div class="details-index-desc">{{ details.getTechSocialDetails(details.planet.techSocIndex.planetaryScience.index, details.planet.techSocIndex.planetaryScience.rating) }}</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Psionics Index</td>
+						<td>
+							<div class="details-index-rating">{{details.planet.techSocIndex.psionics.rating}}:</div>
+							<div class="details-index-desc">{{ details.getTechSocialDetails(details.planet.techSocIndex.psionics.index, details.planet.techSocIndex.psionics.rating) }}</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Social Science Index</td>
+						<td>
+							<div class="details-index-rating">{{details.planet.techSocIndex.socialScience.rating}}:</div>
+							<div class="details-index-desc">{{ details.getTechSocialDetails(details.planet.techSocIndex.socialScience.index, details.planet.techSocIndex.socialScience.rating) }}</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Cultural Attitude Index</td>
+						<td>
+							<div class="details-index-rating">{{details.planet.techSocIndex.culturalAttitude.rating}}:</div>
+							<div class="details-index-desc">{{ details.getTechSocialDetails(details.planet.techSocIndex.culturalAttitude.index, details.planet.techSocIndex.culturalAttitude.rating) }}</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="details-trade-profile" class="panel panel-primary">
+		<wa-panel-toggle type="primary" name="Trade Profile: {{details.planet.tradeProfile.rating}}"></wa-panel-toggle>
+		<div class="panel-slider">
+			<table class="table simplecols">
+				<tbody>
+					<tr class="bg-info"><td>Food and Agricultural Goods</td><td>{{details.planet.tradeProfile.agricultural.rating}}</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.agricultural.consumptionRate}} SCU</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.agricultural.price}} CR</td></tr>
+					<tr class="bg-info"><td>Normal Minerals, Raw Materials</td><td>{{details.planet.tradeProfile.rawMaterials.rating}}</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.rawMaterials.consumptionRate}} SCU</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.rawMaterials.price}} CR</td></tr>
+					<tr class="bg-info"><td>Radioactives, Special Minerals</td><td>{{details.planet.tradeProfile.rawMaterials.rating}}</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.rawMaterials.consumptionRate}} SCU</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.rawMaterials.price}} CR</td></tr>
+					<tr class="bg-info"><td>Drugs and Medicine</td><td>{{details.planet.tradeProfile.drugMedicine.rating}}</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.drugMedicine.consumptionRate}} SCU</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.drugMedicine.price}} CR</td></tr>
+					<tr class="bg-info"><td>Low Tech Manufactured Goods</td><td>{{details.planet.tradeProfile.lowTechMan.rating}}</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.lowTechMan.consumptionRate}} SCU</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.lowTechMan.price}} CR</td></tr>
+					<tr class="bg-info"><td>Medium Tech Manufactured Goods</td><td>{{details.planet.tradeProfile.mediumTechMan.rating}}</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.mediumTechMan.consumptionRate}} SCU</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.mediumTechMan.price}} CR</td></tr>
+					<tr class="bg-info"><td>High Tech Manufactured Goods</td><td>{{details.planet.tradeProfile.highTechMan.rating}}</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.highTechMan.consumptionRate}} SCU</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.highTechMan.price}} CR</td></tr>
+					<tr class="bg-info"><td>Luxury Goods</td><td>{{details.planet.tradeProfile.luxuryGoods.rating}}</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.luxuryGoods.consumptionRate}} SCU</td></tr>
+					<tr><td></td><td>{{details.planet.tradeProfile.luxuryGoods.price}} CR</td></tr>
+					<tr class="bg-info"><td>Population Rating</td><td>{{details.planet.tradeProfile.population.rating}}</td></tr>
+					<tr><td></td><td>{{ details.getPopulationDesc(details.planet.tradeProfile.population.rating) }}</td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="details-size" class="panel panel-primary">
+		<wa-panel-toggle type="primary" name="Size"></wa-panel-toggle>
+		<div class="panel-slider">
+			<table class="table table-striped simplecols">
+				<tbody>
+					<tr><td>Diameter</td><td>{{details.planet.diameter | number : 0}} km</td></tr>
+					<tr><td>Circumference</td><td>{{details.planet.circumference | number : 0}} km</td></tr>
+					<tr><td>Surface Area</td><td>{{details.planet.surfaceArea | number : 0}} sq.km</td></tr>
+					<tr><td>Percent Land</td><td>{{details.planet.percentLand | number : 0}}%</td></tr>
+					<tr><td>Total Land</td><td>{{details.planet.landArea | number : 0}} sq.km</td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="details-surface" class="panel panel-primary">
+		<wa-panel-toggle type="primary" name="Surface Conditions"></wa-panel-toggle>
+		<div class="panel-slider">
+			<table class="table table-striped simplecols">
+				<tbody>
+					<tr><td>Length of Day</td><td>{{details.planet.dayLength}} hours</td></tr>
+					<tr><td>Atmosphere</td><td>{{details.planet.atmosDensity}}</td></tr>
+					<tr><td>Climate</td><td>{{details.planet.climate}}</td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="details-minerals" class="panel panel-primary">
+		<wa-panel-toggle type="primary" name="Mineral Content"></wa-panel-toggle>
+		<div class="panel-slider">
+			<table class="table table-striped simplecols">
+				<tbody>
+					<tr><td>Normal Metals</td><td>{{details.planet.minerals.normal | number : 0}}%</td></tr>
+					<tr><td>Radioactives</td><td>{{details.planet.minerals.radioactives | number : 0}}%</td></tr>
+					<tr><td>Gemstones</td><td>{{details.planet.minerals.gemstones | number : 0}}%</td></tr>
+					<tr><td>Industrial Crystals</td><td>{{details.planet.minerals.crystals | number : 0}}%</td></tr>
+					<tr><td>Special Minerals</td><td>{{details.planet.minerals.special | number : 0}}%</td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

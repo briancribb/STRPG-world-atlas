@@ -1,0 +1,234 @@
+html, body, .atlas, .wa, .map, .canvas-container {
+  height: 100%; }
+
+body {
+  background: #ccc; }
+
+canvas {
+  background: #000; }
+
+.btn > .glyphicon, a > .glyphicon {
+  pointer-events: none; }
+
+.row.small-gutters {
+  margin-left: 5px;
+  margin-right: 5px; }
+  .row.small-gutters > [class^="col-"], .row.small-gutters > [class*=" col-"] {
+    padding-right: 5px;
+    padding-left: 5px; }
+
+.atlas {
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 600px;
+  overflow: hidden; }
+
+.map-nav, .canvas-container {
+  position: relative; }
+
+.map-nav {
+  padding: 5px 45px 5px 85px;
+  display: block; }
+
+.canvas-container {
+  background: #ddd; }
+
+.map .btn {
+  position: absolute;
+  top: 7px;
+  left: 5px; }
+.map .btn-zoom-out {
+  left: 45px; }
+.map .btn-app-open, .map .btn-destination, .map .btn-clear {
+  left: auto;
+  right: 5px; }
+.map .btn-clear {
+  top: 45px; }
+
+.wa {
+  background: #fff;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 100%;
+  right: 0;
+  overflow-y: scroll;
+  padding-top: 45px; }
+
+.open .wa {
+  left: 0%; }
+
+.btn-app-close {
+  margin-top: 2px;
+  margin-right: -40px;
+  float: right; }
+
+.wa-nav {
+  margin-top: -45px;
+  z-index: 1;
+  padding: 5px 45px 5px 5px; }
+
+.wa-view {
+  position: relative;
+  z-index: 0;
+  padding: 20px 0; }
+  .wa-view .wa-course {
+    display: block; }
+
+.panel-heading {
+  text-transform: Capitalize; }
+
+.panel .panel-slider {
+  display: none; }
+  .panel .panel-slider table:last-child {
+    margin-bottom: 0; }
+
+.panel.open .panel-slider {
+  display: block; }
+.panel.open .panel-toggle span.glyphicon {
+  transform: rotate(180deg); }
+
+/*
+
+.app-container {
+	clear:both;
+	position:relative;
+	overflow:hidden;
+	canvas {
+		max-width: 100%;
+		background: #000000;
+	}
+}
+
+.wa {
+	background:white;
+	position: absolute;
+	width: 100%;
+	left: 100%;
+	right: 0;
+}
+	.wa-nav {
+		padding-right:45px;
+	}
+	.btn-app-toggle-off {
+		position:absolute;
+		top:2px;right:5px;
+	}
+
+	.atlas.open {
+		.wa {
+			position: absolute;
+			width: 100%;
+			left: 0%;
+			right: 0;
+		}
+	}
+	.wa-view {
+		padding: 20px 0;
+	}
+	.wa .input-group, .wa input {
+		margin-bottom:10px;
+	}
+
+
+
+*/
+.list-group:last-child {
+  margin-bottom: 0; }
+
+.list-group a.list-group-item {
+  cursor: pointer; }
+
+.list-group .list-group-item .btn {
+  margin-top: -7px; }
+
+.list-group .list-group-item .btn-sm {
+  margin-top: -5px; }
+
+.list-group-item-btn {
+  padding-right: 50px; }
+  .list-group-item-btn button.btn {
+    margin-right: -40px;
+    float: right; }
+
+.trans-left {
+  -webkit-transition: left .25s linear;
+  transition: left .25s linear; }
+
+.trans-right {
+  -webkit-transition: right .25s linear;
+  transition: right .25s linear; }
+
+.trans-padding {
+  -webkit-transition: padding .25s linear;
+  transition: padding .25s linear; }
+
+.trans-bg-position {
+  -webkit-transition: background-position .5s linear;
+  transition: background-position .5s linear; }
+
+.apply-rhythm {
+  margin-bottom: 20px !important; }
+
+.apply-half-rhythm {
+  margin-bottom: 10px !important; }
+
+.remove-rhythm {
+  margin-bottom: 0px !important; }
+
+.disable-pointer {
+  pointer-events: none !important; }
+
+.wa-capitalize {
+  text-transform: Capitalize !important; }
+
+span.twitter-typeahead {
+  width: 100%; }
+
+.input-group span.twitter-typeahead {
+  display: block !important; }
+
+.input-group span.twitter-typeahead .tt-dropdown-menu {
+  top: 32px !important; }
+
+.input-group.input-group-lg span.twitter-typeahead .tt-dropdown-menu {
+  top: 44px !important; }
+
+.input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu {
+  top: 28px !important; }
+
+.tt-hint {
+  color: #999999; }
+
+.tt-dropdown-menu {
+  font-weight: lighter;
+  width: 100%;
+  margin-top: -6px;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  max-height: 300px;
+  overflow-y: auto; }
+
+.tt-suggestion {
+  padding: 3px 20px;
+  font-size: 18px;
+  line-height: 24px; }
+
+.tt-suggestion.tt-cursor, .tt-suggestion.tt-cursor small {
+  color: #fff;
+  background-color: #0097cf; }
+
+.tt-suggestion p {
+  margin: 0; }
+
+.empty-message {
+  padding-left: 12px; }

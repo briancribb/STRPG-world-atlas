@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Test</title>
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
+
+		<!-- app styles -->
+		<link rel="stylesheet" href="css/style.css">
+
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	</head>
+	<body>
+		<div id="atlas" class="atlas center-block">
+			<div id="wa-nav"class="wa-nav btn-group btn-group-justified">
+				<a id="wa-nav-map" data-module="starmap" data-target="wa-map" class="btn btn-info"><span class="glyphicon glyphicon glyphicon-map-marker"></span><span class="hidden-xs">&nbsp;Map</span></a>
+				<a id="wa-nav-details" data-module="details" data-target="wa-details" class="btn btn-info"><span class="glyphicon glyphicon glyphicon-info-sign"></span><span class="hidden-xs">&nbsp;Details</span></a>
+				<a id="wa-nav-search" data-module="search" data-target="wa-search" class="btn btn-info active"><span class="glyphicon glyphicon glyphicon-search"></span><span class="hidden-xs">&nbsp;Search</span></a>
+				<a id="wa-nav-plot" data-module="plot" data-target="wa-plot" class="btn btn-info"><span class="glyphicon glyphicon glyphicon-screenshot"></span><span class="hidden-xs">&nbsp;Plot</span></a>
+			</div>
+			<section id="wa-map" class="wa-box wa-map bg-warning">
+				<div id="map-interface" class="map-interface bg-info">
+					<button type="button" id="map-zoom-in" class="btn btn-sm btn-info btn-zoom btn--map-zoom-in map-control"><span class="glyphicon glyphicon-zoom-in"></span></button>
+					<button type="button" id="map-zoom-out" class="btn btn-sm btn-info btn-zoom btn--map-zoom-out map-control"><span class="glyphicon glyphicon-zoom-out"></span></button>
+					<input id="current-system-name" class="current-system-name map-control" placeholder="Click/Touch Map" />
+				</div>
+				<canvas id="starmap" class="center" width="680" height="1000"><p>Your primitive, sucky browser does not support canvas.</p></canvas>
+			</section>
+			<section id="wa-details" class="wa-box wa-details">
+
+				<div class="container-fluid">
+					<div class="form-group">
+						<input id="details-selected" name="details-selected" class="form-control" tabindex="0" placeholder="System or Planet">
+					</div>
+
+
+					<div id="details-system-data" class="panel panel-primary">
+						<div class="panel-heading">System Name</div>
+						<!-- Table -->
+						<div class="panel-slider">
+							<table class="table table-striped simplecols">
+								<tbody>
+									<tr>
+										<td>Coordinates</td>
+										<td>1S, 2E</td>
+									</tr>
+									<tr>
+										<td>Number of Class M</td>
+										<td>1</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+
+					<ul id="details-planets" class="nav nav-tabs space-below" role="tablist">
+						<li id="planet0" data-planet-id="0" class="details-planet-name active"><a href="#"></a></li>
+					</ul>
+					<div id="details-desc" class="panel panel-primary">
+						<div class="panel-heading panel-toggle">Description<span class="glyphicon glyphicon-chevron-down pull-right"></span></div>
+						<div class="panel-slider">
+							<div class="panel-body">
+								<p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+							</div>
+						</div>
+					</div>
+					<div id="details-planetary-data" class="panel panel-primary">
+						<div class="panel-heading panel-toggle">Planetary Data<span class="glyphicon glyphicon-chevron-down pull-right"></span></div>
+						<div class="panel-slider">
+							<table class="table table-striped simplecols">
+								<tbody>
+									<tr>
+										<td>Position</td>
+										<td>1</td>
+									</tr>
+									<tr>
+										<td>Satellites</td>
+										<td>2</td>
+									</tr>
+									<tr>
+										<td>Gravity</td>
+										<td>1.5G</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="details-tech-social" class="panel panel-primary">
+						<div class="panel-heading panel-toggle"><span class="panel-title">TechSocial Index: 999994-87</span><span class="glyphicon glyphicon-chevron-down pull-right"></span></div>
+						<div class="panel-slider">
+							<table class="table table-striped">
+								<tbody>
+									<tr>
+										<td>Space Science Index</td>
+										<td><div class="details-index-rating">1:</div>
+											<div class="details-index-desc">Star recognition; constellations; basic astronomy and navigation</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Engineering Index</td>
+										<td><div class="details-index-rating">1:</div>
+											<div class="details-index-desc">Star recognition; constellations; basic astronomy and navigation</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Life/Medical Science Index</td>
+										<td><div class="details-index-rating">1:</div>
+											<div class="details-index-desc">Star recognition; constellations; basic astronomy and navigation</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Physical Science Index</td>
+										<td><div class="details-index-rating">1:</div>
+											<div class="details-index-desc">Star recognition; constellations; basic astronomy and navigation</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Planetary Science Index</td>
+										<td><div class="details-index-rating">1:</div>
+											<div class="details-index-desc">Star recognition; constellations; basic astronomy and navigation</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Psionics Index</td>
+										<td><div class="details-index-rating">1:</div>
+											<div class="details-index-desc">Star recognition; constellations; basic astronomy and navigation</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Social Science Index</td>
+										<td><div class="details-index-rating">1:</div>
+											<div class="details-index-desc">Star recognition; constellations; basic astronomy and navigation</div>
+										</td>
+									</tr>
+									<tr>
+										<td>Cultural Attitude Index</td>
+										<td><div class="details-index-rating">1:</div>
+											<div class="details-index-desc">Star recognition; constellations; basic astronomy and navigation</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="details-trade-profile" class="panel panel-primary">
+						<div class="panel-heading panel-toggle">Trade Profile: DCBFBCE/B (B)<span class="glyphicon glyphicon-chevron-down pull-right"></span></div>
+						<div class="panel-slider">
+							<table class="table simplecols">
+								<tbody>
+									<tr class="bg-info">
+										<td>Agricultural</td>
+										<td>D</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>250SCU</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>700Cr</td>
+									</tr>
+
+
+									<tr class="bg-info">
+										<td>Minerals/Materials</td>
+										<td>C</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>250SCU</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>700Cr</td>
+									</tr>
+
+									<tr class="bg-info">
+										<td>Radioactives/Special</td>
+										<td>B</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>250SCU</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>700Cr</td>
+									</tr>
+
+									<tr class="bg-info">
+										<td>Drugs/Medicine</td>
+										<td>F</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>250SCU</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>700Cr</td>
+									</tr>
+
+									<tr class="bg-info">
+										<td>Low-tech Goods</td>
+										<td>B</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>250SCU</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>700Cr</td>
+									</tr>
+
+									<tr class="bg-info">
+										<td>Medium-tech Goods</td>
+										<td>C</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>250SCU</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>700Cr</td>
+									</tr>
+
+
+									<tr class="bg-info">
+										<td>High-tech Goods</td>
+										<td>E</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>250SCU</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>700Cr</td>
+									</tr>
+
+									<tr class="bg-info">
+										<td>Luxury Items</td>
+										<td>B</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>250SCU</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>700Cr</td>
+									</tr>
+
+									<tr class="bg-info">
+										<td>Population</td>
+										<td>B</td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="details-size" class="panel panel-primary">
+						<div class="panel-heading panel-toggle">Size<span class="glyphicon glyphicon-chevron-down pull-right"></span></div>
+						<div class="panel-slider">
+							<table class="table table-striped simplecols">
+								<tbody>
+									<tr>
+										<td>Diameter</td>
+										<td>XXXXXXXX</td>
+									</tr>
+									<tr>
+										<td>Circumference</td>
+										<td>XXXXXXXX</td>
+									</tr>
+									<tr>
+										<td>Surface Area</td>
+										<td>XXXXXXXX</td>
+									</tr>
+									<tr>
+										<td>Percent Land</td>
+										<td>XXXXXXXX</td>
+									</tr>
+									<tr>
+										<td>Total Land</td>
+										<td>XXXXXXXX</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="details-surface" class="panel panel-primary">
+						<div class="panel-heading panel-toggle">Surface Conditions<span class="glyphicon glyphicon-chevron-down pull-right"></span></div>
+						<div class="panel-slider">
+							<table class="table table-striped simplecols">
+								<tbody>
+									<tr>
+										<td>Length of Day</td>
+										<td>XXXXXXXX</td>
+									</tr>
+									<tr>
+										<td>Atmosphere</td>
+										<td>XXXXXXXX</td>
+									</tr>
+									<tr>
+										<td>Climate</td>
+										<td>XXXXXXXX</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="details-minerals" class="panel panel-primary">
+						<div class="panel-heading panel-toggle">Mineral Content<span class="glyphicon glyphicon-chevron-down pull-right"></span></div>
+						<div class="panel-slider">
+							<table class="table table-striped simplecols">
+								<tbody>
+									<tr>
+										<td>Normal Metals</td>
+										<td>XXXXXXXX</td>
+									</tr>
+									<tr>
+										<td>Radioactives</td>
+										<td>XXXXXXXX</td>
+									</tr>
+									<tr>
+										<td>Gemstones</td>
+										<td>XXXXXXXX</td>
+									</tr>
+									<tr>
+										<td>Industrial Crystals</td>
+										<td>XXXXXXXX</td>
+									</tr>
+									<tr>
+										<td>Special Minerals</td>
+										<td>XXXXXXXX</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="wa-search" class="wa-box wa-search">
+				<div class="container-fluid">
+					<p>Sort Planets by their properties.</p>
+					<ul class="list-group">
+						<li id="search-location" class="list-group-item"></li>
+						<li id="search-coords" class="list-group-item"></li>
+					</ul>
+					<div id="search-general" class="panel panel-primary">
+						<div class="panel-heading panel-toggle open">General properties<span class="glyphicon glyphicon-chevron-up pull-right"></span></div>
+						<div class="panel-slider" style="display: block;">
+							<div class="list-group">
+								<a href="#" class="list-group-item search-criteria" data-property="distance">Distance from Current Location</a>
+								<a href="#" class="list-group-item search-criteria" data-property="climate">Climate</a>
+							</div>
+						</div>
+					</div>
+					<div id="search-trade" class="panel panel-primary">
+						<div class="panel-heading panel-toggle">Trade Profile<span class="glyphicon glyphicon-chevron-down pull-right"></span></div>
+						<div class="panel-slider">
+							<div class="list-group"></div>
+						</div>
+					</div>
+					<div id="search-results"></div>
+				</div>
+			</section>
+			<section id="wa-plot" class="wa-box wa-plot">
+				<div class="container-fluid">
+					<h4>By planet or sytem</h4>
+					<div class="row space-below">
+						<div class="col-xs-12 col-md-6 space-below">
+							<label for="plot-origin">Origin</label>
+							<input id="plot-origin" name="plot-origin" class="form-control" tabindex="1" placeholder="Origin">
+							<button type="button" id="plot-btn-origin-current" class="btn btn-sm btn-info space-above" tabindex="1">Use Current Location</button>
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<label for="plot-destination">Destination</label>
+							<input id="plot-destination" name="plot-destination" class="form-control" tabindex="2" placeholder="Destination">
+							<button type="button" id="plot-btn-destination-current" class="btn btn-sm btn-warning space-above" tabindex="1">Use Current Selection</button>
+						</div>
+					</div>
+
+					<h4>Coordinates</h4>
+					<div class="row space-below">
+						<div class="col-xs-6">
+							<label for="plot-startX">Origin</label>
+							<input id="plot-startX" name="plot-startX" class="form-control coordinate validate" type="number" tabindex="3" placeholder="x: ex. -9.5">
+							<input id="plot-startY" name="plot-startY" class="form-control form-group coordinate validate" type="number" tabindex="4" placeholder="y: ex. 5.2">
+						</div>
+						<div class="col-xs-6">
+							<label for="plot-finishX">Destination</label>
+							<input id="plot-finishX" name="plot-finishX" class="form-control coordinate validate" type="number" tabindex="5" placeholder="x: ex. -9.5">
+							<input id="plot-finishY" name="plot-finishY" class="form-control form-group coordinate validate" type="number" tabindex="6" placeholder="y: ex. 5.2">
+						</div>
+					</div>
+					<div class="row space-below">
+						<div class="col-xs-6">
+							<label for="plot-warp-factor">Warp Factor</label>
+							<input id="plot-warp-factor" class="form-control form-group" type="number" tabindex="7" placeholder="ex. 4.8">
+						</div>
+						<div class="col-xs-6">
+							<label for="plot-known-distance">Known Distance</label>
+							<input id="plot-known-distance" class="form-control form-group" type="number" tabindex="-1" placeholder="ex. 20.5" >
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div id="plot-results" class="panel panel-default">
+								<div id="plot-results-heading" class="panel-heading">
+									<button id="plot-btn-results" class="btn btn-info" type="submit" tabindex="8">See Results</button>
+									<button id="plot-btn-engage" class="btn btn-primary" type="submit" tabindex="9">Plot Course</button>
+									<button id="plot-btn-clear" class="btn btn-warning" type="submit" tabindex="10">Clear Course</button>
+								</div>
+								<div id="plot-results-content" class="panel-body"></div>
+							</div>
+						</div>
+					</div>
+
+					<h4>Partial Trips</h4>
+					<p>Need to stop in the middle of a trip? This is where you find out how far you've gone. To see where you wound up, use coordinates in the search above.</p>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<label for="plot-partial-time">Days of Travel</label>
+							<input id="plot-partial-time" class="form-control form-group" type="number" tabindex="-1" placeholder="ex. 20.5" >
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div id="plot-partial-results" class="panel panel-default form-group">
+								<div id="plot-partial-results-heading" class="panel-heading">
+									<button id="plot-btn-partial" class="btn btn-danger" type="submit" tabindex="-1">Partial</button>
+								</div>
+								<div id="plot-partial-results-content" class="panel-body"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<!-- Your site-specific javascript here -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+		<script src="js/createjs-2013.12.12.min.js"></script>
+		<script src="js/typeahead.min.js"></script>
+
+
+		<!--
+		<script src="http:////cdnjs.cloudflare.com/ajax/libs/svg.js/1.0rc3/svg.min.js"></script>
+		<script src="js/hammer.min.js"></script>
+		<script src="js/hammer.fakemultitouch.js"></script>
+		<script src="js/hammer.showtouches.js"></script>
+		-->
+
+		<script src="js/STRPG.data.js"></script>
+		<script src="js/STRPG.utils.js"></script>
+
+		<script src="js/class.region.js"></script>
+		<script src="js/class.star.js"></script>
+		<script src="js/class.selection.js"></script>
+		<script src="js/class.activeline.js"></script>
+		<script src="js/STRPG.starmap.js"></script>
+
+		<script src="js/STRPG.plot.js"></script>
+		<script src="js/STRPG.details.js"></script>
+		<script src="js/STRPG.search.js"></script>
+		<script src="js/STRPG.atlas.js"></script>
+	</body>
+</html>
