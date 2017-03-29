@@ -55,9 +55,11 @@ class TestComponent extends React.Component {
 		}
 		*/
 		markup = 
-			<div className="test">
-				<p>This is a test.</p>
-			</div>
+			<div className="btn-group btn-group-lg" role="group" aria-label="Large button group">
+				<button type="button" className="btn btn-secondary">Left</button>
+				<button type="button" className="btn btn-secondary">Middle</button>
+				<button type="button" className="btn btn-secondary">Right</button>
+			</div>;
 
 		return(
 			markup
