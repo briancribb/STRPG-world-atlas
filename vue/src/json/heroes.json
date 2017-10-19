@@ -1,0 +1,208 @@
+[
+	{
+		"name": "Major Frosty",
+		"title": "Immune to Brain Freeze",
+		"desc": "For this Texan veteran, every day is February in New England",
+		"arrFeatures": [
+			{
+				"name":"Ice Blast",
+				"icon":"",
+				"tags":[ "effect", "cold" ]
+			},
+			{
+				"name":"Ice Slide",
+				"icon":"",
+				"tags":[ "travel", "cold" ]
+			},
+			{
+				"name":"Durability",
+				"icon":"",
+				"tags":[ "personal" ]
+			}
+		]
+	},
+	{
+		"name": "Hot Tomale",
+		"title": "A Fire Engine Guy",
+		"desc": "A former firefighter who's made the switch to starting fires while fighting crime on the side.",
+		"arrFeatures": [
+			{
+				"name":"Fireball",
+				"icon":"",
+				"tags":[ "effect", "heat" ]
+			},
+			{
+				"name":"Strength",
+				"icon":"",
+				"tags":[ "personal" ]
+			},
+			{
+				"name":"Durability",
+				"icon":"",
+				"tags":[ "personal" ]
+			}
+		]
+	},
+	{
+		"name": "Goofball",
+		"title": "Commissioner of Comedy",
+		"desc": "It's nevery too late for a good joke. Or a bad one.",
+		"arrFeatures": [
+			{
+				"name":"Confetti Cannon",
+				"icon":"",
+				"tags":[ "weapon", "comedy", "blinding" ]
+			},
+			{
+				"name":"Pogo Stick",
+				"icon":"",
+				"tags":[ "travel", "vehicle", "portable" ]
+			}
+		]
+	},
+	{
+		"name": "Captain Hops",
+		"title": "Jumper of Conclusions",
+		"desc": "She leaps into action to protect microbreweries.",
+		"arrFeatures": [
+			{
+				"name":"Jumping",
+				"icon":"",
+				"tags":[ "Travel" ]
+			},
+			{
+				"name":"Mega Boots",
+				"icon":"",
+				"tags":[ "blunt", "weapon" ]
+			},
+			{
+				"name":"Detective",
+				"icon":"",
+				"tags":[ "skill" ]
+			}
+		]
+	},
+	{
+		"name": "Micky Mental",
+		"title": "Thought Equals Action",
+		"desc": "He doesn't think you'll commit that crime, so you won't.",
+		"arrFeatures": [
+			{
+				"name":"Read Minds",
+				"icon":"",
+				"tags":[ "perception", "communication", "telepathy" ]
+			},
+			{
+				"name":"Mind Control",
+				"icon":"",
+				"tags":[ "influence", "telepathy" ]
+			},
+			{
+				"name":"Brain Zap",
+				"icon":"",
+				"tags":[ "effect", "stun", "telepathy" ]
+			}
+		]
+	},
+	{
+		"name": "Lookie Lou",
+		"title": "He Sees You Too",
+		"desc": "An opthamological accident left a local bird watcher the power to see everything.",
+		"arrFeatures": [
+			{
+				"name":"Telescope Eyes",
+				"icon":"",
+				"tags":[ "personal", "perception" ]
+			},
+			{
+				"name":"See-through Vision",
+				"icon":"",
+				"tags":[ "personal", "perception" ]
+			},
+			{
+				"name":"Night Vision",
+				"icon":"",
+				"tags":[ "personal", "perception" ]
+			},
+			{
+				"name":"Laser Eyes",
+				"icon":"",
+				"tags":[ "effect", "heat", "laser" ]
+			},
+			{
+				"name":"Detective",
+				"icon":"",
+				"tags":[ "skill" ]
+			}
+		]
+	},
+	{
+		"name": "Dancing Queen Liz",
+		"title": "She's over 17",
+		"desc": "The ruling monarch of Swishland uses her skills to combat evil.",
+		"arrFeatures": [
+			{
+				"name":"Dancing",
+				"icon":"",
+				"tags":[ "combat", "travel" ]
+			},
+			{
+				"name":"Singing",
+				"icon":"",
+				"tags":[ "influence", "sonic" ]
+			},
+			{
+				"name":"Crown",
+				"icon":"",
+				"tags":[ "weapon", "edged", "throwing" ]
+			},
+			{
+				"name":"Boom Box",
+				"icon":"",
+				"tags":[ "influence", "sonic", "weapon" ]
+			},
+			{
+				"name":"Roller Skates",
+				"icon":"",
+				"tags":[ "travel", "vehicle", "portable" ]
+			}
+		]
+	},
+	{
+		"name": "Think Man",
+		"title": "Detective to the Stars",
+		"desc": "The Brainful Bird Dog of University City is destined to solve any and all crimes according to their relationship with the heavens.",
+		"arrFeatures": [
+			{
+				"name":"Detective",
+				"icon":"",
+				"tags":[ "skill" ]
+			},
+			{
+				"name":"Astrology",
+				"icon":"",
+				"tags": [ "skill", "pseudoscience" ]
+			},
+			{
+				"name":"Marketing",
+				"icon":"",
+				"tags":[ "skill", "business" ]
+			},
+			{
+				"name":"Accounting",
+				"icon":"",
+				"tags":[ "skill" , "business" ]
+			},
+			{
+				"name":"Trivia",
+				"icon":"",
+				"tags":[ "skill" ]
+			},
+			{
+				"name":"Thinkmobile",
+				"icon":"",
+				"tags": [ "travel", "vehicle" ]
+			}
+		]
+	}
+]
