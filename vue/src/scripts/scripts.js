@@ -5,6 +5,7 @@
 		init : function() {
 			APP.props = {
 				$bodyElement		: $('body'),
+				$mainNav			: $('#main-nav'),
 				$mainFooter			: $('#main-footer'),
 				$mainFooterContent	: $('#main-footer-content'),
 				size				: '',
@@ -37,12 +38,14 @@
 			APP.addResizeTask({
 				func: function() {
 
-					var footerHeight = APP.props.$mainFooterContent.outerHeight(true);
+					var footerHeight = APP.props.$mainFooterContent.outerHeight(true),
+						navHeight = APP.props.$mainNav.outerHeight(true);
 
 					APP.props.$mainFooter.height( footerHeight );
 
 					APP.props.$bodyElement.css({
-						'padding-bottom'	:footerHeight//,
+						'padding-bottom'	:footerHeight,
+						'padding-top'		:navHeight
 					});
 					APP.props.size = APP.getSiteViewType();
 				},

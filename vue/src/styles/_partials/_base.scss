@@ -1,5 +1,9 @@
 html, body {
 	position:relative;
+	min-height: 100%;
+}
+html {
+	height:100%;
 }
 /*
 img[width],
@@ -21,19 +25,4 @@ html {
 /* Loading Spinner */
 .page-load {
 	display:none;
-}
-html.loading {
-	height:100%;
-	body {
-		height:100%;
-	}
-	.app-wrap {
-		display:none;
-	}
-	.page-load {
-		display:block;
-	}
-	.main-footer {
-		overflow: hidden;
-	}
 }
