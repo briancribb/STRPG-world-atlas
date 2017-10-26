@@ -7,7 +7,7 @@ WA.getData = function (dfd_init) {
 		dfd_array = [],
 		dfd_sources = [
 			{ id : 'planets',		path : 'src/json/planets.json' },
-			{ id : 'desc',	path : 'src/json/descriptions.json' }
+			{ id : 'desc',			path : 'src/json/descriptions.json' }
 		],
 		objData = {};
 
