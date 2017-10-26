@@ -1,1 +1,1 @@
-$( document ).ready( WA.init );
+$( document ).ready( WA.init() );
