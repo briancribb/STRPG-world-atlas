@@ -61,9 +61,6 @@ var vm = new Vue({
 		</table>
 		`
 });
-
-
-
 	$("#app").show();
 };
 
