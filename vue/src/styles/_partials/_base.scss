@@ -26,3 +26,15 @@ html {
 .page-load {
 	display:none;
 }
+
+
+.nav-dark {
+	a, a:active, a:visited {
+		color: #BADA55;
+		text-decoration: underline;
+	}
+	a:hover {
+		color: #ffeebb;
+		text-decoration: none;
+	}
+}

@@ -5920,6 +5920,14 @@ html {
 .page-load {
   display: none; }
 
+.nav-dark a, .nav-dark a:active, .nav-dark a:visited {
+  color: #BADA55;
+  text-decoration: underline; }
+
+.nav-dark a:hover {
+  color: #ffeebb;
+  text-decoration: none; }
+
 html {
   font-size: 14px; }
 
@@ -5936,7 +5944,6 @@ html {
     font-size: 28px; } }
 
 body {
-  padding-top: 1rem;
   padding-bottom: 3.5rem; }
 
 .site-container {
