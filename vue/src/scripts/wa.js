@@ -17,19 +17,64 @@ WA.vm = function (data) {
 data.message = "Hello, World!";
 data.orderBy = "system";
 
-Vue.component('planet-row', {
-	props: ['name', 'system', 'counter'],
+Vue.component('planet-table', {
+	props: ['planets'],
 	data: function () {
 		return {
 			name: "Default Name"
 		}
 	},
+	methods : {
+	},
 	template: `
-	<tr>
-		<td>{{ counter }}</td>
-		<td>{{ name }}</td>
-		<td>{{ system }}</td>
-	</tr>
+		<table class="table table-dark table-striped table-bordered table-responsive-sm">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">Planet</th>
+					<th scope="col">System</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr v-for="(planet, index) in planets">
+				<th scope="row">{{ index }}</th>
+				<td>({{planet.id}}) {{ planet.name }}</td>
+				<td>({{ planet.systemID }}) {{ planet.system }}</td>
+			</tr>
+			</tbody>
+		</table>
+	`
+});
+
+Vue.component('planet-nav', {
+	props: ['planets'],
+	data: function () {
+		return {
+			name: "Default Name"
+		}
+	},
+	methods : {
+		orderPlanets : function(orderBy) {
+			if (orderBy) {
+				this.$parent.planets = _.sortBy(this.$parent.planets, function(planet){ return planet[orderBy] });
+			}
+		},
+		reverseArray : function() {
+			this.$parent.planets = this.$parent.planets.reverse();
+		}
+	},
+	template: `
+		<ul class="nav-dark nav justify-content-center bg-dark text-white">
+			<li class="nav-item">
+				<a class="nav-link active" href="#" v-on:click.stop.prevent="orderPlanets('id')">By ID</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" v-on:click.stop.prevent="orderPlanets('name')">A-Z</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" v-on:click.stop.prevent="reverseArray()">Reverse</a>
+			</li>
+		</ul>
 	`
 });
 
@@ -37,50 +82,11 @@ var vm = new Vue({
 	el: '#app',
 	data :data,
 	methods : {
-		orderPlanets : function(orderBy) {
-			that = this;
-			if (orderBy) {
-				that.planets = _.sortBy(that.planets, function(planet){ return planet[orderBy] });
-			}
-		},
-		reverseArray : function(myArray) {
-			myArray = myArray.reverse();
-		},
-		getSystemID : function(name) {
-			var that = this;
-			return _.find(that.systems, function(item){ return item.name === name; }).id;
-		}
 	},
 	template:`
 		<div class="stuff-and-things">
-			<ul class="nav-dark nav justify-content-center bg-dark text-white">
-				<li class="nav-item">
-					<a class="nav-link active" href="#" v-on:click.stop.prevent="orderPlanets('id')">By ID</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#" v-on:click.stop.prevent="orderPlanets('name')">A-Z</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#" v-on:click.stop.prevent="reverseArray(planets)">Reverse</a>
-				</li>
-			</ul>
-
-			<table class="table table-dark table-striped table-bordered table-responsive-sm">
-				<thead>
-					<tr>
-						<th scope="col"></th>
-						<th scope="col">Planet</th>
-						<th scope="col">System</th>
-					</tr>
-				</thead>
-				<tbody>
-				<tr v-for="(planet, index) in planets">
-					<th scope="row">{{ index }}</th>
-					<td>({{planet.id}}) {{ planet.name }}</td>
-					<td>({{ getSystemID(planet.system) }}) {{ planet.system }}</td>
-				</tr>
-				</tbody>
-			</table>
+			<planet-nav planets=planets></planet-nav>
+			<planet-table :planets="planets"></planet-table>
 		</div>
 		`
 });
