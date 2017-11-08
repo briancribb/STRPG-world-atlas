@@ -19,7 +19,7 @@ WA.WorldAtlas = class extends React.Component {
 		var that = this;
 
 		WA.getData( $.Deferred().done(function(data) {
-			console.log(['data has arrived: ', data]);
+			//console.log(['data has arrived: ', data]);
 			data.initialized = true;
 			that.setState(data);
 
@@ -73,6 +73,9 @@ WA.WorldAtlas = class extends React.Component {
 		if (this.state.initialized) {
 
 			switch(this.state.view) {
+				case 'course':
+					markup = <WA.Course />;
+					break;
 				case 'sort':
 					markup = <WA.Sort planets={this.state.planets} orderPlanets={this._orderPlanets.bind(this)} reverseArray={this._reverseArray.bind(this)} />;
 					break;
@@ -91,10 +94,10 @@ WA.WorldAtlas = class extends React.Component {
 		return(
 			<div className="mt-3">
 				<div className="text-center w-100" role="group" aria-label="First group">
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="sort" borderClass=" border-right-0" iconClass="fa fa-rocket mr-1" text="Map"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="sort" borderClass=""                iconClass="fa fa-rocket mr-1" text="Course"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="details" borderClass=" border-left-0"  iconClass="fa fa-info-circle mr-1" text="Details"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="details" borderClass=" border-left-0"  iconClass="fa fa-sort mr-1" text="Sort"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="details" borderClass=" border-right-0"  iconClass="fa fa-info-circle mr-1" text="Details"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="sort" borderClass=""  iconClass="fa fa-sort mr-1" text="Sort"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="course" borderClass=" border-left-0"                iconClass="fa fa-rocket mr-1" text="Course"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="map" borderClass=" border-left-0" iconClass="fa fa-rocket mr-1" text="Map"/>
 				</div>
 				{markup}
 			</div>
@@ -112,107 +115,7 @@ WA.WorldAtlas = class extends React.Component {
 
 		render() {
 			return(
-				<button onClick={this._handleClick.bind(this)} type="button" className={"btn btn-outline-primary w-25 rounded-0" + this.props.borderClass}><i className={this.props.iconClass} aria-hidden="true"></i>{this.props.text}</button>
+				<a onClick={this._handleClick.bind(this)} className={"btn w-25 rounded-0" + this.props.borderClass}><i className={this.props.iconClass} aria-hidden="true"></i>{this.props.text}</a>
 				);
 		}
 	};
-
-
-/* ============== Sort ================= */
-
-
-	WA.Sort = class extends React.Component {
-
-		render() {
-			return(
-				<div id="sort" className="sort">
-					<ul className="nav-planets nav-dark nav text-center bg-dark text-white">
-						<WA.SortNavItem text="By ID"	width="25"		sortType="id"		sortPlanets={this.props.orderPlanets}/>
-						<WA.SortNavItem text="A-Z"		width="25"		sortType="name"		sortPlanets={this.props.orderPlanets}/>
-						<WA.SortNavItem text="Reverse"	width="25"		sortType="reverse"	sortPlanets={this.props.reverseArray}/>
-						<WA.SortNavItem text="Reverse"	width="25"		sortType="reverse"	sortPlanets={this.props.reverseArray}/>
-					</ul>
-					<WA.SortTable planets={this.props.planets} />
-				</div>
-				);
-		}
-	};
-
-
-
-		WA.SortNavItem = class extends React.Component {
-			_handleClick(evt) {
-				evt.preventDefault();
-				this.props.sortPlanets(this.props.sortType);
-			}
-
-			render() {
-				return(
-						<li className={"nav-item w-"+this.props.width}>
-							<a className="nav-link active" href="#" onClick={this._handleClick.bind(this)}>{this.props.text}</a>
-						</li>
-					);
-			}
-		};
-
-
-
-		WA.SortTable = class extends React.Component {
-			/*
-			Returns an array of JSX React components to be used as table rows. We're passing the planet 
-			array down into this component from the parent.
-			*/
-		 	_getRows() {
-				return this.props.planets.map((planet, i) => {
-					return(
-						<tr key={ i }>
-							<th scope="row">{ i }</th>
-							<td>({ planet.id }) { planet.name }</td>
-							<td>({ planet.systemID }) { planet.system }</td>
-						</tr>
-					);
-				});
-			}
-
-			render() {
-				console.log(['props', this.props]);
-				const rows = this._getRows();
-				return(
-						<table className="table table-dark table-striped table-bordered table-responsive-sm">
-							<thead>
-								<tr>
-									<th scope="col"></th>
-									<th scope="col">Planet</th>
-									<th scope="col">System</th>
-								</tr>
-							</thead>
-							<tbody>
-								{rows}
-							</tbody>
-						</table>
-					);
-			}
-		};
-/* ============== End Sort ================= */
-
-
-
-
-
-
-
-
-/* ============== Details ================= */
-
-	WA.Details = class extends React.Component {
-
-		render() {
-			return(
-				<div id="details" className="details mt-3">
-					<p>These are details</p>
-				</div>
-				);
-		}
-	};
-/* ============== End Details ================= */
-

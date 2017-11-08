@@ -1,7 +1,7 @@
 var WA = WA || {};
 // Accepts a jQuery Deferred object which will be resolved when the data is ready.
 WA.getData = function (dfd_init) {
-	console.log(['getData()', dfd_init]);
+	//console.log(['getData()', dfd_init]);
 
 	var that = this,
 		dfd_array = [],
