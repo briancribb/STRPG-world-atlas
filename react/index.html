@@ -16,9 +16,14 @@
 	</head>
 <body>
 	
-	<div class="site-container ">
+	<div class="site-container loading">
 		<div class="container">
-			<div id="world-atlas"></div>
+			<div id="page-load-spinner" class="page-load-spinner text-center display-1 mx-auto my-5">
+				<i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
+				<h3>Loading Data...</h3>
+			</div>
+			<div id="world-atlas" class="app">
+			</div>
 		</div>
 	</div><!-- .site-container -->
 
@@ -41,9 +46,10 @@
 
 	<script type='text/babel' src="src/scripts/wa.data.js"></script>
 	<script type='text/babel' src="src/scripts/wa.components.js"></script>
-	<script type='text/babel' src="src/scripts/wa.components.sort.js"></script>
-	<script type='text/babel' src="src/scripts/wa.components.details.js"></script>
+	<script type='text/babel' src="src/scripts/wa.components.map.js"></script>
+	<script type='text/babel' src="src/scripts/wa.components.list.js"></script>
 	<script type='text/babel' src="src/scripts/wa.components.course.js"></script>
+	<script type='text/babel' src="src/scripts/wa.components.docs.js"></script>
 	<script type='text/babel' src="src/scripts/wa.init.js"></script>
 </body>	
 </html>

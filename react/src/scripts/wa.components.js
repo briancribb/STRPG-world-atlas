@@ -54,17 +54,16 @@ WA.WorldAtlas = class extends React.Component {
 
 
 
-	/*
 	componentDidMount() {
 		console.log('componentDidMount()');
-	}å
-	*/
+	}
 
-	/*
+
 	componentDidUpdate() {
 		console.log('componentDidUpdate()');
+		$('.site-container').find('.page-load-spinner').remove().end().removeClass('loading');
 	}
-	*/
+
 
 	render() {
 
@@ -73,30 +72,26 @@ WA.WorldAtlas = class extends React.Component {
 		if (this.state.initialized) {
 
 			switch(this.state.view) {
+				case 'list':
+					markup = <WA.Course />;
+					break;
 				case 'course':
 					markup = <WA.Course />;
 					break;
-				case 'sort':
+				case 'map':
 					markup = <WA.Sort planets={this.state.planets} orderPlanets={this._orderPlanets.bind(this)} reverseArray={this._reverseArray.bind(this)} />;
 					break;
-				default: // Details
-					markup = <WA.Details />;
+				default: // Docs
+					markup = <WA.Info />;
 			}
 
-		} else {
-			markup = 
-				<div className="text-center">
-					<div id="page-load-spinner" className="page-load-spinner display-1 mb-3"><i className="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i></div>
-					<h3>Loading Data...</h3>
-				</div>
-			;
 		}
 		return(
 			<div className="mt-3">
 				<div className="text-center w-100" role="group" aria-label="First group">
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="details" borderClass=" border-right-0"  iconClass="fa fa-info-circle mr-1" text="Details"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="sort" borderClass=""  iconClass="fa fa-sort mr-1" text="Sort"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="course" borderClass=" border-left-0"                iconClass="fa fa-rocket mr-1" text="Course"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="docs" borderClass=" border-right-0"  iconClass="fa fa-info-circle mr-1" text="Docs"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="list" borderClass=""  iconClass="fa fa-sort mr-1" text="List"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="course" borderClass=" border-left-0" iconClass="fa fa-rocket mr-1" text="Course"/>
 					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="map" borderClass=" border-left-0" iconClass="fa fa-rocket mr-1" text="Map"/>
 				</div>
 				{markup}
@@ -115,7 +110,7 @@ WA.WorldAtlas = class extends React.Component {
 
 		render() {
 			return(
-				<a onClick={this._handleClick.bind(this)} className={"btn w-25 rounded-0" + this.props.borderClass}><i className={this.props.iconClass} aria-hidden="true"></i>{this.props.text}</a>
+				<a onClick={this._handleClick.bind(this)} className={"btn w-25 rounded-0" + this.props.borderClass}><i className={this.props.iconClass} aria-hidden="true"></i><span className="d-none d-md-block">{this.props.text}</span></a>
 				);
 		}
 	};

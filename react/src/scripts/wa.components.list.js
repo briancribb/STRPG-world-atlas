@@ -1,18 +1,18 @@
-/* ============== Sort ================= */
+/* ============== List ================= */
 
 
-WA.Sort = class extends React.Component {
+WA.List = class extends React.Component {
 
 render() {
 	return(
 		<div id="sort" className="sort">
 			<ul className="nav-planets nav-dark nav text-center bg-dark text-white">
-				<WA.SortNavItem text="By ID"	width="25"		sortType="id"		sortPlanets={this.props.orderPlanets}/>
-				<WA.SortNavItem text="A-Z"		width="25"		sortType="name"		sortPlanets={this.props.orderPlanets}/>
-				<WA.SortNavItem text="Reverse"	width="25"		sortType="reverse"	sortPlanets={this.props.reverseArray}/>
-				<WA.SortNavItem text="Reverse"	width="25"		sortType="reverse"	sortPlanets={this.props.reverseArray}/>
+				<WA.ListNavItem text="By ID"	width="25"		sortType="id"		sortPlanets={this.props.orderPlanets}/>
+				<WA.ListNavItem text="A-Z"		width="25"		sortType="name"		sortPlanets={this.props.orderPlanets}/>
+				<WA.ListNavItem text="Reverse"	width="25"		sortType="reverse"	sortPlanets={this.props.reverseArray}/>
+				<WA.ListNavItem text="Reverse"	width="25"		sortType="reverse"	sortPlanets={this.props.reverseArray}/>
 			</ul>
-			<WA.SortTable planets={this.props.planets} />
+			<WA.ListTable planets={this.props.planets} />
 		</div>
 		);
 }
@@ -20,7 +20,7 @@ render() {
 
 
 
-WA.SortNavItem = class extends React.Component {
+WA.ListNavItem = class extends React.Component {
 	_handleClick(evt) {
 		evt.preventDefault();
 		this.props.sortPlanets(this.props.sortType);
@@ -37,7 +37,7 @@ WA.SortNavItem = class extends React.Component {
 
 
 
-WA.SortTable = class extends React.Component {
+WA.ListTable = class extends React.Component {
 	/*
 	Returns an array of JSX React components to be used as table rows. We're passing the planet 
 	array down into this component from the parent.
@@ -72,4 +72,4 @@ WA.SortTable = class extends React.Component {
 			);
 	}
 };
-/* ============== End Sort ================= */
+/* ============== End List ================= */

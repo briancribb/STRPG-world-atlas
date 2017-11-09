@@ -5917,7 +5917,7 @@ html {
   box-sizing: inherit; }
 
 /* Loading Spinner */
-.page-load {
+.loading .app {
   display: none; }
 
 .nav-dark a, .nav-dark a:active, .nav-dark a:visited {
