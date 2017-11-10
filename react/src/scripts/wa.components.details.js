@@ -1,11 +1,11 @@
 /* ============== Details ================= */
 
-	WA.Info = class extends React.Component {
+	WA.Details = class extends React.Component {
 
 		render() {
 			return(
-				<div id="info" className="info mt-3">
-					<p>How to use this thing.</p>
+				<div id="info" className="details mt-3">
+					<p>This is the details view.</p>
 				</div>
 				);
 		}

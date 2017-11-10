@@ -72,17 +72,17 @@ WA.WorldAtlas = class extends React.Component {
 		if (this.state.initialized) {
 
 			switch(this.state.view) {
-				case 'list':
-					markup = <WA.Course />;
+				case 'docs':
+					markup = <WA.Docs />;
 					break;
 				case 'course':
 					markup = <WA.Course />;
 					break;
-				case 'map':
+				case 'sort':
 					markup = <WA.Sort planets={this.state.planets} orderPlanets={this._orderPlanets.bind(this)} reverseArray={this._reverseArray.bind(this)} />;
 					break;
-				default: // Docs
-					markup = <WA.Info />;
+				default: // Details
+					markup = <WA.Details />;
 			}
 
 		}
@@ -90,9 +90,9 @@ WA.WorldAtlas = class extends React.Component {
 			<div className="mt-3">
 				<div className="text-center w-100" role="group" aria-label="First group">
 					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="docs" borderClass=" border-right-0"  iconClass="fa fa-info-circle mr-1" text="Docs"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="list" borderClass=""  iconClass="fa fa-sort mr-1" text="List"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="course" borderClass=" border-left-0" iconClass="fa fa-rocket mr-1" text="Course"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="map" borderClass=" border-left-0" iconClass="fa fa-rocket mr-1" text="Map"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="course" borderClass=""  iconClass="fa fa-sort mr-1" text="Course"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="details" borderClass=" border-left-0" iconClass="fa fa-rocket mr-1" text="Details"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="sort" borderClass=" border-left-0" iconClass="fa fa-rocket mr-1" text="Sort"/>
 				</div>
 				{markup}
 			</div>
