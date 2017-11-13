@@ -18,7 +18,7 @@ WA.WorldAtlas = class extends React.Component {
 	_getData() {
 		var that = this;
 
-		WA.getData( $.Deferred().done(function(data) {
+		WA.methods.getData( $.Deferred().done(function(data) {
 			//console.log(['data has arrived: ', data]);
 			data.initialized = true;
 			that.setState(data);
@@ -40,7 +40,6 @@ WA.WorldAtlas = class extends React.Component {
 		this.setState( {view:str} );
 	}
 
-
 	_orderPlanets(strOrderBy) {
 		this.setState({
 			planets: _.sortBy(this.state.planets, function(planet){ return planet[strOrderBy] } )
@@ -51,6 +50,31 @@ WA.WorldAtlas = class extends React.Component {
 			planets: this.state.planets.reverse()
 		});
 	}
+
+
+
+
+	// Setters
+
+
+
+
+
+	// Getters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

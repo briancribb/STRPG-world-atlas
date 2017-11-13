@@ -9,59 +9,59 @@
 					<div className="row">
 						<div className="col-sm">
 							<div className="form-group">
-								<small><label htmlFor="exampleInputEmail1">New Origin</label></small>
-								<input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>
+								<small><label>New Origin</label></small>
+								<input className="form-control" placeholder="Planet or System"></input>
 							</div>
 						</div>
 						<div className="col-sm">
 							<div className="form-group">
-								<small><label htmlFor="exampleInputEmail2">New Destination</label></small>
-								<input type="email" className="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email"></input>
+								<small><label>New Destination</label></small>
+								<input className="form-control" placeholder="Planet or System"></input>
 							</div>
 						</div>
 					</div>
 					<div className="row">
 						<div className="col-sm">
 							<div className="form-group">
-								<small><label htmlFor="exampleInputEmail1">Origin</label></small>
-								<input type="email" className="form-control mb-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>
-								<input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>
+								<small><label>Origin</label></small>
+								<input className="form-control mb-1" placeholder="x: ex. -9.5"></input>
+								<input className="form-control" placeholder="y: ex. 5.2"></input>
 							</div>
 						</div>
 						<div className="col-sm">
 							<div className="form-group">
-								<small><label htmlFor="exampleInputEmail2">Destination</label></small>
-								<input type="email" className="form-control mb-1" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email"></input>
-								<input type="email" className="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email"></input>
+								<small><label>Destination</label></small>
+								<input className="form-control mb-1" placeholder="x: ex. -9.5"></input>
+								<input className="form-control" placeholder="y: ex. 5.2"></input>
 							</div>
 						</div>
 					</div>
 					<div className="row">
 						<div className="col-sm">
 							<div className="form-group">
-								<small><label htmlFor="exampleInputEmail1">Warp Factor</label></small>
-								<input type="email" className="form-control mb-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>
+								<small><label>Warp Factor</label></small>
+								<input className="form-control mb-1" placeholder="ex. 4.8"></input>
 							</div>
 						</div>
 						<div className="col-sm">
 							<div className="form-group">
-								<small><label htmlFor="exampleInputEmail2">Destination</label></small>
-								<input type="email" className="form-control mb-1" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email"></input>
+								<small><label>Known Distance</label></small>
+								<input className="form-control mb-1" placeholder="ex. 20.5"></input>
 							</div>
 						</div>
 						<div className="col-sm">
 							<div className="form-group">
-								<small><label htmlFor="exampleInputEmail2">Partial Time</label></small>
-								<input type="email" className="form-control mb-1" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email"></input>
+								<small><label>Partial Time</label></small>
+								<input className="form-control mb-1" placeholder="Days"></input>
 							</div>
 						</div>
 					</div>
-					<div class="text-center w-100" role="group" aria-label="First group">
-						<button type="button" class="btn w-50 rounded-0 border-right-0 bg-success btn-outline-dark"><i class="fa fa-info-circle mr-1" aria-hidden="true"></i><span class="d-none d-md-block">Plot</span></button>
-						<button type="button" class="btn w-50 rounded-0 border-left-0 bg-danger btn-outline-dark"><i class="fa fa-rocket mr-1" aria-hidden="true"></i><span class="d-none d-md-block">Clear</span></button>
+					<div className="text-center w-100" role="group" aria-label="First group">
+						<button type="button" className="btn w-50 rounded-0 border-right-0 bg-success btn-outline-dark"><i className="fa fa-info-circle mr-1" aria-hidden="true"></i><span className="d-none d-md-block">Plot</span></button>
+						<button type="button" className="btn w-50 rounded-0 border-left-0 bg-danger btn-outline-dark"><i className="fa fa-rocket mr-1" aria-hidden="true"></i><span className="d-none d-md-block">Clear</span></button>
 					</div>
-					<div class="card">
-						<div class="card-body">
+					<div className="card">
+						<div className="card-body">
 							Enter coordinates for a travel estimate.
 						</div>
 					</div>
