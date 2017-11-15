@@ -7,7 +7,7 @@ WA.WorldAtlas = class extends React.Component {
 		super(); // Gotta call this first when doing a constructor.
 		this.state = {
 			initialized: false,
-			view:"sort"
+			view:"details"
 		}
 		this._getData();
 	}
@@ -26,7 +26,6 @@ WA.WorldAtlas = class extends React.Component {
 		window.getState = function() {
 			return that.state;
 		}
-
 
 
 		}) );
@@ -79,12 +78,12 @@ WA.WorldAtlas = class extends React.Component {
 
 
 	componentDidMount() {
-		console.log('componentDidMount()');
+		console.log('WorldAtlas: componentDidMount()');
 	}
 
 
 	componentDidUpdate() {
-		console.log('componentDidUpdate()');
+		console.log('WorldAtlas: componentDidUpdate()');
 		$('.site-container').find('.page-load-spinner').remove().end().removeClass('loading');
 	}
 
@@ -130,7 +129,6 @@ WA.WorldAtlas = class extends React.Component {
 			evt.preventDefault();
 			this.props.updateView(this.props.view);
 		}
-
 
 		render() {
 			return(

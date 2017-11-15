@@ -15,7 +15,7 @@ render() {
 			<WA.SortTable planets={this.props.planets} />
 		</div>
 		);
-}
+	}
 };
 
 
