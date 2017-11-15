@@ -44,11 +44,12 @@
 @import "../../../vendor/bootstrap-4.0.0-beta.2/scss/carousel";
 @import "../../../vendor/bootstrap-4.0.0-beta.2/scss/utilities";
 
-@import "../../../vendor/javascript-autocomplete/auto-complete";
+//@import "../../../vendor/javascript-autocomplete/auto-complete";
 
 /*!
  * And now our local stuff:
  */
+@import "_partials/autocomplete";
 @import "_partials/overrides";
 @import "_partials/trans";
 @import "_partials/base";
