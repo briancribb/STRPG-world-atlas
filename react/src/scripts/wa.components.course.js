@@ -10,13 +10,13 @@
 						<div className="col-sm">
 							<div className="form-group">
 								<small><label>New Origin</label></small>
-								<input className="form-control" placeholder="Planet or System"></input>
+								<WA.ACInput name="ac-new-origin" placeholder="Planet or System"/>
 							</div>
 						</div>
 						<div className="col-sm">
 							<div className="form-group">
 								<small><label>New Destination</label></small>
-								<input className="form-control" placeholder="Planet or System"></input>
+								<WA.ACInput name="ac-new-dest" placeholder="Planet or System"/>
 							</div>
 						</div>
 					</div>

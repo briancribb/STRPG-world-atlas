@@ -6,6 +6,9 @@ WA.Sort = class extends React.Component {
 render() {
 	return(
 		<div id="sort" className="sort">
+			<div className="mb-3">
+				<WA.ACInput name="ac-sort" placeholder="Planet or System"/>
+			</div>
 			<ul className="nav-planets nav-dark nav text-center bg-dark text-white">
 				<WA.SortNavItem text="By ID"	width="25"		sortType="id"		sortPlanets={this.props.orderPlanets}/>
 				<WA.SortNavItem text="A-Z"		width="25"		sortType="name"		sortPlanets={this.props.orderPlanets}/>

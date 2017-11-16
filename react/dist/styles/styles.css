@@ -5895,6 +5895,10 @@ a.text-dark:focus, a.text-dark:hover {
   font-size: 1.02em;
   color: #333; }
 
+.autocomplete-header {
+  font-size: 1.2em;
+  padding: 0.75rem; }
+
 .autocomplete-suggestion b {
   font-weight: normal;
   color: #1f8dd6; }
