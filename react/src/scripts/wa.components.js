@@ -64,19 +64,6 @@ WA.WorldAtlas = class extends React.Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	componentDidMount() {
 		console.log('WorldAtlas: componentDidMount()');
 	}
