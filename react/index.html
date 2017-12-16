@@ -22,10 +22,21 @@
 				<i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
 				<h3>Loading Data...</h3>
 			</div>
-			<div id="world-atlas" class="app">
-			</div>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			Launch demo modal
+			</button>
 		</div>
 	</div><!-- .site-container -->
+
+<div id="exampleModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div id="world-atlas" class="modal-body app"></div>
+		</div>
+	</div>
+</div>
+
+
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -36,9 +47,9 @@
 	<script src="../vendor/ie10/ie10-viewport-bug-workaround.js"></script>
 	<script src="../vendor/javascript-autocomplete/auto-complete.min.js"></script>
 
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+		<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+		<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 
 	<script type='text/babel' src="src/scripts/wa.methods.js"></script>
 	<script type='text/babel' src="src/scripts/wa.components.js"></script>

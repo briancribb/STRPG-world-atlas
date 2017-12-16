@@ -21,21 +21,43 @@ WA.Sort = class extends React.Component {
 		this.props.orderPlanets(type);
 	}
 
+	/*
+	Returns an array of JSX React components to be used as table rows. We're passing the planet 
+	array down into this component from the parent.
+	*/
+ 	_getRows() {
+		return this.props.planets.map((planet, i) => {
+			return(
+				<tr key={ i }>
+					<td>({ planet.id }) { planet.name }</td>
+					<td>({ planet.systemID }) { planet.system }</td>
+				</tr>
+			);
+		});
+	}
 
 
 
 
 	render() {
+		let rows = this._getRows();
+
 		return(
 			<div id="sort" className="sort">
 				<div className="mb-3">
 					<WA.ACInput name="ac-sort" placeholder="Planet or System"/>
 				</div>
-				<ul className="nav-planets nav-dark nav bg-dark text-white border border-light border-left-0 border-right-0 border-top-0">
-					<WA.SortNavItem text="Planet"	width="50"	sortType="name"		sortPlanets={this._sortPlanets.bind(this)}/>
-					<WA.SortNavItem text="System"	width="50"	sortType="system"	sortPlanets={this._sortPlanets.bind(this)}/>
-				</ul>
-				<WA.SortTable planets={this.props.planets} />
+				<table className="table table-dark table-striped table-bordered table-responsive-sm">
+					<thead>
+						<tr>
+							<th><WA.SortNavItem text="Planet"	width="50"	sortType="name"		sortPlanets={this._sortPlanets.bind(this)}/></th>
+							<th><WA.SortNavItem text="System"	width="50"	sortType="system"	sortPlanets={this._sortPlanets.bind(this)}/></th>
+						</tr>
+					</thead>
+					<tbody>
+						{rows}
+					</tbody>
+				</table>
 			</div>
 		);
 	}
@@ -54,43 +76,12 @@ WA.SortNavItem = class extends React.Component {
 
 
 		return(
-				<li className={"nav-item w-"+this.props.width}>
-					<a className="nav-link active" href="#" onClick={() => this._handleClick()}>
-						{this.props.text}
-						<i className={"fa fa-sort-alpha-" + sortClass + " ml-3"} aria-hidden="true"></i>
-					</a>
-				</li>
+				<a className="nav-link active" href="#" onClick={() => this._handleClick()}>
+					{this.props.text}
+					<i className={"fa fa-sort-alpha-" + sortClass + " ml-3"} aria-hidden="true"></i>
+				</a>
 			);
 	}
 };
 
-
-
-WA.SortTable = class extends React.Component {
-	/*
-	Returns an array of JSX React components to be used as table rows. We're passing the planet 
-	array down into this component from the parent.
-	*/
- 	_getRows() {
-		return this.props.planets.map((planet, i) => {
-			return(
-				<tr key={ i }>
-					<td>({ planet.id }) { planet.name }</td>
-					<td>({ planet.systemID }) { planet.system }</td>
-				</tr>
-			);
-		});
-	}
-
-	render() {
-		let rows = this._getRows();
-		return(
-				<table className="table table-dark table-striped table-bordered table-responsive-sm">
-					<tbody>
-						{rows}
-					</tbody>
-				</table>
-			);
-	}
-};
 /* ============== End List ================= */

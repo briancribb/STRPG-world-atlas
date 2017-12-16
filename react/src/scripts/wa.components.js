@@ -7,7 +7,7 @@ WA.WorldAtlas = class extends React.Component {
 		super(); // Gotta call this first when doing a constructor.
 		this.state = {
 			initialized: false,
-			view:"details"
+			view:"sort"
 		}
 		this._getData();
 	}
