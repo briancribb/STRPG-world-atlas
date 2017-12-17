@@ -429,11 +429,15 @@ WA.methods = (function () {
 		map: {
 			init: function() {
 				console.log('map.init()');
-				var mySVG = SVG('starmap').size("100%", "100%").attr('id','svg-container').addClass('svg-container');
-				var myGroup = mySVG.group().attr('id','grpDots');
+				var startingY = 200,
+					xMod = 100,
+					yMod = -100,
+					mapSVG = SVG('starmap').size("100%", "100%").attr('id','svg-container').addClass('svg-container'),
+					starGroup = mapSVG.group().attr('id','grpDots'),
+					arrSystems = WA.methods.getSystems();
 
-				console.log('mySVG');
-				console.log(mySVG);
+				console.log('mapSVG');
+				console.log(mapSVG);
 				console.log(' --- ');
 
 
@@ -449,12 +453,20 @@ WA.methods = (function () {
 					{ x: 375, y: 20,  diameter: 20, color: '#11aacc' },
 					{ x: 423, y: 175, diameter: 20, color: '#ffaaff' }
 				];
-				//var circle = mySVG.circle(20).move(100,100);
-				for (var i = 0; i < arrCircles.length; i++) {
-					var myCircle = arrCircles[i];
-					myCircle.svg = myGroup.circle(myCircle.diameter).attr('fill', myCircle.color).addClass('circle-color').move(myCircle.x,myCircle.y);
+
+				//var circle = mapSVG.circle(20).move(100,100);
+				for (var i = 0; i < arrSystems.length; i++) {
+					var tempStar =		arrSystems[i];
+					tempStar.svg =		starGroup
+											.circle(10)
+											.attr('fill', '#ffffff')
+											//.addClass('circle-color')
+											.move(
+												tempStar.x*xMod,
+												tempStar.y*yMod
+											);
 				};
-				var panZoomInstance = svgPanZoom('#svg-container', {
+				WA.methods.map.panZoomInstance = svgPanZoom('#svg-container', {
 					//zoomEnabled: true,
 					//controlIconsEnabled: true,
 					//fit: true,
@@ -469,8 +481,8 @@ WA.methods = (function () {
 					mouseWheelZoomEnabled: true,
 					preventMouseEventsDefault: true,
 					zoomScaleSensitivity: 0.2,
-					minZoom: 0.5,
-					maxZoom: 3,
+					minZoom: 1,
+					maxZoom: 4,
 					fit: false,
 					contain: false,
 					center: false,
@@ -481,75 +493,89 @@ WA.methods = (function () {
 					//onPan: function(){},
 					//onPan: function(evt){
 					//	console.log(evt);
-						//console.log(myGroup.node.transform.baseVal[0].matrix.e);
+						//console.log(starGroup.node.transform.baseVal[0].matrix.e);
 						//console.log(' ----------------- ');
 					//},
 					customEventsHandler: WA.methods.map.eventsHandler,
 					eventsListenerElement: null	
 				});
 
-			},
-			eventsHandler : {
-				haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
-				init: function(options) {
-					console.log(['eventsHandler.init().options', options]);
-					var instance = options.instance, 
-						initialScale = 1, 
-						pannedX = 0, 
-						pannedY = 0;
+				var eventsHandler = {
+					haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
+					init: function(options) {
+						console.log(['eventsHandler.init().options', options]);
+						var instance = options.instance, 
+							initialScale = 1, 
+							pannedX = 0, 
+							pannedY = 0;
 
-					// Init Hammer
-					// Listen only for pointer and touch events
-					this.hammer = Hammer(options.svgElement, {
-						inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
-					});
+						// Init Hammer
+						// Listen only for pointer and touch events
+						this.hammer = Hammer(options.svgElement, {
+							inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
+						});
 
-					// Enable pinch
-					this.hammer.get('pinch').set({enable: true});
+						// Enable pinch
+						this.hammer.get('pinch').set({enable: true});
 
-					// Handle double tap
-					this.hammer.on('doubletap', function(ev){
-						console.log(['hammer doubletap', ev]);
-						instance.zoomIn()
-					});
+						// Handle double tap
+						this.hammer.on('doubletap', function(ev){
+							console.log(['hammer doubletap', ev]);
+							instance.zoomIn()
+						});
 
-					// Handle pan
-					this.hammer.on('panstart panmove', function(ev){
-						console.log(['hammer pan', ev]);
-						// On pan start reset panned variables
-						if (ev.type === 'panstart') {
-							pannedX = 0
-							pannedY = 0
-						}
+						// Handle pan
+						this.hammer.on('panstart panmove', function(ev){
+							console.log(['hammer pan', ev]);
+							// On pan start reset panned variables
+							if (ev.type === 'panstart') {
+								pannedX = 0
+								pannedY = 0
+							}
 
-						// Pan only the difference
-						instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY})
-						pannedX = ev.deltaX
-						pannedY = ev.deltaY
-					});
+							// Pan only the difference
+							instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY})
+							pannedX = ev.deltaX
+							pannedY = ev.deltaY
+						});
 
-					// Handle pinch
-					this.hammer.on('pinchstart pinchmove', function(ev){
-						console.log(['hammer pinch', ev]);
+						// Handle pinch
+						this.hammer.on('pinchstart pinchmove', function(ev){
+							console.log(['hammer pinch', ev]);
 
-						// On pinch start remember initial zoom
-						if (ev.type === 'pinchstart') {
-							initialScale = instance.getZoom()
+							// On pinch start remember initial zoom
+							if (ev.type === 'pinchstart') {
+								initialScale = instance.getZoom()
+								instance.zoom(initialScale * ev.scale)
+							}
+
 							instance.zoom(initialScale * ev.scale)
-						}
+						})
 
-						instance.zoom(initialScale * ev.scale)
-
-					})
-
-					// Prevent moving the page on some devices when panning over SVG
-					options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
-
-				},
-				destroy: function() {
-					this.hammer.destroy()
+						// Prevent moving the page on some devices when panning over SVG
+						options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
+					},
+					destroy: function() {
+						this.hammer.destroy()
+					}
 				}
 
+				// Put it in the right spot.
+				WA.methods.map.reset();
+
+			},
+			startingPoint : {x:-440,y:-780},
+			reset : function() {
+				console.log('test');
+				var panZoomInstance = WA.methods.map.panZoomInstance;
+				panZoomInstance.zoom(2).pan({x:-880, y:-1560})
+				//panZoomInstance.zoom(-440, -780, 1)
+			},
+			pan : function(point) {
+				//var panZoomInstance = WA.methods.map.panZoomInstance;
+				//var currentZoom = panZoomInstance.getZoom();
+				//console.log(zoom);
+				//panZoomInstance.pan({x: point.x*currentZoom, point.y: y*currentZoom});
 			}
 		}
 	}
