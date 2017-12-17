@@ -1,0 +1,28 @@
+// Bootstrap variable overrides
+//
+// Copy variables from `_variables.scss` to this file to override default values
+// without modifying source files.
+// NOTE: Only altered variables will be copied to this file.
+
+
+
+// FONTS
+// ==================================================
+// stylelint-disable value-keyword-case
+//$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+//$font-family-monospace:       "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+//$font-family-base:            $font-family-sans-serif !default;
+//$headings-font-family:        inherit !default;
+
+
+$font-family-sans-serif		: "Poppins", "Helvetica Neue", Arial, sans-serif ;
+$font-family-serif			: "Karma", "Garamond", Times, serif ;
+$font-family-monospace		: "Cousine", "Courier New", monospace ;
+
+$font-family-base			: $font-family-sans-serif ;
+$headings-font-family		: $font-family-serif ;
+
+
+
+// == OTHER CUSTOM VARIABLES === //
+// ========================================== //

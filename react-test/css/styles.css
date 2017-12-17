@@ -1,0 +1,38 @@
+body {
+	padding-top: 5rem;
+}
+.starter-template {
+	padding: 3rem 1.5rem;
+	text-align: center;
+}
+
+
+html {
+	box-sizing: border-box;
+	padding-right:30px;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+.myElement {
+	background: #dddddd;
+	width: 100%;
+	min-height:300px;
+	padding-top:20px;
+	font: 14px/16px Helvetica, Arial, sans-serif;
+}
+ul.touch-events{
+	list-style-type:none;
+	text-align: left;
+	width:100%;
+	max-width:100%;
+	padding:20px;
+	margin:0;
+}
+	ul.touch-events li {
+		max-width:100%;
+	}
+	ul.touch-events span {
+		float:right;
+		text-align:right;
+	}

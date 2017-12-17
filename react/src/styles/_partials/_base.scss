@@ -1,0 +1,40 @@
+html, body {
+	position:relative;
+	min-height: 100%;
+}
+html {
+	height:100%;
+}
+/*
+img[width],
+img[height] {
+	max-width: 100%;
+	height:auto;
+}
+*/
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+/* Loading Spinner */
+.loading .app {
+	display:none;
+}
+
+
+.nav-dark {
+	a, a:active, a:visited {
+		color: #BADA55;
+		text-decoration: underline;
+	}
+	a:hover {
+		color: #ffeebb;
+		text-decoration: none;
+	}
+}

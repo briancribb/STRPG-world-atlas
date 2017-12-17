@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="A basic form powered by ReactJS">
+		<meta name="author" content="Brian Cribb">
+		<link rel="icon" href="../img/favicon.png">
+
+		<title>STRPG World Atlas</title>
+		<!--<link href='http://fonts.googleapis.com/css?family=Viga|Bevan|Open+Sans:300italic,300,600' rel='stylesheet' type='text/css'>-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="dist/styles/styles.css">
+	</head>
+<body>
+	<div id="starmap" class="starmap"></div>
+	<div class="site-container loading">
+		<div class="container">
+			<div id="page-load-spinner" class="page-load-spinner text-center display-1 mx-auto my-5">
+				<i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
+				<h3>Loading Data...</h3>
+			</div>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			Launch demo modal
+			</button>
+		</div>
+	</div><!-- .site-container -->
+
+<div id="exampleModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div id="world-atlas" class="modal-body app"></div>
+		</div>
+	</div>
+</div>
+
+
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Bootstrap stuff -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+
+	<!-- Other Libraries -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+
+	<!-- Utilities -->
+	<script src="../vendor/ie10/ie10-viewport-bug-workaround.js"></script>
+	<script src="../vendor/javascript-autocomplete/auto-complete.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.3/svg.min.js"></script>
+	<script src="../vendor/svg-pan-zoom.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
+
+		<!-- Temporary React Stuff -->
+		<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+		<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+
+	<!-- React Components -->
+	<script type='text/babel' src="src/scripts/wa.methods.js"></script>
+	<script type='text/babel' src="src/scripts/wa.components.js"></script>
+	<script type='text/babel' src="src/scripts/wa.components.acinput.js"></script>
+	<script type='text/babel' src="src/scripts/wa.components.details.js"></script>
+	<script type='text/babel' src="src/scripts/wa.components.sort.js"></script>
+	<script type='text/babel' src="src/scripts/wa.components.course.js"></script>
+	<script type='text/babel' src="src/scripts/wa.components.docs.js"></script>
+	<script type='text/babel' src="src/scripts/wa.init.js"></script>
+</body>	
+</html>
