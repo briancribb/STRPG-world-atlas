@@ -458,7 +458,7 @@ WA.methods = (function () {
 				for (var i = 0; i < arrSystems.length; i++) {
 					var tempStar =		arrSystems[i];
 					tempStar.svg =		starGroup
-											.circle(10)
+											.circle(4)
 											.attr('fill', '#ffffff')
 											//.addClass('circle-color')
 											.move(
@@ -481,8 +481,8 @@ WA.methods = (function () {
 					mouseWheelZoomEnabled: true,
 					preventMouseEventsDefault: true,
 					zoomScaleSensitivity: 0.2,
-					minZoom: 1,
-					maxZoom: 4,
+					minZoom: 2,
+					maxZoom: 5,
 					fit: false,
 					contain: false,
 					center: false,
