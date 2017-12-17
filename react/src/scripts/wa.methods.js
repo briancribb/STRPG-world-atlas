@@ -65,6 +65,7 @@ WA.methods = (function () {
 					//console.log(['++ Inside the done function of dfd ' + myIndex, data]);
 
 					objData[myValue.id] = data;
+
 					/* All done with this JSON file, so we'll resolve its Deferred object. */
 					dfd_temp.resolve();
 				});
@@ -85,6 +86,7 @@ WA.methods = (function () {
 				data = transformData(objData);
 				//console.log(["All of the ajax calls are complete. Length is ", data]);
 				dfd_init.resolve(data);
+				WA.methods.map.init();
 			});
 
 
@@ -422,6 +424,132 @@ WA.methods = (function () {
 						.value();
 
 					return finalData;
+			}
+		},
+		map: {
+			init: function() {
+				console.log('map.init()');
+				var mySVG = SVG('starmap').size("100%", "100%").attr('id','svg-container').addClass('svg-container');
+				var myGroup = mySVG.group().attr('id','grpDots');
+
+				console.log('mySVG');
+				console.log(mySVG);
+				console.log(' --- ');
+
+
+				var arrCircles = [
+					{ x: 50,  y: 120, diameter: 20, color: '#ff0000' },
+					{ x: 100, y: 175, diameter: 20, color: '#00ff00' },
+					{ x: 175, y: 115, diameter: 20, color: '#0000ff' },
+					{ x: 210, y: 225, diameter: 20, color: '#BADA55' },
+					{ x: 230, y: 100, diameter: 20, color: '#55DABA' },
+					{ x: 250, y: 50,  diameter: 20, color: '#456789' },
+					{ x: 300, y: 130, diameter: 20, color: '#abcdef' },
+					{ x: 345, y: 72,  diameter: 20, color: '#ddaabb' },
+					{ x: 375, y: 20,  diameter: 20, color: '#11aacc' },
+					{ x: 423, y: 175, diameter: 20, color: '#ffaaff' }
+				];
+				//var circle = mySVG.circle(20).move(100,100);
+				for (var i = 0; i < arrCircles.length; i++) {
+					var myCircle = arrCircles[i];
+					myCircle.svg = myGroup.circle(myCircle.diameter).attr('fill', myCircle.color).addClass('circle-color').move(myCircle.x,myCircle.y);
+				};
+				var panZoomInstance = svgPanZoom('#svg-container', {
+					//zoomEnabled: true,
+					//controlIconsEnabled: true,
+					//fit: true,
+					//center: true,
+					//minZoom: 0.1
+					
+					//viewportSelector: '.svg-pan-zoom_viewport',
+					panEnabled: true,
+					controlIconsEnabled: false,
+					zoomEnabled: true,
+					dblClickZoomEnabled: true,
+					mouseWheelZoomEnabled: true,
+					preventMouseEventsDefault: true,
+					zoomScaleSensitivity: 0.2,
+					minZoom: 0.5,
+					maxZoom: 3,
+					fit: false,
+					contain: false,
+					center: false,
+					refreshRate: 'auto',
+					//beforeZoom: function(){},
+					//onZoom: function(){},
+					//beforePan: function(){},
+					//onPan: function(){},
+					//onPan: function(evt){
+					//	console.log(evt);
+						//console.log(myGroup.node.transform.baseVal[0].matrix.e);
+						//console.log(' ----------------- ');
+					//},
+					customEventsHandler: WA.methods.map.eventsHandler,
+					eventsListenerElement: null	
+				});
+
+			},
+			eventsHandler : {
+				haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
+				init: function(options) {
+					console.log(['eventsHandler.init().options', options]);
+					var instance = options.instance, 
+						initialScale = 1, 
+						pannedX = 0, 
+						pannedY = 0;
+
+					// Init Hammer
+					// Listen only for pointer and touch events
+					this.hammer = Hammer(options.svgElement, {
+						inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
+					});
+
+					// Enable pinch
+					this.hammer.get('pinch').set({enable: true});
+
+					// Handle double tap
+					this.hammer.on('doubletap', function(ev){
+						console.log(['hammer doubletap', ev]);
+						instance.zoomIn()
+					});
+
+					// Handle pan
+					this.hammer.on('panstart panmove', function(ev){
+						console.log(['hammer pan', ev]);
+						// On pan start reset panned variables
+						if (ev.type === 'panstart') {
+							pannedX = 0
+							pannedY = 0
+						}
+
+						// Pan only the difference
+						instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY})
+						pannedX = ev.deltaX
+						pannedY = ev.deltaY
+					});
+
+					// Handle pinch
+					this.hammer.on('pinchstart pinchmove', function(ev){
+						console.log(['hammer pinch', ev]);
+
+						// On pinch start remember initial zoom
+						if (ev.type === 'pinchstart') {
+							initialScale = instance.getZoom()
+							instance.zoom(initialScale * ev.scale)
+						}
+
+						instance.zoom(initialScale * ev.scale)
+
+					})
+
+					// Prevent moving the page on some devices when panning over SVG
+					options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
+
+				},
+				destroy: function() {
+					this.hammer.destroy()
+				}
+
 			}
 		}
 	}
