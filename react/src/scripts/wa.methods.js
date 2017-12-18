@@ -436,9 +436,9 @@ WA.methods = (function () {
 					starGroup = mapSVG.group().attr('id','grpDots'),
 					arrSystems = WA.methods.getSystems();
 
-				console.log('mapSVG');
-				console.log(mapSVG);
-				console.log(' --- ');
+				//console.log('mapSVG');
+				//console.log(mapSVG);
+				//console.log(' --- ');
 
 
 				var arrCircles = [
@@ -562,9 +562,9 @@ WA.methods = (function () {
 				}
 
 
-				var mapLines = SVG.get('map-lines');
+				//var mapLines = SVG.get('map-lines');
 				//var mapLines = SVG.adopt( document.createElement('map-lines') );
-				console.log(['mapLines', mapLines]);
+				//console.log(['mapLines', mapLines]);
 
 
 				// Put it in the right spot.
