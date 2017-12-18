@@ -17,7 +17,7 @@ WA.Sort = class extends React.Component {
 	}
 
 	_sortPlanets(type) {
-		console.log(['_sortPlanets()', type]);
+		//console.log(['_sortPlanets()', type]);
 		this.props.orderPlanets(type);
 	}
 

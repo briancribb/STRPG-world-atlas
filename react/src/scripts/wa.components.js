@@ -65,12 +65,12 @@ WA.WorldAtlas = class extends React.Component {
 
 
 	componentDidMount() {
-		console.log('WorldAtlas: componentDidMount()');
+		//console.log('WorldAtlas: componentDidMount()');
 	}
 
 
 	componentDidUpdate() {
-		console.log('WorldAtlas: componentDidUpdate()');
+		//console.log('WorldAtlas: componentDidUpdate()');
 		$('.site-container').find('.page-load-spinner').remove().end().removeClass('loading');
 	}
 

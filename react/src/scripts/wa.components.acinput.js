@@ -7,12 +7,12 @@ WA.ACInput = class extends React.Component {
 	constructor() {
 		//console.log('constructor()');
 		super(); // Gotta call this first when doing a constructor.
-		console.log('**** ACInput: constructor()');
+		//console.log('**** ACInput: constructor()');
 	}
 
 
 	componentDidMount() {
-		console.log(['ACInput: componentDidMount() - ', this.props]);
+		//console.log(['ACInput: componentDidMount() - ', this.props]);
 		var that = this;
 
 		that.autocomplete = new autoComplete({
@@ -89,13 +89,13 @@ WA.ACInput = class extends React.Component {
 
 
 	componentDidUpdate() {
-		console.log('ACInput: componentDidUpdate()');
+		//console.log('ACInput: componentDidUpdate()');
 	}
 
 
 	componentWillUnmount() {
 		this.autocomplete.destroy();
-		console.log('ACInput: componentWillUnmount()');
+		//console.log('ACInput: componentWillUnmount()');
 	}
 
 
