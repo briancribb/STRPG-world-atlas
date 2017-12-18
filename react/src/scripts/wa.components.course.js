@@ -4,7 +4,7 @@
 
 		render() {
 			return(
-				<div id="course" className="course mt-3">
+				<div id="course" className="course">
 					<p className="lead">Get travel info or set a new course for the map.</p>
 					<div className="row">
 						<div className="col-sm">

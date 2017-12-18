@@ -97,12 +97,12 @@ WA.WorldAtlas = class extends React.Component {
 
 		}
 		return(
-			<div className="mt-3">
-				<div className="text-center w-100" role="group" aria-label="First group">
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="docs" borderClass=" border-right-0"  iconClass="fa fa-info-circle mr-1" text="Docs"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="course" borderClass=""  iconClass="fa fa-sort mr-1" text="Course"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="details" borderClass=" border-left-0" iconClass="fa fa-rocket mr-1" text="Details"/>
-					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="sort" borderClass=" border-left-0" iconClass="fa fa-rocket mr-1" text="Sort"/>
+			<div>
+				<div className="text-center w-100 my-3" role="group" aria-label="First group">
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="docs" borderClass=" border-0" iconClass="fa fa-info-circle mr-1" text="Docs"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="course" borderClass=" border-0"  iconClass="fa fa-sort mr-1" text="Course"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="details" borderClass=" border-0" iconClass="fa fa-rocket mr-1" text="Details"/>
+					<WA.WorldAtlasBtn updateView={this._updateView.bind(this)} view="sort" borderClass=" border-0" iconClass="fa fa-rocket mr-1" text="Sort"/>
 				</div>
 				{markup}
 			</div>

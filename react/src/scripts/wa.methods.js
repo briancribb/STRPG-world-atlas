@@ -457,66 +457,6 @@ WA.methods = (function () {
 				};
 
 
-				var eventsHandler = {
-					haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
-					init: function(options) {
-						console.log(['eventsHandler.init().options', options]);
-						var instance = options.instance, 
-							initialScale = 1, 
-							pannedX = 0, 
-							pannedY = 0;
-
-						// Init Hammer
-						// Listen only for pointer and touch events
-						this.hammer = Hammer(options.svgElement, {
-							inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
-						});
-
-						// Enable pinch
-						this.hammer.get('pinch').set({enable: true});
-
-						// Handle double tap
-						this.hammer.on('doubletap', function(ev){
-							console.log(['hammer doubletap', ev]);
-							instance.zoomIn()
-						});
-
-						// Handle pan
-						this.hammer.on('panstart panmove', function(ev){
-							console.log(['hammer pan', ev]);
-							// On pan start reset panned variables
-							if (ev.type === 'panstart') {
-								pannedX = 0
-								pannedY = 0
-							}
-
-							// Pan only the difference
-							instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY})
-							pannedX = ev.deltaX
-							pannedY = ev.deltaY
-						});
-
-						// Handle pinch
-						this.hammer.on('pinchstart pinchmove', function(ev){
-							console.log(['hammer pinch', ev]);
-
-							// On pinch start remember initial zoom
-							if (ev.type === 'pinchstart') {
-								initialScale = instance.getZoom()
-								instance.zoom(initialScale * ev.scale)
-							}
-
-							instance.zoom(initialScale * ev.scale)
-						})
-
-						// Prevent moving the page on some devices when panning over SVG
-						options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
-					},
-					destroy: function() {
-						this.hammer.destroy()
-					}
-				}
-
 
 				WA.methods.map.panZoomInstance = svgPanZoom('#svg-container', {
 					//zoomEnabled: true,
@@ -540,15 +480,17 @@ WA.methods = (function () {
 					center: false,
 					refreshRate: 'auto',
 					//beforeZoom: function(){},
-					//onZoom: function(){},
+					onZoom: function(evt){
+						console.log(['onZoom', evt]);
+					},
 					//beforePan: function(){},
 					//onPan: function(){},
-					//onPan: function(evt){
-					//	console.log(evt);
+					onPan: function(evt){
+						console.log(['onPan', evt]);
 						//console.log(starGroup.node.transform.baseVal[0].matrix.e);
 						//console.log(' ----------------- ');
-					//},
-					customEventsHandler: eventsHandler,
+					},
+					//customEventsHandler: eventsHandler,
 					eventsListenerElement: null	
 				});
 
