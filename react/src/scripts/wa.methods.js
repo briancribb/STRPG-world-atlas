@@ -441,18 +441,6 @@ WA.methods = (function () {
 				//console.log(' --- ');
 
 
-				var arrCircles = [
-					{ x: 50,  y: 120, diameter: 20, color: '#ff0000' },
-					{ x: 100, y: 175, diameter: 20, color: '#00ff00' },
-					{ x: 175, y: 115, diameter: 20, color: '#0000ff' },
-					{ x: 210, y: 225, diameter: 20, color: '#BADA55' },
-					{ x: 230, y: 100, diameter: 20, color: '#55DABA' },
-					{ x: 250, y: 50,  diameter: 20, color: '#456789' },
-					{ x: 300, y: 130, diameter: 20, color: '#abcdef' },
-					{ x: 345, y: 72,  diameter: 20, color: '#ddaabb' },
-					{ x: 375, y: 20,  diameter: 20, color: '#11aacc' },
-					{ x: 423, y: 175, diameter: 20, color: '#ffaaff' }
-				];
 
 				//var circle = mapSVG.circle(20).move(100,100);
 				for (var i = 0; i < arrSystems.length; i++) {
