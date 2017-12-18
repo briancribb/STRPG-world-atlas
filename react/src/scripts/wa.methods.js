@@ -500,6 +500,7 @@ WA.methods = (function () {
 					eventsListenerElement: null	
 				});
 
+
 				var eventsHandler = {
 					haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
 					init: function(options) {
@@ -560,13 +561,18 @@ WA.methods = (function () {
 					}
 				}
 
+
+				var mapLines = SVG.get('map-lines');
+				//var mapLines = SVG.adopt( document.createElement('map-lines') );
+				console.log(['mapLines', mapLines]);
+
+
 				// Put it in the right spot.
 				WA.methods.map.reset();
 
 			},
 			startingPoint : {x:-440,y:-780},
 			reset : function() {
-				console.log('test');
 				var panZoomInstance = WA.methods.map.panZoomInstance;
 				panZoomInstance.zoom(2).pan({x:-880, y:-1560})
 				//panZoomInstance.zoom(-440, -780, 1)
