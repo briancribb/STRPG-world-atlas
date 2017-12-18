@@ -4,7 +4,7 @@
 
 		render() {
 			return(
-				<div id="docs" className="docs mt-3">
+				<div id="docs" className="docs">
 					<h2>Documentation and stuff.</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu turpis, facilisis sit amet massa eget, cursus egestas eros. Mauris pulvinar sapien tortor, vitae laoreet dolor commodo dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida arcu a maximus pretium. Phasellus eget fermentum mi. Nulla eget erat tempor, luctus arcu a, volutpat nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque eleifend eu diam vel tincidunt.</p>
 					<p>Mauris luctus, arcu quis tristique ullamcorper, mauris quam hendrerit ante, id sodales odio dui sed dui. Mauris accumsan fringilla metus nec tincidunt. Proin viverra enim sit amet metus condimentum luctus. Vestibulum ex urna, pharetra at euismod at, blandit quis ligula. Nullam molestie quam nec urna tincidunt, in imperdiet quam semper. In sed imperdiet nunc, et suscipit risus. Praesent mauris odio, faucibus venenatis efficitur in, vulputate sit amet dolor.</p>
