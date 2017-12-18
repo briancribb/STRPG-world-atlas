@@ -456,6 +456,7 @@ WA.methods = (function () {
 
 				//var circle = mapSVG.circle(20).move(100,100);
 				for (var i = 0; i < arrSystems.length; i++) {
+
 					var tempStar =		arrSystems[i];
 					tempStar.svg =		starGroup
 											.circle(4)
@@ -466,39 +467,6 @@ WA.methods = (function () {
 												tempStar.y*yMod
 											);
 				};
-				WA.methods.map.panZoomInstance = svgPanZoom('#svg-container', {
-					//zoomEnabled: true,
-					//controlIconsEnabled: true,
-					//fit: true,
-					//center: true,
-					//minZoom: 0.1
-					
-					//viewportSelector: '.svg-pan-zoom_viewport',
-					panEnabled: true,
-					controlIconsEnabled: false,
-					zoomEnabled: true,
-					dblClickZoomEnabled: true,
-					mouseWheelZoomEnabled: true,
-					preventMouseEventsDefault: true,
-					zoomScaleSensitivity: 0.2,
-					minZoom: 2,
-					maxZoom: 5,
-					fit: false,
-					contain: false,
-					center: false,
-					refreshRate: 'auto',
-					//beforeZoom: function(){},
-					//onZoom: function(){},
-					//beforePan: function(){},
-					//onPan: function(){},
-					//onPan: function(evt){
-					//	console.log(evt);
-						//console.log(starGroup.node.transform.baseVal[0].matrix.e);
-						//console.log(' ----------------- ');
-					//},
-					customEventsHandler: WA.methods.map.eventsHandler,
-					eventsListenerElement: null	
-				});
 
 
 				var eventsHandler = {
@@ -560,6 +528,44 @@ WA.methods = (function () {
 						this.hammer.destroy()
 					}
 				}
+
+
+				WA.methods.map.panZoomInstance = svgPanZoom('#svg-container', {
+					//zoomEnabled: true,
+					//controlIconsEnabled: true,
+					//fit: true,
+					//center: true,
+					//minZoom: 0.1
+					
+					//viewportSelector: '.svg-pan-zoom_viewport',
+					panEnabled: true,
+					controlIconsEnabled: false,
+					zoomEnabled: true,
+					dblClickZoomEnabled: true,
+					mouseWheelZoomEnabled: true,
+					preventMouseEventsDefault: true,
+					zoomScaleSensitivity: 0.2,
+					minZoom: 1,
+					maxZoom: 5,
+					fit: false,
+					contain: false,
+					center: false,
+					refreshRate: 'auto',
+					//beforeZoom: function(){},
+					//onZoom: function(){},
+					//beforePan: function(){},
+					//onPan: function(){},
+					//onPan: function(evt){
+					//	console.log(evt);
+						//console.log(starGroup.node.transform.baseVal[0].matrix.e);
+						//console.log(' ----------------- ');
+					//},
+					customEventsHandler: eventsHandler,
+					eventsListenerElement: null	
+				});
+
+
+
 
 
 				//var mapLines = SVG.get('map-lines');
