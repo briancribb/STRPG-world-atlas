@@ -513,8 +513,27 @@ WA.methods = (function () {
 
 
 				// We're loading jQUery, so we should use it.
-				$( "#map-nav" ).on( "click", function() {
-					console.log( 'clicked' );
+				$( "#map-nav" ).on( "click", function(event) {
+					console.log( ['clicked', event] );
+					switch ( $(event.target).closest('a').attr('id') ) {
+						case 'map-nav-launch':
+							console.log('launch: ' + event.target.id);
+							break;
+						case 'map-nav-reset':
+							console.log('reset: ' + event.target.id);
+							break;
+
+						case 'map-nav-zoom-out':
+							console.log('zoom out: ' + event.target.id);
+							break;
+
+						case 'nav-zoom-in':
+							console.log('zoom in: ' + event.target.id);
+							break;
+						default:
+							console.log('default: ' + event.target.id);
+							break;
+					}
 				});
 
 
