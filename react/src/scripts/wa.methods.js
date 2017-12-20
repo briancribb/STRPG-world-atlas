@@ -427,6 +427,7 @@ WA.methods = (function () {
 			}
 		},
 		map: {
+			startingPoint : {x:-440,y:-780},
 			init: function() {
 				console.log('map.init()');
 				var startingY = 200,
@@ -505,12 +506,22 @@ WA.methods = (function () {
 
 				// Put it in the right spot.
 				WA.methods.map.reset();
+				WA.methods.map.addListeners();
+			},
+			addListeners() {
+				var panZoomInstance = WA.methods.map.panZoomInstance;
+
+
+				// We're loading jQUery, so we should use it.
+				$( "#map-nav" ).on( "click", function() {
+					console.log( 'clicked' );
+				});
+
 
 			},
-			startingPoint : {x:-440,y:-780},
 			reset : function() {
-				var panZoomInstance = WA.methods.map.panZoomInstance;
-				panZoomInstance.zoom(2).pan({x:-880, y:-1560})
+				//var panZoomInstance = WA.methods.map.panZoomInstance;
+				WA.methods.map.panZoomInstance.zoom(2).pan({x:-880, y:-1560})
 				//panZoomInstance.zoom(-440, -780, 1)
 			},
 			pan : function(point) {
