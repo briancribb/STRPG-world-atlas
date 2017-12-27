@@ -509,7 +509,7 @@ WA.methods = (function () {
 				WA.methods.map.addListeners();
 			},
 			addListeners() {
-				var panZoomInstance = WA.methods.map.panZoomInstance;
+				var panZoomInstance = this.panZoomInstance;
 
 
 				// We're loading jQUery, so we should use it.
@@ -518,17 +518,21 @@ WA.methods = (function () {
 					switch ( $(event.target).closest('a').attr('id') ) {
 						case 'map-nav-launch':
 							console.log('launch: ' + event.target.id);
+							$('#appModal').modal('show');
 							break;
 						case 'map-nav-reset':
 							console.log('reset: ' + event.target.id);
+							WA.methods.map.reset();
 							break;
 
 						case 'map-nav-zoom-out':
 							console.log('zoom out: ' + event.target.id);
+							panZoomInstance.zoomOut();
 							break;
 
 						case 'nav-zoom-in':
 							console.log('zoom in: ' + event.target.id);
+							panZoomInstance.zoomIn();
 							break;
 						default:
 							console.log('default: ' + event.target.id);
@@ -544,10 +548,10 @@ WA.methods = (function () {
 				//panZoomInstance.zoom(-440, -780, 1)
 			},
 			pan : function(point) {
-				//var panZoomInstance = WA.methods.map.panZoomInstance;
-				//var currentZoom = panZoomInstance.getZoom();
+				var panZoomInstance = WA.methods.map.panZoomInstance;
+				var currentZoom = panZoomInstance.getZoom();
 				//console.log(zoom);
-				//panZoomInstance.pan({x: point.x*currentZoom, point.y: y*currentZoom});
+				panZoomInstance.pan({x: point.x*currentZoom, y: point.y*currentZoom});
 			}
 		}
 	}
