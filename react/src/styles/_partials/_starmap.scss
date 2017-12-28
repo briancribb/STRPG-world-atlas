@@ -1,0 +1,97 @@
+// Starmap
+// ================================
+
+
+.star {
+	fill: #ffffff;
+}
+
+
+.grpAreas {
+	.area {
+		opacity: .5;
+	}
+	.UFP {
+		fill: rgba(110, 200, 250, 1);
+	}
+	.KE {
+		fill: rgba(255, 0, 0, 1);
+	}
+	.RSA {
+		fill: rgba(190, 20, 190, 1);
+	}
+	.AOFW {
+		fill: rgba(200, 200, 0, 1);
+	}
+	.OFMA {
+		fill: rgba(0, 255, 0, 1);
+	}
+	.MCA {
+		fill: rgba(150, 150, 255, 1);
+	}
+	.IKS {
+		fill: rgba(255, 150, 150, 1);
+	}
+}
+
+.grpStars {
+	.UFP {
+		fill: rgba(110, 200, 250, 1);
+	}
+	.KE {
+		fill: rgba(255, 0, 0, 1);
+	}
+	.RSA {
+		fill: rgba(190, 20, 190, 1);
+	}
+	.AOFW {
+		fill: rgba(200, 200, 0, 1);
+	}
+	.OFMA {
+		fill: rgba(0, 255, 0, 1);
+	}
+	.MCA {
+		fill: rgba(150, 150, 255, 1);
+	}
+	.IKS {
+		fill: rgba(255, 150, 150, 1);
+	}
+	.star.I {
+		fill: rgba(0, 255, 0, 1);
+	}
+	.star.U {
+		fill: rgba(150, 150, 150, 1);
+	}
+}
+
+
+/*
+For testing, when I need to resave the original SVG and put it inline.
+#grpAreas {
+	path {
+		opacity: .5;
+		stroke:none;
+	}
+	#UFP > path {
+		fill: rgba(110, 200, 250, 1);
+	}
+	#KE > path {
+		fill: rgba(255, 0, 0, 1);
+	}
+	#RSA > path {
+		fill: rgba(190, 20, 190, 1);
+	}
+	#AOFW > path {
+		fill: rgba(200, 200, 0, 1);
+	}
+	#OFMA > path {
+		fill: rgba(0, 255, 0, 1);
+	}
+	#MCA > path {
+		fill: rgba(150, 150, 255, 1);
+	}
+	#IKS > path {
+		fill: rgba(255, 150, 150, 1);
+	}
+}
+*/

@@ -5991,3 +5991,88 @@ body {
   position: absolute;
   width: 100%;
   height: 100%; }
+
+.star {
+  fill: #ffffff; }
+
+.grpAreas .area {
+  opacity: .5; }
+
+.grpAreas .UFP {
+  fill: #6ec8fa; }
+
+.grpAreas .KE {
+  fill: red; }
+
+.grpAreas .RSA {
+  fill: #be14be; }
+
+.grpAreas .AOFW {
+  fill: #c8c800; }
+
+.grpAreas .OFMA {
+  fill: lime; }
+
+.grpAreas .MCA {
+  fill: #9696ff; }
+
+.grpAreas .IKS {
+  fill: #ff9696; }
+
+.grpStars .UFP {
+  fill: #6ec8fa; }
+
+.grpStars .KE {
+  fill: red; }
+
+.grpStars .RSA {
+  fill: #be14be; }
+
+.grpStars .AOFW {
+  fill: #c8c800; }
+
+.grpStars .OFMA {
+  fill: lime; }
+
+.grpStars .MCA {
+  fill: #9696ff; }
+
+.grpStars .IKS {
+  fill: #ff9696; }
+
+.grpStars .star.I {
+  fill: lime; }
+
+.grpStars .star.U {
+  fill: #969696; }
+
+/*
+For testing, when I need to resave the original SVG and put it inline.
+#grpAreas {
+	path {
+		opacity: .5;
+		stroke:none;
+	}
+	#UFP > path {
+		fill: rgba(110, 200, 250, 1);
+	}
+	#KE > path {
+		fill: rgba(255, 0, 0, 1);
+	}
+	#RSA > path {
+		fill: rgba(190, 20, 190, 1);
+	}
+	#AOFW > path {
+		fill: rgba(200, 200, 0, 1);
+	}
+	#OFMA > path {
+		fill: rgba(0, 255, 0, 1);
+	}
+	#MCA > path {
+		fill: rgba(150, 150, 255, 1);
+	}
+	#IKS > path {
+		fill: rgba(255, 150, 150, 1);
+	}
+}
+*/
