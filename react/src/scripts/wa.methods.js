@@ -409,8 +409,6 @@ WA.methods = (function () {
 						tempPlanetObject.desc = descArray;
 
 
-
-
 						/* Creating another array for systems, because some planets might be in the same system. */
 						var tempSystemObject		= {
 							name						: tempPlanetObject.system,
@@ -464,21 +462,50 @@ WA.methods = (function () {
 		},
 		map: {
 			startingPoint : {x:-440,y:-780},
+			coordMod : {x: 100, y: -100},
+			isClicked : false,	// Prevent click handlers from running after the conclusion of a pan.
+			selectHandler : function(evt){
+
+				switch(evt.type) {
+					case 'mousedown' || 'touchstart':
+						this.handleDown(evt);
+						break;
+					case 'mouseup' || 'touchend':
+						this.handleUp(evt);
+						break;
+					default:
+						// default code block
+				}
+			},
+			handleDown : function(evt){
+				this.isClicked = true;
+				//console.log(['-- handleDown()', this]);
+			},
+			handleUp : function(evt){
+				if (this.isClicked) {
+					this.isClicked = false;
+
+					var dim = document.getElementById('svg-container').getBoundingClientRect();
+					var x = evt.clientX - dim.left,
+						y = evt.clientY - dim.top;
+
+					var newPoint = this.getMapPoint({x:x, y:y});
+					//console.log(['-- handleUp()', evt, newPoint.x, newPoint.y, this]);
+					console.log( this.sortByDistance( newPoint , WA.methods.getSystems() )[0] );
+					//console.log( [newPoint.x, newPoint.y, this.getNearestFromPoint(newPoint, WA.methods.getSystems())] );
+				} else {
+					//console.log("Panned or something, no click actions.");
+				}
+			},
 			init: function() {
-				console.log('map.init()');
-				var startingY = 200,
-					xMod = 100,
-					yMod = -100,
+				var that = this,
+					xMod = this.coordMod.x,
+					yMod = this.coordMod.y,
 					mapSVG = SVG('starmap').size("100%", "100%").attr('id','svg-container').addClass('svg-container'),
 					grpAreas = mapSVG.group().attr('id','grpAreas').addClass('grpAreas'),
 					grpStars = mapSVG.group().attr('id','grpStars').addClass('grpStars'),
 
 					arrSystems = WA.methods.getSystems();
-
-				//console.log('mapSVG');
-				//console.log(mapSVG);
-				//console.log(' --- ');
-
 
 
 				//var circle = mapSVG.circle(20).move(100,100);
@@ -486,44 +513,15 @@ WA.methods = (function () {
 
 					var tempStar =		arrSystems[i];
 
-					/*
-					tempStar.svg =		grpStars
-											.circle(4)
-											.addClass( 'star' )
-											.addClass( tempStar.affiliation )
-											.move(
-												tempStar.x*xMod - 2,
-												tempStar.y*yMod - 2
-											);
-					*/
-
 					grpStars
 						.use('star-symbol')
 						.addClass( 'star' )
 						.addClass( tempStar.affiliation )
-						//.size(4,4)
 						.move(
 							tempStar.x*xMod,
 							tempStar.y*yMod
 						);
-
- 
 				};
-
-				console.log('this', this, data);
-				//var data = 'M82.3,160.4c6.5,5.2,13.6,9.5,21.2,12.8c7.6,3.3,14.7,4.9,21.5,4.9c7.3,0,12.6-1.1,15.9-3.4c3.3-2.2,4.9-5.4,4.9-9.5 c0-2.2-0.6-4.1-1.7-5.6c-1.1-1.5-2.8-2.9-4.9-4.2c-2.2-1.3-4.7-2.6-7.7-3.8c-3-1.2-6.5-2.6-10.4-4.1l-22.7-9.5 c-4.9-1.9-9.5-4.3-14-7.4c-4.5-3.1-8.4-6.7-11.8-10.9c-3.4-4.2-6-9-8-14.5c-2-5.4-2.9-11.4-2.9-18c0-7.9,1.7-15.2,5.1-22 c3.4-6.8,8-12.8,14-18c6-5.1,13.1-9.2,21.5-12.2c8.3-3,17.4-4.5,27.4-4.5c10.5,0,21.1,2,31.9,5.9c10.8,3.9,20.3,10.1,28.8,18.5 L166,85.1c-6.2-4.3-12.1-7.6-17.8-9.8c-5.7-2.2-11.9-3.4-18.7-3.4c-6,0-10.7,1-14,3.1c-3.4,2.1-5.1,5.1-5.1,9.3 c0,4.3,2.4,7.6,7.2,10c4.8,2.3,11.4,5.1,19.8,8.3l22.2,8.7c11.4,4.5,20.2,10.8,26.4,18.8c6.2,8,9.3,18.4,9.3,31.2 c0,7.7-1.6,15.1-4.8,22.2c-3.2,7.1-7.8,13.3-13.9,18.7c-6.1,5.3-13.5,9.6-22.3,12.8c-8.8,3.2-18.9,4.8-30.3,4.8 c-11.6,0-23.5-2.1-35.8-6.3c-12.3-4.2-23.3-10.8-33.3-19.8L82.3,160.4z'
-
-				/*
-				When major adjustments are needed, the oriinal SVG is included inline to make it easier to mess with after saving in Illustrator.
-				grpAreas.use('UFP').addClass('area UFP');
-				grpAreas.use('KE').addClass('area KE');
-				grpAreas.use('RSA').addClass('area RSA');
-				grpAreas.use('AOFW').addClass('area AOFW');
-				grpAreas.use('OFMA').addClass('area OFMA');
-				grpAreas.use('MCA').addClass('area MCA');
-				grpAreas.use('IKS').addClass('area IKS');
-				*/
-
 
 				grpAreas.path(data.regionProps.UFP.pathData).addClass('area UFP');
 				grpAreas.path(data.regionProps.KE.pathData).addClass('area KE');
@@ -532,9 +530,6 @@ WA.methods = (function () {
 				grpAreas.path(data.regionProps.OFMA.pathData).addClass('area OFMA');
 				grpAreas.path(data.regionProps.MCA.pathData).addClass('area MCA');
 				grpAreas.path(data.regionProps.IKS.pathData).addClass('area IKS');
-
-
-
 
 
 				WA.methods.map.panZoomInstance = svgPanZoom('#svg-container', {
@@ -560,26 +555,16 @@ WA.methods = (function () {
 					refreshRate: 'auto',
 					//beforeZoom: function(){},
 					onZoom: function(evt){
-						console.log(['onZoom', evt]);
+						that.isClicked = false;
 					},
 					//beforePan: function(){},
 					//onPan: function(){},
 					onPan: function(evt){
-						console.log(['onPan', evt]);
-						//console.log(grpStars.node.transform.baseVal[0].matrix.e);
-						//console.log(' ----------------- ');
+						that.isClicked = false;
 					},
 					//customEventsHandler: eventsHandler,
 					eventsListenerElement: null	
 				});
-
-
-
-
-
-				//var mapLines = SVG.get('map-lines');
-				//var mapLines = SVG.adopt( document.createElement('map-lines') );
-				//console.log(['mapLines', mapLines]);
 
 
 				// Put it in the right spot.
@@ -587,49 +572,101 @@ WA.methods = (function () {
 				WA.methods.map.addListeners();
 			},
 			addListeners() {
-				var panZoomInstance = this.panZoomInstance;
+
+				var panZoomInstance = this.panZoomInstance,
+					that = this;
 
 
-				// We're loading jQUery, so we should use it.
-				$( "#map-nav" ).on( "click", function(event) {
-					console.log( ['clicked', event] );
-					switch ( $(event.target).closest('a').attr('id') ) {
+				$("#svg-container").on( "mousedown touchstart mouseup touchend", function(evt) {
+					evt.preventDefault(); // Touch events won't generate mouse events if we prevent default behavior. Prevents double-handling.
+					that.selectHandler(evt);
+				});
+
+				$( "#map-nav" ).on( "click", function(evt) {
+					console.log( ['clicked', evt] );
+					switch ( $(evt.target).closest('a').attr('id') ) {
 						case 'map-nav-launch':
-							console.log('launch: ' + event.target.id);
+							console.log('launch: ' + evt.target.id);
 							$('#appModal').modal('show');
 							break;
 						case 'map-nav-reset':
-							console.log('reset: ' + event.target.id);
-							WA.methods.map.reset();
+							console.log('reset: ' + evt.target.id);
+							that.reset();
 							break;
 
 						case 'map-nav-zoom-out':
-							console.log('zoom out: ' + event.target.id);
+							console.log('zoom out: ' + evt.target.id);
 							panZoomInstance.zoomOut();
 							break;
 
 						case 'nav-zoom-in':
-							console.log('zoom in: ' + event.target.id);
+							console.log('zoom in: ' + evt.target.id);
 							panZoomInstance.zoomIn();
 							break;
 						default:
-							console.log('default: ' + event.target.id);
+							console.log('default: ' + evt.target.id);
 							break;
 					}
 				});
 
+			},
+			getPointFromCoords: function(coordX, coordY) {
+				// Converting coordinates to map pixels.
+				var pan =  this.panZoomInstance.getPan(),
+					zoom = this.panZoomInstance.getZoom();
 
+				return {
+					x: parseInt( ( (coordX * this.coordMod.x) * zoom ) - pan.x ),
+					y: parseInt( ( (coordY * this.coordMod.y) * zoom ) - pan.y )
+				}
+			},
+			getCoordsFromPoint: function(point) {
+				// Converting coordinates to map pixels.
+				var pan =  this.panZoomInstance.getPan(),
+					zoom = this.panZoomInstance.getZoom();
+
+				return {
+					x: ( parseInt( point.x / zoom ) / this.coordMod.x ).toFixed(1),
+					y: ( parseInt( point.y / zoom ) / this.coordMod.y ).toFixed(1)
+				}
+			},
+			getMapPoint : function(point) {
+				// Returns a point which is relative to the map location, generated from the size, pan and zoom of the SVG map instance.
+				var pan =  this.panZoomInstance.getPan(),
+					zoom = this.panZoomInstance.getZoom();
+
+				var ptCorrected = {
+					x: parseInt(point.x - pan.x),
+					y: parseInt(point.y - pan.y)
+				}
+				return ptCorrected;
 			},
 			reset : function() {
-				//var panZoomInstance = WA.methods.map.panZoomInstance;
 				WA.methods.map.panZoomInstance.zoom(2).pan({x:-880, y:-1560})
-				//panZoomInstance.zoom(-440, -780, 1)
 			},
 			pan : function(point) {
-				var panZoomInstance = WA.methods.map.panZoomInstance;
-				var currentZoom = panZoomInstance.getZoom();
-				//console.log(zoom);
-				panZoomInstance.pan({x: point.x*currentZoom, y: point.y*currentZoom});
+				var currentZoom = this.panZoomInstance.getZoom();
+				this.panZoomInstance.pan({x: point.x*currentZoom, y: point.y*currentZoom});
+			},
+			sortByDistance: function(point, arrayToUse) {
+				var coordMod = this.coordMod,
+					zoom = this.panZoomInstance.getZoom();
+
+				var newPoint = this.getCoordsFromPoint(point);
+
+				return (_.sortBy(arrayToUse, function(place){
+					var placePoint = {
+						x: place.x,
+						y: place.y
+					}
+					var distance = Math.sqrt(Math.pow(placePoint.x - newPoint.x,2) + Math.pow(placePoint.y - newPoint.y,2));
+					place.distanceFrom = distance.toFixed(2);
+					return distance;
+				}));
+
+			},
+			getNearestFromPoint: function(point, arrayToUse) {
+				return this.sortByDistance(point, arrayToUse)[0];
 			}
 		}
 	}
