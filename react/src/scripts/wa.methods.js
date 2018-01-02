@@ -2,28 +2,28 @@ var WA = WA || {};
 
 WA.methods = (function () {
 	//console.log(['getData()', dfd_init]);
-	var data = {};
+	var smData = {};
 	return {
 		checkData: function() {
-			return data;
+			return smData;
 		},
 		getPlanets: function() {
-			return data.planets;
+			return smData.planets;
 		},
 		getSystems: function() {
-			return data.systems;
+			return smData.systems;
 		},
 		getOrigin: function() {
-			return data.origin;
+			return smData.origin;
 		},
 		getDestination: function() {
-			return data.destination;
+			return smData.destination;
 		},
 		getPopulationDesc: function (rating) {
-			return data.populationDesc[rating];
+			return smData.populationDesc[rating];
 		},
 		getTechSocialDetails: function (index, rating) {
-			return data.techSocialArray[index][rating];
+			return smData.techSocialArray[index][rating];
 		},
 		getData : function (dfd_init) {
 			//console.log(['getData()', dfd_init]);
@@ -80,19 +80,29 @@ WA.methods = (function () {
 			entries, sources, etc.
 			*/
 			$.when.apply(null, dfd_array).done(function() {
-				//console.log( transformData(objData) );
 
 				// Call the transform function, which is written below.
-				data = transformData(objData);
+				smData = transformData(objData);
 				//console.log(["All of the ajax calls are complete. Length is ", data]);
-				dfd_init.resolve(data);
-				WA.methods.map.init();
+
+
+				/*
+				Once all of the data is finished and ready to go, the map needs to be built and the pan-zoom instance established. 
+				Once that final bit of work is done, resolve the deferred that was passed into the getData function. This will kick off
+				the React app.
+				*/
+				that.map.init( $.Deferred().done(function(data) {
+					console.log(['Map is initialized.', WA.methods.map.panZoomInstance]);
+				}) );
+
+				// Resolve the primary initialization Deferred and pass in the final data.
+				dfd_init.resolve(smData);
 			});
 
 
 
 			function transformData(oldData) {
-					var finalData = {
+					var smData = {
 						parsec : 3.26163344,
 						speedMod : 3,
 						systems : [],
@@ -422,21 +432,21 @@ WA.methods = (function () {
 							y							: tempPlanetObject.y
 						};
 						if (i === 0) {
-							finalData.systems.push(tempSystemObject);
+							smData.systems.push(tempSystemObject);
 							tempPlanetObject.systemID = tempSystemObject.id;
 							systemLoopCounter ++;
 						} else {
 							var systemFound = false;
-							for (var j = 0; j < finalData.systems.length; j++) {
-								if (finalData.systems[j].name === tempPlanetObject.system) {
-									tempPlanetObject.systemID = finalData.systems[j].id;
+							for (var j = 0; j < smData.systems.length; j++) {
+								if (smData.systems[j].name === tempPlanetObject.system) {
+									tempPlanetObject.systemID = smData.systems[j].id;
 									systemFound = true;
-									finalData.systems[j].planets.push( {name:tempPlanetObject.name, id:tempPlanetObject.id} );
+									smData.systems[j].planets.push( {name:tempPlanetObject.name, id:tempPlanetObject.id} );
 									break;
 								}
 							}
 							if (systemFound === false) {
-								finalData.systems.push(tempSystemObject);
+								smData.systems.push(tempSystemObject);
 								tempPlanetObject.systemID = tempSystemObject.id;
 								systemLoopCounter ++;
 							}
@@ -444,20 +454,20 @@ WA.methods = (function () {
 
 						tempClimateTypes.push( tempPlanetObject.climate );
 						tempDomRaces.push( tempPlanetObject.domRace );
-						finalData.planets.push(tempPlanetObject);
+						smData.planets.push(tempPlanetObject);
 					}
 
-					finalData.climateTypes = _.chain(tempClimateTypes)
+					smData.climateTypes = _.chain(tempClimateTypes)
 						.uniq()
 						.sortBy( function(type){ return type; } )
 						.value();
 
-					finalData.domRaces = _.chain(tempDomRaces)
+					smData.domRaces = _.chain(tempDomRaces)
 						.uniq()
 						.sortBy( function(race){ return race; } )
 						.value();
 
-					return finalData;
+					return smData;
 			}
 		},
 		map: {
@@ -490,14 +500,15 @@ WA.methods = (function () {
 						y = evt.clientY - dim.top;
 
 					var newPoint = this.getMapPoint({x:x, y:y});
+					var nearestSystem = this.sortByDistance( newPoint , WA.methods.getSystems() )[0];
 					//console.log(['-- handleUp()', evt, newPoint.x, newPoint.y, this]);
-					console.log( this.sortByDistance( newPoint , WA.methods.getSystems() )[0] );
+					console.log( nearestSystem.name, nearestSystem.distanceFrom );
 					//console.log( [newPoint.x, newPoint.y, this.getNearestFromPoint(newPoint, WA.methods.getSystems())] );
 				} else {
 					//console.log("Panned or something, no click actions.");
 				}
 			},
-			init: function() {
+			init: function(dfd_init) {
 				var that = this,
 					xMod = this.coordMod.x,
 					yMod = this.coordMod.y,
@@ -523,13 +534,13 @@ WA.methods = (function () {
 						);
 				};
 
-				grpAreas.path(data.regionProps.UFP.pathData).addClass('area UFP');
-				grpAreas.path(data.regionProps.KE.pathData).addClass('area KE');
-				grpAreas.path(data.regionProps.RSA.pathData).addClass('area RSA');
-				grpAreas.path(data.regionProps.AOFW.pathData).addClass('area AOFW');
-				grpAreas.path(data.regionProps.OFMA.pathData).addClass('area OFMA');
-				grpAreas.path(data.regionProps.MCA.pathData).addClass('area MCA');
-				grpAreas.path(data.regionProps.IKS.pathData).addClass('area IKS');
+				grpAreas.path(smData.regionProps.UFP.pathData).addClass('area UFP');
+				grpAreas.path(smData.regionProps.KE.pathData).addClass('area KE');
+				grpAreas.path(smData.regionProps.RSA.pathData).addClass('area RSA');
+				grpAreas.path(smData.regionProps.AOFW.pathData).addClass('area AOFW');
+				grpAreas.path(smData.regionProps.OFMA.pathData).addClass('area OFMA');
+				grpAreas.path(smData.regionProps.MCA.pathData).addClass('area MCA');
+				grpAreas.path(smData.regionProps.IKS.pathData).addClass('area IKS');
 
 
 				WA.methods.map.panZoomInstance = svgPanZoom('#svg-container', {
@@ -569,80 +580,39 @@ WA.methods = (function () {
 
 				// Put it in the right spot.
 				WA.methods.map.reset();
-				WA.methods.map.addListeners();
+
+				dfd_init.resolve();
 			},
-			addListeners() {
-
-				var panZoomInstance = this.panZoomInstance,
-					that = this;
-
-
-				$("#svg-container").on( "mousedown touchstart mouseup touchend", function(evt) {
-					evt.preventDefault(); // Touch events won't generate mouse events if we prevent default behavior. Prevents double-handling.
-					that.selectHandler(evt);
-				});
-
-				$( "#map-nav" ).on( "click", function(evt) {
-					console.log( ['clicked', evt] );
-					switch ( $(evt.target).closest('a').attr('id') ) {
-						case 'map-nav-launch':
-							console.log('launch: ' + evt.target.id);
-							$('#appModal').modal('show');
-							break;
-						case 'map-nav-reset':
-							console.log('reset: ' + evt.target.id);
-							that.reset();
-							break;
-
-						case 'map-nav-zoom-out':
-							console.log('zoom out: ' + evt.target.id);
-							panZoomInstance.zoomOut();
-							break;
-
-						case 'nav-zoom-in':
-							console.log('zoom in: ' + evt.target.id);
-							panZoomInstance.zoomIn();
-							break;
-						default:
-							console.log('default: ' + evt.target.id);
-							break;
-					}
-				});
-
-			},
-			getPointFromCoords: function(coordX, coordY) {
+			getPointFromCoords: function(coords) {
 				// Converting coordinates to map pixels.
-				var pan =  this.panZoomInstance.getPan(),
-					zoom = this.panZoomInstance.getZoom();
+				var zoom = this.panZoomInstance.getZoom();
 
 				return {
-					x: parseInt( ( (coordX * this.coordMod.x) * zoom ) - pan.x ),
-					y: parseInt( ( (coordY * this.coordMod.y) * zoom ) - pan.y )
+					x: Math.round( (coords.x * this.coordMod.x) * zoom ),
+					y: Math.round( (coords.y * this.coordMod.y) * zoom )
 				}
 			},
 			getCoordsFromPoint: function(point) {
 				// Converting coordinates to map pixels.
-				var pan =  this.panZoomInstance.getPan(),
-					zoom = this.panZoomInstance.getZoom();
+				var zoom = this.panZoomInstance.getZoom();
 
 				return {
-					x: ( parseInt( point.x / zoom ) / this.coordMod.x ).toFixed(1),
-					y: ( parseInt( point.y / zoom ) / this.coordMod.y ).toFixed(1)
+					x: Number( ( Math.round(point.x / zoom) / this.coordMod.x ).toFixed(1) ),
+					y: Number( ( Math.round(point.y / zoom) / this.coordMod.y ).toFixed(1) )
 				}
 			},
 			getMapPoint : function(point) {
-				// Returns a point which is relative to the map location, generated from the size, pan and zoom of the SVG map instance.
-				var pan =  this.panZoomInstance.getPan(),
-					zoom = this.panZoomInstance.getZoom();
+				// Accepts a clicked point on the SVG in the DOM, converts it to a position within the SVG map. When a spot on 
+				// the SVG is clicked, this will return the numbers required to find the closest star, etc.
+				var pan = this.panZoomInstance.getPan()
 
-				var ptCorrected = {
+				return {
 					x: parseInt(point.x - pan.x),
 					y: parseInt(point.y - pan.y)
-				}
-				return ptCorrected;
+				};
 			},
 			reset : function() {
-				WA.methods.map.panZoomInstance.zoom(2).pan({x:-880, y:-1560})
+				WA.methods.map.panZoomInstance.zoom(2).pan({ x:(this.startingPoint.x*2), y:(this.startingPoint.y*2) });
 			},
 			pan : function(point) {
 				var currentZoom = this.panZoomInstance.getZoom();
