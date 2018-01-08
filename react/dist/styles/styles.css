@@ -5875,7 +5875,6 @@ a.text-dark:focus, a.text-dark:hover {
   border-top: 0;
   background: #fff;
   box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.1);
-  margin-top: -1rem;
   /* core styles should not be changed */
   position: absolute;
   display: none;
@@ -5940,6 +5939,9 @@ html, body {
 html {
   height: 100%; }
 
+body {
+  background: #000000; }
+
 /*
 img[width],
 img[height] {
@@ -5953,10 +5955,6 @@ html {
 
 *, *:before, *:after {
   box-sizing: inherit; }
-
-/* Loading Spinner */
-.loading .app {
-  display: none; }
 
 .nav-dark a, .nav-dark a:active, .nav-dark a:visited {
   color: #BADA55;
@@ -5981,19 +5979,21 @@ html {
   html {
     font-size: 28px; } }
 
-body {
-  background: #000000; }
-
-.site-container {
-  position: relative; }
-
 .starmap {
   position: absolute;
-  width: 100%;
-  height: 100%; }
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
 
 .star {
   fill: #ffffff; }
+
+.grpSelected {
+  display: none; }
+
+.grpSelected.on {
+  display: block; }
 
 .grpAreas .area {
   opacity: .5; }

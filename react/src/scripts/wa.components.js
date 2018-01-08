@@ -23,13 +23,11 @@ WA.WorldAtlas = class extends React.Component {
 			data.initialized = true;
 			that.setState(data);
 
-			that._addMapListeners();
+			that._addListeners();
 			//window.getState = function() {
 			//	return that.state;
 			//}
 		}) );
-
-
 
 	}// End of _getData()
 
@@ -53,16 +51,29 @@ WA.WorldAtlas = class extends React.Component {
 		});
 	}
 
-	_addMapListeners() {
-		console.log(['_addMapListeners()', WA.methods.map]);
+	_addListeners() {
+		//console.log(['_addListeners()', WA.methods]);
 
-		var panZoomInstance	= WA.methods.map.panZoomInstance,
-			methods			= WA.methods,
-			map				= WA.methods.map;
+		// Listening to the modal from here so we'll have access to the React app state.
+		$("body").on({
+			"shown.bs.modal": function() {
+				console.log('Showing the modal.');
+			},
+			"hidden.bs.modal": function() {
+				console.log('Hiding the modal.');
+			}
+		});
 
+		// Run the handler function once before setting it to happen on resize.
+		WA.methods.map.handleResize();
+		$(window).resize( _.debounce(function(){
+			WA.methods.map.handleResize();
+		}, 250) );
+
+		// Handle manipulation of SVG map itself.
 		$("#svg-container").on( "mousedown touchstart mouseup touchend", function(evt) {
 			evt.preventDefault(); // Touch events won't generate mouse events if we prevent default behavior. Prevents double-handling.
-			map.selectHandler(evt);
+			WA.methods.map.selectHandler(evt);
 		});
 	}
 
@@ -101,6 +112,9 @@ WA.WorldAtlas = class extends React.Component {
 		}
 		return(
 			<div>
+				<div id="map-ac" className="p-2 bg-light fixed-top">
+					<WA.ACInput name="ac-map" pan="true" placeholder="Planet or System"/>
+				</div>
 				<ul id="map-nav" className="nav nav-pills nav-fill fixed-bottom bg-white">
 					<li className="nav-item">
 						<WA.MapNav iconClass="fa fa-window-restore" text="Launch"/>

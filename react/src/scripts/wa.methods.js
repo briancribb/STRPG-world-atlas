@@ -13,11 +13,29 @@ WA.methods = (function () {
 		getSystems: function() {
 			return smData.systems;
 		},
-		getOrigin: function() {
-			return smData.origin;
-		},
-		getDestination: function() {
-			return smData.destination;
+		getPlace: function(item, type) {
+			// Works with a string, number or point object.
+			// If the type is undefined, then it will be set to 'planet'.
+			type = (type.toLowerCase() === 'system') ? 'system' : 'planet';
+
+			// Select the target array according to the type.
+			var arrItems = (type === 'planet') ? smData.planets : smData.systems;
+
+
+			switch (typeof item) {
+				case "string":
+					// If it's a string, then expect a name.
+					return _.find(arrItems, function(place){ return place.name === item });
+					break;
+				case "number":
+					// If it's a string, then expect a name.
+					return _.find(arrItems, function(place){ return place.id === item });
+					break;
+				default:
+					// If it's not a string, then expect a point with x and y values.
+					return _.find(arrItems, function(place){ return (item.x === place.x && item.y === place.y) });
+					break;
+			}
 		},
 		getPopulationDesc: function (rating) {
 			return smData.populationDesc[rating];
@@ -93,13 +111,11 @@ WA.methods = (function () {
 				*/
 				that.map.init( $.Deferred().done(function(data) {
 					console.log(['Map is initialized.', WA.methods.map.panZoomInstance]);
+					// Resolve the primary initialization Deferred and pass in the final data.
+					dfd_init.resolve(smData);
 				}) );
 
-				// Resolve the primary initialization Deferred and pass in the final data.
-				dfd_init.resolve(smData);
 			});
-
-
 
 			function transformData(oldData) {
 					var smData = {
@@ -431,6 +447,8 @@ WA.methods = (function () {
 							x							: tempPlanetObject.x,
 							y							: tempPlanetObject.y
 						};
+
+
 						if (i === 0) {
 							smData.systems.push(tempSystemObject);
 							tempPlanetObject.systemID = tempSystemObject.id;
@@ -452,6 +470,7 @@ WA.methods = (function () {
 							}
 						}
 
+
 						tempClimateTypes.push( tempPlanetObject.climate );
 						tempDomRaces.push( tempPlanetObject.domRace );
 						smData.planets.push(tempPlanetObject);
@@ -471,9 +490,12 @@ WA.methods = (function () {
 			}
 		},
 		map: {
+			currentPlace : null,
 			startingPoint : {x:-440,y:-780},
 			coordMod : {x: 100, y: -100},
-			isClicked : false,	// Prevent click handlers from running after the conclusion of a pan.
+			isClicked : false,		// Prevent click handlers from running after the conclusion of a pan.
+			clickDistance : 15,		// Tolerance distance when the user tries to click on a star.
+			selectedSystem: null,	// Currently selected and marked system. This variable will be used in the details view if it's available.
 			selectHandler : function(evt){
 
 				switch(evt.type) {
@@ -487,23 +509,50 @@ WA.methods = (function () {
 						// default code block
 				}
 			},
+			handleResize : function(evt){
+				// The SVG takes up all available space, but there's navigation at the bottom which lays over it. This line of code uses 
+				// jQuery to get the height of the nav, and then shorten the SVG by that amount. This prevents centered SVG elements from 
+				// looking a little off due to that non-visible portion of the SVG being covered up.
+
+				//$('#starmap').css('bottom', ( $('#map-nav').outerHeight() + 'px' ) );
+				$('#starmap').css({
+					'top'	: $('#map-ac').outerHeight() + 'px',
+					'bottom'		: $('#map-nav').outerHeight() + 'px'
+				});
+			},
 			handleDown : function(evt){
 				this.isClicked = true;
 				//console.log(['-- handleDown()', this]);
 			},
 			handleUp : function(evt){
-				if (this.isClicked) {
-					this.isClicked = false;
+				var that = this;
 
-					var dim = document.getElementById('svg-container').getBoundingClientRect();
+				if (that.isClicked) {
+					that.isClicked = false;
+
+					var dim = that.getSVGBox();
 					var x = evt.clientX - dim.left,
 						y = evt.clientY - dim.top;
 
-					var newPoint = this.getMapPoint({x:x, y:y});
-					var nearestSystem = this.sortByDistance( newPoint , WA.methods.getSystems() )[0];
-					//console.log(['-- handleUp()', evt, newPoint.x, newPoint.y, this]);
-					console.log( nearestSystem.name, nearestSystem.distanceFrom );
-					//console.log( [newPoint.x, newPoint.y, this.getNearestFromPoint(newPoint, WA.methods.getSystems())] );
+					var newPoint = that.getMapPoint({x:x, y:y});
+					var nearestSystem = that.sortByDistance( newPoint , WA.methods.getSystems() )[0];
+
+					//var distance = WA.methods.map.getSVGDistance( nearestSystem.distanceFrom );
+					//console.log( [nearestSystem.name, nearestSystem.distanceFrom, distance, newPoint, {x:nearestSystem.x, y:nearestSystem.y}] );
+
+
+
+					if ( WA.methods.map.getSVGDistance(nearestSystem.distanceFrom) <= that.clickDistance ) {
+						console.log(["Close enough on the SVG, so let's pick a planet.", that.clickDistance]);
+						that.selectedSystem = nearestSystem
+						WA.methods.map.markSelected( nearestSystem );
+					} else {
+						console.log(["Too far away, unmark things.", that.clickDistance]);
+						WA.methods.map.clearSelected();
+					}
+
+
+
 				} else {
 					//console.log("Panned or something, no click actions.");
 				}
@@ -511,20 +560,23 @@ WA.methods = (function () {
 			init: function(dfd_init) {
 				var that = this,
 					xMod = this.coordMod.x,
-					yMod = this.coordMod.y,
-					mapSVG = SVG('starmap').size("100%", "100%").attr('id','svg-container').addClass('svg-container'),
-					grpAreas = mapSVG.group().attr('id','grpAreas').addClass('grpAreas'),
-					grpStars = mapSVG.group().attr('id','grpStars').addClass('grpStars'),
+					yMod = this.coordMod.y;
 
-					arrSystems = WA.methods.getSystems();
+				that.mapSVG		= SVG('starmap').size("100%", "100%").attr('id','svg-container').addClass('svg-container');
+				that.grpAreas	= that.mapSVG.group().attr('id','grpAreas').addClass('grpAreas');
+				that.grpStars	= that.mapSVG.group().attr('id','grpStars').addClass('grpStars');
+				that.grpSelected	= that.mapSVG.group().attr('id','grpSelected').addClass('grpSelected');
+
+				var arrSystems = WA.methods.getSystems();
 
 
 				//var circle = mapSVG.circle(20).move(100,100);
 				for (var i = 0; i < arrSystems.length; i++) {
 
-					var tempStar =		arrSystems[i];
+					var tempStar = arrSystems[i];
 
-					grpStars
+					/*
+					that.grpStars
 						.use('star-symbol')
 						.addClass( 'star' )
 						.addClass( tempStar.affiliation )
@@ -532,15 +584,30 @@ WA.methods = (function () {
 							tempStar.x*xMod,
 							tempStar.y*yMod
 						);
+					*/
+
+					that.grpStars.circle(4)
+						.addClass( 'star' )
+						.addClass( tempStar.affiliation )
+						.move(
+							tempStar.x*xMod-2,
+							tempStar.y*yMod-2
+						);
+
 				};
 
-				grpAreas.path(smData.regionProps.UFP.pathData).addClass('area UFP');
-				grpAreas.path(smData.regionProps.KE.pathData).addClass('area KE');
-				grpAreas.path(smData.regionProps.RSA.pathData).addClass('area RSA');
-				grpAreas.path(smData.regionProps.AOFW.pathData).addClass('area AOFW');
-				grpAreas.path(smData.regionProps.OFMA.pathData).addClass('area OFMA');
-				grpAreas.path(smData.regionProps.MCA.pathData).addClass('area MCA');
-				grpAreas.path(smData.regionProps.IKS.pathData).addClass('area IKS');
+				that.grpAreas.path(smData.regionProps.UFP.pathData).addClass('area UFP');
+				that.grpAreas.path(smData.regionProps.KE.pathData).addClass('area KE');
+				that.grpAreas.path(smData.regionProps.RSA.pathData).addClass('area RSA');
+				that.grpAreas.path(smData.regionProps.AOFW.pathData).addClass('area AOFW');
+				that.grpAreas.path(smData.regionProps.OFMA.pathData).addClass('area OFMA');
+				that.grpAreas.path(smData.regionProps.MCA.pathData).addClass('area MCA');
+				that.grpAreas.path(smData.regionProps.IKS.pathData).addClass('area IKS');
+
+
+				that.grpSelected.circle(8).fill('none').stroke('#fff').move(-4, -4);
+				that.grpSelected.circle(12).fill('none').stroke('#fff').move(-6, -6);
+				that.grpSelected.circle(16).fill('none').stroke('#fff').move(-8, -8);
 
 
 				WA.methods.map.panZoomInstance = svgPanZoom('#svg-container', {
@@ -583,7 +650,11 @@ WA.methods = (function () {
 
 				dfd_init.resolve();
 			},
+			getSVGBox : function(evt){
+				return document.getElementById('svg-container').getBoundingClientRect();
+			},
 			getPointFromCoords: function(coords) {
+				//console.log(coords);
 				// Converting coordinates to map pixels.
 				var zoom = this.panZoomInstance.getZoom();
 
@@ -614,13 +685,61 @@ WA.methods = (function () {
 			reset : function() {
 				WA.methods.map.panZoomInstance.zoom(2).pan({ x:(this.startingPoint.x*2), y:(this.startingPoint.y*2) });
 			},
-			pan : function(point) {
-				var currentZoom = this.panZoomInstance.getZoom();
-				this.panZoomInstance.pan({x: point.x*currentZoom, y: point.y*currentZoom});
+			getSVGDistance : function(distance) {
+				// Converts a coordinate distance to a distance on the SVG at the current zoom factor.
+				return distance * Math.abs(this.coordMod.x) * this.panZoomInstance.getZoom();
+			},
+			getCoordDistance : function(distance) {
+				// Converts a distance in pixels on the SVG into a coordinate distance at the current zoom factor.
+				return distance / this.panZoomInstance.getZoom() / Math.abs(this.coordMod.x);
+			},
+			panToCoords : function(coords) {
+				var box = this.getSVGBox();
+
+				// Get centerpoint of the SVG map.
+				var systemPoint = this.getPointFromCoords({ x: coords.x, y:coords.y });
+
+
+
+				var panPoint = {
+					x: -(systemPoint.x) + (box.width/2),
+					y: -(systemPoint.y) + (box.height/2)
+				}
+				//WA.methods.map.panZoomInstance.pan({ x: (-3223 + (box.width/2)), y:(-5274 + (box.height/2)) });
+
+				console.log([box, systemPoint, panPoint]);
+				this.panZoomInstance.pan(panPoint);
+
+				return panPoint;
+			},
+			panToPlace : function(place) {
+				// For brevity in other code, this funcion accepts a planet or system object and just passes its coordinates into another local method.
+				this.panToCoords({
+					x: place.x,
+					y: place.y
+				});
+			},
+			markSelected: function(place) {
+				this.clearSelected();
+				this.currentPlace = place;
+
+				var coordMod = this.coordMod;
+
+				var placePoint = {
+					x: place.x * coordMod.x,
+					y: place.y * coordMod.y
+				};
+
+				//this.grpSelected.circle(8).fill('none').stroke('#fff').move(-4,-4);
+				this.grpSelected.move(placePoint.x, placePoint.y);
+				this.grpSelected.addClass('on');
+			},
+			clearSelected: function(place) {
+				this.grpSelected.removeClass('on');
+				this.currentPlace = null;
 			},
 			sortByDistance: function(point, arrayToUse) {
-				var coordMod = this.coordMod,
-					zoom = this.panZoomInstance.getZoom();
+				var zoom = this.panZoomInstance.getZoom();
 
 				var newPoint = this.getCoordsFromPoint(point);
 
@@ -633,7 +752,6 @@ WA.methods = (function () {
 					place.distanceFrom = distance.toFixed(2);
 					return distance;
 				}));
-
 			},
 			getNearestFromPoint: function(point, arrayToUse) {
 				return this.sortByDistance(point, arrayToUse)[0];
