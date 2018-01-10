@@ -16,50 +16,18 @@
 	</head>
 <body>
 	<div id="starmap" class="starmap"></div>
-	<div class="site-container loading">
-		<div class="container">
-			<div id="page-load-spinner" class="page-load-spinner text-center text-white display-1 mx-auto my-5">
-				<i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
-				<h3>Loading Data...</h3>
-			</div>
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-			Launch demo modal
-			</button>
-		</div>
-	</div><!-- .site-container -->
-
-
-
-
-	<ul class="nav nav-pills nav-fill fixed-bottom bg-white">
-		<li class="nav-item">
-			<a class="nav-link rounded-0 border-0"><i class="fa fa-window-restore" aria-hidden="true"></i><span class="d-none d-md-block">Launch</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link rounded-0 border-0"><i class="fa fa-refresh" aria-hidden="true"></i><span class="d-none d-md-block">Reset</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link rounded-0 border-0"><i class="fa fa-search-minus" aria-hidden="true"></i><span class="d-none d-md-block">Zoom out</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link rounded-0 border-0"><i class="fa fa-search-plus" aria-hidden="true"></i><span class="d-none d-md-block">Zoom in</span></a>
-		</li>
-	</ul>
-
-
-
-
-<div id="exampleModal" class="modal" tabindex="-1" role="dialog">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">STRPG World Atlas</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-			</div>
-			<div id="world-atlas" class="modal-body app pt-0"></div>
-		</div>
+	<div id="page-load-spinner" class="page-load-spinner text-center text-white display-1 mx-auto my-5">
+		<i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
+		<h3>Loading Data...</h3>
 	</div>
-</div>
+	<div id="world-atlas"></div>
+	<svg id="star-symbols" class="star-symbols" xmlns="http://www.w3.org/2000/svg">
+		<symbol viewBox="0 0 100 100">
+			<g id="star-symbol">
+				<polygon class="corona" points="0,-2.5 0.475,-1.771 1.25,-2.164 1.296,-1.296 2.164,-1.25 1.771,-0.475 2.5,0 1.771,0.475 2.164,1.25 1.296,1.296 1.25,2.164 0.475,1.771 0,2.5 -0.475,1.771 -1.25,2.164 -1.296,1.296 -2.164,1.25 -1.771,0.475 -2.5,0 -1.771,-0.475 -2.164,-1.25 -1.296,-1.296 -1.25,-2.164 -0.475,-1.771 	"/>
+			</g>
+		</symbol>
+	</svg>
 
 	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -72,28 +40,12 @@
 	<!-- Other Libraries -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
-
-
-
-	<!-- Touch Emulator for HammerJS
-	<script src="../vendor/hammerjs/touch-emulator.js"></script>
-	<script>
-		TouchEmulator();
-		function log(ev) {
-			console.log(ev);
-		}
-		//document.body.addEventListener('touchstart', log, false);
-		//document.body.addEventListener('touchmove', log, false);
-		//document.body.addEventListener('touchend', log, false);
-	</script> -->
-
-
 	<!-- Utilities -->
 	<script src="../vendor/ie10/ie10-viewport-bug-workaround.js"></script>
 	<script src="../vendor/javascript-autocomplete/auto-complete.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.3/svg.min.js"></script>
+
 	<script src="../vendor/svg-pan-zoom/svg-pan-zoom.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
 
 		<!-- Temporary React Stuff -->

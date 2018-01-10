@@ -5,6 +5,11 @@ html, body {
 html {
 	height:100%;
 }
+
+body {
+	background: #000000;
+}
+
 /*
 img[width],
 img[height] {
@@ -22,10 +27,6 @@ html {
 }
 
 
-/* Loading Spinner */
-.loading .app {
-	display:none;
-}
 
 
 .nav-dark {

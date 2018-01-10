@@ -14,6 +14,7 @@ WA.ACInput = class extends React.Component {
 	componentDidMount() {
 		//console.log(['ACInput: componentDidMount() - ', this.props]);
 		var that = this;
+		var shouldPan = (that.props.pan) ? true : false;
 
 		that.autocomplete = new autoComplete({
 			selector: 'input[name="' + that.props.name + '"]',
@@ -66,11 +67,17 @@ WA.ACInput = class extends React.Component {
 					return;
 				}
 
+				if (shouldPan) {
+					WA.methods.map.panToPlace(
+						WA.methods.getPlace( Number(item.getAttribute('data-id') ),  item.getAttribute('data-type') )
+					);
+				}
 
 				console.log(
 					[
 						evt,
-
+						item,
+						WA.methods.getPlace( Number(item.getAttribute('data-id') ),  item.getAttribute('data-type') ),
 						('Item: "'+
 							item.getAttribute('data-val')+
 							', Type: "'+
@@ -80,7 +87,8 @@ WA.ACInput = class extends React.Component {
 							'" selected by '+
 							(evt.type == 'keydown' ? 'pressing enter' : 'mouse click')+
 							'.'
-						)
+						),
+						('shouldPan: ' + shouldPan)
 					]
 				);
 			}

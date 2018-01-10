@@ -5875,7 +5875,6 @@ a.text-dark:focus, a.text-dark:hover {
   border-top: 0;
   background: #fff;
   box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.1);
-  margin-top: -1rem;
   /* core styles should not be changed */
   position: absolute;
   display: none;
@@ -5940,6 +5939,9 @@ html, body {
 html {
   height: 100%; }
 
+body {
+  background: #000000; }
+
 /*
 img[width],
 img[height] {
@@ -5953,10 +5955,6 @@ html {
 
 *, *:before, *:after {
   box-sizing: inherit; }
-
-/* Loading Spinner */
-.loading .app {
-  display: none; }
 
 .nav-dark a, .nav-dark a:active, .nav-dark a:visited {
   color: #BADA55;
@@ -5981,13 +5979,100 @@ html {
   html {
     font-size: 28px; } }
 
-body {
-  background: #000000; }
-
-.site-container {
-  position: relative; }
-
 .starmap {
   position: absolute;
-  width: 100%;
-  height: 100%; }
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+
+.star {
+  fill: #ffffff; }
+
+.grpSelected {
+  display: none; }
+
+.grpSelected.on {
+  display: block; }
+
+.grpAreas .area {
+  opacity: .5; }
+
+.grpAreas .UFP {
+  fill: #6ec8fa; }
+
+.grpAreas .KE {
+  fill: red; }
+
+.grpAreas .RSA {
+  fill: #be14be; }
+
+.grpAreas .AOFW {
+  fill: #c8c800; }
+
+.grpAreas .OFMA {
+  fill: lime; }
+
+.grpAreas .MCA {
+  fill: #9696ff; }
+
+.grpAreas .IKS {
+  fill: #ff9696; }
+
+.grpStars .UFP {
+  fill: #6ec8fa; }
+
+.grpStars .KE {
+  fill: red; }
+
+.grpStars .RSA {
+  fill: #be14be; }
+
+.grpStars .AOFW {
+  fill: #c8c800; }
+
+.grpStars .OFMA {
+  fill: lime; }
+
+.grpStars .MCA {
+  fill: #9696ff; }
+
+.grpStars .IKS {
+  fill: #ff9696; }
+
+.grpStars .star.I {
+  fill: lime; }
+
+.grpStars .star.U {
+  fill: #969696; }
+
+/*
+For testing, when I need to resave the original SVG and put it inline.
+#grpAreas {
+	path {
+		opacity: .5;
+		stroke:none;
+	}
+	#UFP > path {
+		fill: rgba(110, 200, 250, 1);
+	}
+	#KE > path {
+		fill: rgba(255, 0, 0, 1);
+	}
+	#RSA > path {
+		fill: rgba(190, 20, 190, 1);
+	}
+	#AOFW > path {
+		fill: rgba(200, 200, 0, 1);
+	}
+	#OFMA > path {
+		fill: rgba(0, 255, 0, 1);
+	}
+	#MCA > path {
+		fill: rgba(150, 150, 255, 1);
+	}
+	#IKS > path {
+		fill: rgba(255, 150, 150, 1);
+	}
+}
+*/
