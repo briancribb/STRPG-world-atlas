@@ -7,17 +7,17 @@ WA.ACInput = class extends React.Component {
 	constructor() {
 		//console.log('constructor()');
 		super(); // Gotta call this first when doing a constructor.
-		//console.log('**** ACInput: constructor()');
+		//console.log(['**** ACInput: constructor()', this.props]);
 	}
 
 
 	componentDidMount() {
 		//console.log(['ACInput: componentDidMount() - ', this.props]);
-		var that = this;
-		var shouldPan = (that.props.pan) ? true : false;
+		var component = this;
+		var shouldPan = (component.props.pan) ? true : false;
 
-		that.autocomplete = new autoComplete({
-			selector: 'input[name="' + that.props.name + '"]',
+		component.autocomplete = new autoComplete({
+			selector: 'input[name="' + component.props.name + '"]',
 			minChars: 2,
 			offsetTop:0,
 			source: function(term, suggest){
@@ -61,23 +61,25 @@ WA.ACInput = class extends React.Component {
 				}
 			},
 			onSelect: function(evt, term, item){
-
 				if (!item.getAttribute('data-val')) {
 					console.log([evt, 'no name']);
 					return;
 				}
 
+				var selectedPlace = WA.methods.getPlace( Number(item.getAttribute('data-id') ),  item.getAttribute('data-type') );
+
+				console.log(['ACInput: onSelect()', component.props]);
+
 				if (shouldPan) {
-					WA.methods.map.panToPlace(
-						WA.methods.getPlace( Number(item.getAttribute('data-id') ),  item.getAttribute('data-type') )
-					);
+					WA.methods.map.panToPlace( selectedPlace );
 				}
 
 				console.log(
 					[
+						component,
 						evt,
 						item,
-						WA.methods.getPlace( Number(item.getAttribute('data-id') ),  item.getAttribute('data-type') ),
+						selectedPlace,
 						('Item: "'+
 							item.getAttribute('data-val')+
 							', Type: "'+
@@ -91,10 +93,14 @@ WA.ACInput = class extends React.Component {
 						('shouldPan: ' + shouldPan)
 					]
 				);
+				component.props.setPlace(selectedPlace);
 			}
 		});
 	}
 
+	//componentDidMount() {
+	//	console.log(['ACInput: componentDidMount()', this.props]);
+	//}
 
 	componentDidUpdate() {
 		//console.log('ACInput: componentDidUpdate()');
@@ -108,6 +114,7 @@ WA.ACInput = class extends React.Component {
 
 
 	render() {
+		console.log(['ACInput: render()', this.props]);
 		return(
 			<input className="form-control" autoFocus="" type="text" name={this.props.name} placeholder={this.props.placeholder} />
 			);

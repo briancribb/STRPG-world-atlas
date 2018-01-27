@@ -7,7 +7,8 @@ WA.WorldAtlas = class extends React.Component {
 		super(); // Gotta call this first when doing a constructor.
 		this.state = {
 			initialized: false,
-			view:"sort"
+			view:"sort",
+			place: null
 		}
 		this._getData();
 	}
@@ -48,6 +49,13 @@ WA.WorldAtlas = class extends React.Component {
 	_reverseArray(strType) {
 		this.setState({
 			planets: this.state.planets.reverse()
+		});
+	}
+
+	_setPlace(newPlace) {
+		console.log(['newPlace', newPlace]);
+		this.setState({
+			place: newPlace
 		});
 	}
 
@@ -106,7 +114,8 @@ WA.WorldAtlas = class extends React.Component {
 					markup = <WA.Sort planets={this.state.planets} orderPlanets={this._orderPlanets.bind(this)} reverseArray={this._reverseArray.bind(this)} />;
 					break;
 				default: // Details
-					markup = <WA.Details />;
+					//markup = <WA.Details />;
+					markup = <WA.Details place={this.state.place} setPlace={this._setPlace.bind(this)} />;
 			}
 
 		}
