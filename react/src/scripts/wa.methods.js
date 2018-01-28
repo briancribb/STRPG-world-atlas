@@ -10,6 +10,9 @@ WA.methods = (function () {
 		getPlanets: function() {
 			return smData.planets;
 		},
+		getSortedPlanets: function(strOrderBy) {
+			return _.sortBy(smData.planets, function(planet){ return planet[strOrderBy] } )
+		},
 		getSystems: function() {
 			return smData.systems;
 		},

@@ -21,8 +21,12 @@ WA.WorldAtlas = class extends React.Component {
 
 		WA.methods.getData( $.Deferred().done(function(data) {
 			//console.log(['data has arrived: ', data]);
-			data.initialized = true;
-			that.setState(data);
+			//data.initialized = true;
+			//that.setState(data);
+
+			that.setState({
+				initialized:true
+			});
 
 			that._addListeners();
 			//window.getState = function() {
@@ -41,11 +45,6 @@ WA.WorldAtlas = class extends React.Component {
 		this.setState( {view:str} );
 	}
 
-	_orderPlanets(strOrderBy) {
-		this.setState({
-			planets: _.sortBy(this.state.planets, function(planet){ return planet[strOrderBy] } )
-		});
-	}
 	_reverseArray(strType) {
 		this.setState({
 			planets: this.state.planets.reverse()
@@ -53,6 +52,7 @@ WA.WorldAtlas = class extends React.Component {
 	}
 
 	_setPlace(newPlace) {
+		// 
 		console.log(['newPlace', newPlace]);
 		this.setState({
 			place: newPlace
@@ -111,7 +111,7 @@ WA.WorldAtlas = class extends React.Component {
 					markup = <WA.Course />;
 					break;
 				case 'sort':
-					markup = <WA.Sort planets={this.state.planets} orderPlanets={this._orderPlanets.bind(this)} reverseArray={this._reverseArray.bind(this)} />;
+					markup = <WA.Sort />;
 					break;
 				default: // Details
 					//markup = <WA.Details />;

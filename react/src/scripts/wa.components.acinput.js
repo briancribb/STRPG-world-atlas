@@ -114,7 +114,7 @@ WA.ACInput = class extends React.Component {
 
 
 	render() {
-		console.log(['ACInput: render()', this.props]);
+		//console.log(['ACInput: render()', this.props]);
 		return(
 			<input className="form-control" autoFocus="" type="text" name={this.props.name} placeholder={this.props.placeholder} />
 			);
