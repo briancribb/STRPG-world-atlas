@@ -4,16 +4,14 @@ WA.Details = class extends React.Component {
 
 
 	componentDidMount() {
-		console.log(['Details: componentDidMount()', this.props]);
 		//this.setState({});
 	}
 
 
-	_getDescription() {
+	_getDescription(planet) {
 		// This function is only called if the place prop is defined.
 
-		console.log(['_getDescription()', this.props]);
-		let arrDesc = this.props.place.desc;
+		let arrDesc = planet.desc;
 
 		let markup = arrDesc.map((paragraph, i) => {
 			// Kill the bottom margin for the last paragraph. This content will be in a card, which will have bottom padding.
@@ -36,12 +34,13 @@ WA.Details = class extends React.Component {
 
 
 	render() {
-		var that = this,
-			markup = null;
+		let that = this,
+			markup = null,
+			system = null,
+			planet = null;
 
-		console.log(['Details > render()', that.props]);
-
-		if (!this.props.place) {
+		// If no origin is currently selected, then this function will return a null result.
+		if (!WA.methods.getOrigin()) {
 			markup =	(
 				<div>
 					<p>This is the details view. There isn't a place selected at the moment.</p>
@@ -49,26 +48,30 @@ WA.Details = class extends React.Component {
 			);
 
 		} else {
+
+			let origin = WA.methods.getOrigin();
+
+			if (origin.type === 'system') {
+				system = origin;
+				planet = WA.methods.getPlace(origin.planets[0].id);
+			} else {
+				system = WA.methods.getPlace(origin.systemID, 'system');
+				planet = origin;
+			}
+
 			markup =	(
 				<div>
-					<h3>System: System One</h3>
+					<h3>System: {system.name}</h3>
 					<ul className="nav nav-tabs mb-3">
 						<li className="nav-item">
-							<a className="nav-link active" href="#">Planet One</a>
+							<a className="nav-link active" href="#">{planet.name}</a>
 						</li>
 						<li className="nav-item">
 							<a className="nav-link" href="#">Planet Two</a>
 						</li>
 					</ul>
 
-					<WA.DetailsCard title="My Title" colorType="info" textColor="white" bodyContent = {that._getDescription()} />
-
-					<div className="card border-primary">
-						<div className="card-header bg-primary text-white">Description</div>
-						<div className="card-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet justo eleifend, volutpat turpis ut, pretium arcu. Mauris quam dui, eleifend eu ipsum ac, egestas sagittis augue. Etiam interdum laoreet sapien, pulvinar ullamcorper urna blandit sit amet. Suspendisse in arcu et urna laoreet pulvinar. Cras nec ligula in magna cursus mollis non at justo. Proin sodales risus eget volutpat lacinia. Etiam tincidunt mollis mauris a dictum. Suspendisse potenti. Sed ac orci ut eros lacinia convallis ac ut ante.
-						</div>
-					</div>
+					<WA.DetailsCard toggleID="desc" title="Description" colorType="info" textColor="white" bodyContent = {that._getDescription(planet)} />
 				</div>
 			);
 		}
@@ -76,7 +79,7 @@ WA.Details = class extends React.Component {
 		return(
 			<div id="info" className="details">
 				<div className="mb-3">
-					<WA.ACInput name="ac-details" placeholder="Planet or System" setPlace={that.props.setPlace} />
+					<WA.ACInput name="ac-details" placeholder="Planet or System" />
 				</div>
 				{markup}
 			</div>
@@ -88,21 +91,33 @@ WA.Details = class extends React.Component {
 
 
 WA.DetailsCard = class extends React.Component {
+	constructor() {
+		super(); // Gotta call this first when doing a constructor.
+		this.state = {
+			isOpen: false
+		}
+	}
 
 	_handleClick() {
-		//console.log(['clicked',this.props]);
-		this.props.sortPlanets(this.props.sortType);
+		this.setState({
+			isOpen: !this.state.isOpen
+		});
+
+		// Could just tie the 'show' class to the state, but I've already loaded Bootstrap's JS so I'm going to use the tools.
+		$('#'+this.props.toggleID).collapse( (this.state.isOpen) ? 'hide' : 'show' );
 	}
 
 	render() {
 		let textClass = (this.props.textColor)  ? (" text-" + this.props.textColor) : '',
-			bodyContent = this.props.bodyContent || null;
-
+			bodyContent = this.props.bodyContent || null,
+			direction = (this.state.isOpen) ? 'up' : 'down';
 
 		return(
-			<div className={"card mb-3 border-" + this.props.colorType}>
-				<div className={"card-header bg-" + this.props.colorType + textClass}>{this.props.title}</div>
-				<div className="card-body">
+			<div className={"card mb-3 border-" + this.props.colorType + " " + this.props.toggleID}>
+				<div className={"card-header d-flex bg-" + this.props.colorType + textClass} onClick={() => this._handleClick(this)}>
+					{this.props.title} <span className={"align-self-center align-self-right ml-auto fa fa-chevron-" + direction}></span>
+				</div>
+				<div id={this.props.toggleID} className="card-body collapse">
 					{bodyContent}
 				</div>
 			</div>

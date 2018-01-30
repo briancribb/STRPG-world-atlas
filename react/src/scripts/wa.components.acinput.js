@@ -8,13 +8,23 @@ WA.ACInput = class extends React.Component {
 		//console.log('constructor()');
 		super(); // Gotta call this first when doing a constructor.
 		//console.log(['**** ACInput: constructor()', this.props]);
+		this.state = {
+			actype:""
+		}
 	}
 
 
 	componentDidMount() {
 		//console.log(['ACInput: componentDidMount() - ', this.props]);
-		var component = this;
-		var shouldPan = (component.props.pan) ? true : false;
+
+		let component	= this,
+			shouldPan	= (this.props.pan) ? true : false;
+
+		this.setState({
+			actype: (this.props.actype && this.props.actype === 'destination') ? 'destination' : 'origin'
+		});
+
+		console.log(['ACInput: componentDidMount() - ', this.state]);
 
 		component.autocomplete = new autoComplete({
 			selector: 'input[name="' + component.props.name + '"]',
@@ -68,7 +78,7 @@ WA.ACInput = class extends React.Component {
 
 				var selectedPlace = WA.methods.getPlace( Number(item.getAttribute('data-id') ),  item.getAttribute('data-type') );
 
-				console.log(['ACInput: onSelect()', component.props]);
+				//console.log(['ACInput: onSelect()', this, component.props]);
 
 				if (shouldPan) {
 					WA.methods.map.panToPlace( selectedPlace );
@@ -93,7 +103,7 @@ WA.ACInput = class extends React.Component {
 						('shouldPan: ' + shouldPan)
 					]
 				);
-				component.props.setPlace(selectedPlace);
+				WA.methods.updateLoc({place:selectedPlace, source:component.props.name});
 			}
 		});
 	}
@@ -103,7 +113,7 @@ WA.ACInput = class extends React.Component {
 	//}
 
 	componentDidUpdate() {
-		//console.log('ACInput: componentDidUpdate()');
+		console.log('ACInput: componentDidUpdate()');
 	}
 
 
@@ -116,7 +126,7 @@ WA.ACInput = class extends React.Component {
 	render() {
 		//console.log(['ACInput: render()', this.props]);
 		return(
-			<input className="form-control" autoFocus="" type="text" name={this.props.name} placeholder={this.props.placeholder} />
+			<input className={"form-control ac " + this.state.actype} autoFocus="" type="text" name={this.props.name} placeholder={this.props.placeholder} />
 			);
 	}
 };

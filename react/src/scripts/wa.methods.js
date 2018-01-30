@@ -19,7 +19,7 @@ WA.methods = (function () {
 		getPlace: function(item, type) {
 			// Works with a string, number or point object.
 			// If the type is undefined, then it will be set to 'planet'.
-			type = (type.toLowerCase() === 'system') ? 'system' : 'planet';
+			type = (type && type.toLowerCase() === 'system') ? 'system' : 'planet';
 
 			// Select the target array according to the type.
 			var arrItems = (type === 'planet') ? smData.planets : smData.systems;
@@ -45,6 +45,21 @@ WA.methods = (function () {
 		},
 		getTechSocialDetails: function (index, rating) {
 			return smData.techSocialArray[index][rating];
+		},
+		getACDisplay: function(place) {
+			if (!place) return '';
+
+			let system, planet;
+
+			if (place.type === 'system') {
+				system = place;
+				planet = this.getPlace( place.planets[0].id );
+			} else {
+				system = this.getPlace( place.systemID );
+				planet = place;
+			}
+
+			return (system.name + ', ' + planet.name);
 		},
 		getData : function (dfd_init) {
 			//console.log(['getData()', dfd_init]);
@@ -113,7 +128,7 @@ WA.methods = (function () {
 				the React app.
 				*/
 				that.map.init( $.Deferred().done(function(data) {
-					console.log(['Map is initialized.', WA.methods.map.panZoomInstance]);
+					//console.log(['Map is initialized.', WA.methods.map.panZoomInstance]);
 					// Resolve the primary initialization Deferred and pass in the final data.
 					dfd_init.resolve(smData);
 				}) );
@@ -127,7 +142,7 @@ WA.methods = (function () {
 						systems : [],
 						planets : [],
 						locations : null,
-						current : { origin: null, destination: null, code: null },
+						//current : { origin: null, destination: null },
 						origin : null,
 						destination : null,
 						regionProps : {
@@ -492,6 +507,38 @@ WA.methods = (function () {
 					return smData;
 			}
 		},
+		/*
+		updateLocs: function(origin, destination) {
+			This method is a placeholder for documenting purposes. The real method is created in the main React 
+			component within wa.components.js and allows this methods module to update the origin and destination 
+			in the component state. Only the map exists outside of the React app, so it needs a way to set the 
+			origin and destination when the map is clicked. Once that happens, the app takes care of itself.
+			This method is created upon componentDidMount.
+		},
+		*/
+		setACValues : function(place, isDest){
+			// Sets existing autocompletes according to the "current" object.
+
+			// Used to target the proper autocomplete inputs.
+			let system, 
+				planet, 
+				targetClass = (isDest === true) ? 'destination' : 'origin';
+
+
+			if (place.type === 'system') {
+				system = place;
+				planet = WA.methods.getPlace( system.planets[0].id )
+			} else {
+				system = WA.methods.getPlace( place.systemID, 'system' )
+				planet = place;
+			}
+
+			// Clears the value of all existing autocompletes. Used when the launch button is clicked from the map.
+			$('input.form-control.ac').val('');
+
+			// Sets the value for the map's autocomplete
+			$('#map-ac > input').val(system.name + ', ' + planet.name);
+		},
 		map: {
 			currentPlace : null,
 			startingPoint : {x:-440,y:-780},
@@ -543,18 +590,14 @@ WA.methods = (function () {
 					//var distance = WA.methods.map.getSVGDistance( nearestSystem.distanceFrom );
 					//console.log( [nearestSystem.name, nearestSystem.distanceFrom, distance, newPoint, {x:nearestSystem.x, y:nearestSystem.y}] );
 
-
-
 					if ( WA.methods.map.getSVGDistance(nearestSystem.distanceFrom) <= that.clickDistance ) {
-						console.log(["Close enough on the SVG, so let's pick a planet.", that.clickDistance]);
+						console.log(["Close enough on the SVG, so let's pick a system.", that.clickDistance]);
 						that.selectedSystem = nearestSystem
-						WA.methods.map.markSelected( nearestSystem );
+						WA.methods.updateLoc({place: nearestSystem, type:'origin', source:'click'});
 					} else {
 						console.log(["Too far away, unmark things.", that.clickDistance]);
-						WA.methods.map.clearSelected();
+						WA.methods.updateLoc();
 					}
-
-
 
 				} else {
 					//console.log("Panned or something, no click actions.");

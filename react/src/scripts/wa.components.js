@@ -7,8 +7,9 @@ WA.WorldAtlas = class extends React.Component {
 		super(); // Gotta call this first when doing a constructor.
 		this.state = {
 			initialized: false,
-			view:"sort",
-			place: null
+			originID: null,
+			destID: null,
+			view:"sort"
 		}
 		this._getData();
 	}
@@ -37,28 +38,12 @@ WA.WorldAtlas = class extends React.Component {
 	}// End of _getData()
 
 
-	_updateTopState(obj) {
-		this.setState(obj);
-	}
-
 	_updateView(str) {
 		this.setState( {view:str} );
 	}
 
-	_reverseArray(strType) {
-		this.setState({
-			planets: this.state.planets.reverse()
-		});
-	}
 
-	_setPlace(newPlace) {
-		// 
-		console.log(['newPlace', newPlace]);
-		this.setState({
-			place: newPlace
-		});
-	}
-
+	_
 	_addListeners() {
 		//console.log(['_addListeners()', WA.methods]);
 
@@ -88,6 +73,22 @@ WA.WorldAtlas = class extends React.Component {
 
 	componentDidMount() {
 		//console.log('WorldAtlas: componentDidMount()');
+		WA.methods.updateLoc = function(settings) {
+			// example: {or: placeObject, de:placeObject, source: 'ac-map'}
+
+			let options = $.extend({}, {place:null, type:'origin', source:null}, settings);
+
+			// Set the map marker if a place is defined, otherwise clear it.
+			options.place ? WA.methods.map.markSelected(options.place) : WA.methods.map.clearSelected();
+
+			console.log(options);
+
+			if (options.place !== null) {
+				$('#map-ac > input').val( WA.methods.getACDisplay(options.place) );
+			}
+
+
+		}
 	}
 
 
@@ -115,7 +116,7 @@ WA.WorldAtlas = class extends React.Component {
 					break;
 				default: // Details
 					//markup = <WA.Details />;
-					markup = <WA.Details place={this.state.place} setPlace={this._setPlace.bind(this)} />;
+					markup = <WA.Details />;
 			}
 
 		}
