@@ -24,7 +24,7 @@ WA.ACInput = class extends React.Component {
 			actype: (this.props.actype && this.props.actype === 'destination') ? 'destination' : 'origin'
 		});
 
-		console.log(['ACInput: componentDidMount() - ', this.state]);
+		//console.log(['ACInput: componentDidMount() - ', this.state]);
 
 		component.autocomplete = new autoComplete({
 			selector: 'input[name="' + component.props.name + '"]',
@@ -113,7 +113,7 @@ WA.ACInput = class extends React.Component {
 	//}
 
 	componentDidUpdate() {
-		console.log('ACInput: componentDidUpdate()');
+		//console.log('ACInput: componentDidUpdate()');
 	}
 
 

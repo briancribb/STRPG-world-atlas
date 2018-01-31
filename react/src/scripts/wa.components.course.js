@@ -1,8 +1,10 @@
 /* ============== Course ================= */
 
 	WA.Course = class extends React.Component {
-
 		render() {
+
+			let that = this;
+
 			return(
 				<div id="course" className="course">
 					<p className="lead">Get travel info or set a new course for the map.</p>
@@ -10,13 +12,13 @@
 						<div className="col-sm">
 							<div className="form-group">
 								<small><label>New Origin</label></small>
-								<WA.ACInput name="ac-new-origin" placeholder="Planet or System"/>
+								<WA.ACInput name="ac-new-origin" placeholder={WA.methods.getACDisplay(that.props.origin) || "Planet or System"}/>
 							</div>
 						</div>
 						<div className="col-sm">
 							<div className="form-group">
 								<small><label>New Destination</label></small>
-								<WA.ACInput name="ac-new-dest" placeholder="Planet or System"/>
+								<WA.ACInput name="ac-new-dest" placeholder={WA.methods.getACDisplay(that.props.destination) || "Planet or System"}/>
 							</div>
 						</div>
 					</div>

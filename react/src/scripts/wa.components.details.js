@@ -2,11 +2,14 @@
 
 WA.Details = class extends React.Component {
 
-
+	/*
 	componentDidMount() {
-		//this.setState({});
+		console.log('WA.Details componentDidMount()');
 	}
-
+	componentDidUpdate() {
+		console.log('WA.Details componentDidUpdate()');
+	}
+	*/
 
 	_getDescription(planet) {
 		// This function is only called if the place prop is defined.
@@ -31,16 +34,15 @@ WA.Details = class extends React.Component {
 	}
 
 
-
-
 	render() {
+
 		let that = this,
 			markup = null,
 			system = null,
 			planet = null;
 
 		// If no origin is currently selected, then this function will return a null result.
-		if (!WA.methods.getOrigin()) {
+		if (!this.props.origin) {
 			markup =	(
 				<div>
 					<p>This is the details view. There isn't a place selected at the moment.</p>
@@ -49,7 +51,8 @@ WA.Details = class extends React.Component {
 
 		} else {
 
-			let origin = WA.methods.getOrigin();
+			let origin = this.props.origin;
+
 
 			if (origin.type === 'system') {
 				system = origin;
@@ -58,6 +61,8 @@ WA.Details = class extends React.Component {
 				system = WA.methods.getPlace(origin.systemID, 'system');
 				planet = origin;
 			}
+
+
 
 			markup =	(
 				<div>
@@ -79,7 +84,7 @@ WA.Details = class extends React.Component {
 		return(
 			<div id="info" className="details">
 				<div className="mb-3">
-					<WA.ACInput name="ac-details" placeholder="Planet or System" />
+					<WA.ACInput name="ac-details" placeholder={WA.methods.getACDisplay(that.props.origin) || "Planet or System"} />
 				</div>
 				{markup}
 			</div>

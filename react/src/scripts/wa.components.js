@@ -7,8 +7,8 @@ WA.WorldAtlas = class extends React.Component {
 		super(); // Gotta call this first when doing a constructor.
 		this.state = {
 			initialized: false,
-			originID: null,
-			destID: null,
+			origin: null,
+			destination: null,
 			view:"sort"
 		}
 		this._getData();
@@ -73,6 +73,9 @@ WA.WorldAtlas = class extends React.Component {
 
 	componentDidMount() {
 		//console.log('WorldAtlas: componentDidMount()');
+
+		let that = this;
+
 		WA.methods.updateLoc = function(settings) {
 			// example: {or: placeObject, de:placeObject, source: 'ac-map'}
 
@@ -81,13 +84,14 @@ WA.WorldAtlas = class extends React.Component {
 			// Set the map marker if a place is defined, otherwise clear it.
 			options.place ? WA.methods.map.markSelected(options.place) : WA.methods.map.clearSelected();
 
-			console.log(options);
-
 			if (options.place !== null) {
 				$('#map-ac > input').val( WA.methods.getACDisplay(options.place) );
 			}
 
-
+			that.setState({
+				[options.type]: options.place
+			});
+			console.log(['testing123', that.state]);
 		}
 	}
 
@@ -109,14 +113,14 @@ WA.WorldAtlas = class extends React.Component {
 					markup = <WA.Docs />;
 					break;
 				case 'course':
-					markup = <WA.Course />;
+					markup = <WA.Course origin={this.state.origin} destination={this.state.destination} />;
 					break;
 				case 'sort':
-					markup = <WA.Sort />;
+					markup = <WA.Sort origin={this.state.origin} destination={this.state.destination} />;
 					break;
 				default: // Details
 					//markup = <WA.Details />;
-					markup = <WA.Details />;
+					markup = <WA.Details origin={this.state.origin} destination={this.state.destination} />;
 			}
 
 		}
@@ -182,7 +186,7 @@ WA.WorldAtlas = class extends React.Component {
 	WA.MapNav = class extends React.Component {
 		_handleClick() {
 			//this.props.updateView(this.props.view);
-			console.log(['WA.MapNav: _handleClick()', this.props.text]);
+			//console.log(['WA.MapNav: _handleClick()', this.props.text]);
 			switch ( this.props.text.toLowerCase() ) {
 				case 'launch':
 					//console.log('launch: ' + evt.target.id);

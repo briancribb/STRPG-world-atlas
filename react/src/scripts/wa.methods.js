@@ -55,10 +55,10 @@ WA.methods = (function () {
 				system = place;
 				planet = this.getPlace( place.planets[0].id );
 			} else {
-				system = this.getPlace( place.systemID );
+				system = this.getPlace( place.systemID, 'system' );
 				planet = place;
 			}
-
+			//console.log(['getACDisplay', place, (system.name + ', ' + planet.name) ]);
 			return (system.name + ', ' + planet.name);
 		},
 		getData : function (dfd_init) {
