@@ -1,4 +1,4 @@
-/* ============== List ================= */
+/* ============== Sort ================= */
 
 
 WA.Sort = class extends React.Component {
@@ -12,21 +12,28 @@ WA.Sort = class extends React.Component {
 		}
 	}
 
-	componentWillMount() {
-		this.props.orderPlanets(this.state.sortType);
+	//componentWillMount() {
+
+	//}
+
+	_setSortType(type) {
+		//console.log(['_setSortType()', type]);
+		this.setState({
+			sortType : type
+		});
 	}
 
-	_sortPlanets(type) {
-		//console.log(['_sortPlanets()', type]);
-		this.props.orderPlanets(type);
-	}
+
+
+
+
 
 	/*
 	Returns an array of JSX React components to be used as table rows. We're passing the planet 
 	array down into this component from the parent.
 	*/
  	_getRows() {
-		return this.props.planets.map((planet, i) => {
+		return WA.methods.getSortedPlanets(this.state.sortType).map((planet, i) => {
 			return(
 				<tr key={ i }>
 					<td>({ planet.id }) { planet.name }</td>
@@ -50,8 +57,8 @@ WA.Sort = class extends React.Component {
 				<table className="table table-dark table-striped table-bordered table-responsive-sm">
 					<thead>
 						<tr>
-							<th><WA.SortNavItem text="Planet"	width="50"	sortType="name"		sortPlanets={this._sortPlanets.bind(this)}/></th>
-							<th><WA.SortNavItem text="System"	width="50"	sortType="system"	sortPlanets={this._sortPlanets.bind(this)}/></th>
+							<th><WA.SortNavItem text="Planet"	width="50"	sortType="name"	setSortType={this._setSortType.bind(this)}/></th>
+							<th><WA.SortNavItem text="System"	width="50"	sortType="system"	setSortType={this._setSortType.bind(this)}/></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -68,7 +75,7 @@ WA.SortNavItem = class extends React.Component {
 
 	_handleClick() {
 		//console.log(['clicked',this.props]);
-		this.props.sortPlanets(this.props.sortType);
+		this.props.setSortType(this.props.sortType);
 	}
 
 	render() {
@@ -84,4 +91,4 @@ WA.SortNavItem = class extends React.Component {
 	}
 };
 
-/* ============== End List ================= */
+/* ============== End Sort ================= */
