@@ -12,3 +12,14 @@ That's... very nerdy. There was a <a target="_blank" href="https://en.wikipedia.
 One of the sourcebooks was about a place called the Triangle, and it had info on 120 planets. Lots of info. Coordinates, history, climate, a trade profile to determine what goods would be bought and sold there, etc.
 
 I have digital copies of the books, so I OCR scanned them and fixed the typos. <em>(Yeah, I really did that.)</em> Then I tossed everything into some Google spreadsheets, which I use as a data source. Since this stuff isn't going to change very often and I don't want to hit my Google account on every page load, I copied the JSON results to some files. I just pull them locally in the app.
+
+## The AngularJS Version
+I have a couple that you can check out.
+<a target="_blank" href="http://briancribb.github.io/STRPG-world-atlas/angularjs/">This is the original version</a>. It has routing and a data service, along with autocomplete via Twitter's Typeahead and an interactive map built with <a target="_blank" href="https://createjs.com/">CreateJS</a>. For a special treat, click on a dot, then click "Origin", then a dot, then "Destination". You'll get a neat line that looks sort of like this fiddle and this other fiddle.
+
+I wrote a few blog posts while building it, which you can see here:
+* <a target="_blank" href="http://www.themightycribb.com/moving-dots-on-a-line-with-createjs-or-vanilla-javascript/">Moving Dots on a Line with CreateJS or Vanilla JavaScript</a>
+* <a target="_blank" href="http://www.themightycribb.com/moving-dots-on-a-line-with-createjs-or-vanilla-javascript/">Multiple JSON Data Sources for AngularJS</a>
+
+## The ReactJS Version
+<a target="_blank" href="http://briancribb.github.io/STRPG-world-atlas/angularjs/">It's almost done.</a>: dfsafaf* <a target="_blank" href="http://briancribb.github.io/STRPG-world-atlas/react/">React</a>: dfsafaf
