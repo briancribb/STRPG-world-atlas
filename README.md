@@ -21,7 +21,7 @@ This is the original version. It has routing and a data service, along with auto
 
 I wrote a few blog posts and fiddles while building it, which you can see here:
 * <a href="http://www.themightycribb.com/moving-dots-on-a-line-with-createjs-or-vanilla-javascript/">Moving Dots on a Line with CreateJS or Vanilla JavaScript</a>
-* <a href="http://www.themightycribb.com/moving-dots-on-a-line-with-createjs-or-vanilla-javascript/">Multiple JSON Data Sources for AngularJS</a>
+* <a href="http://www.themightycribb.com/multiple-json-data-sources-for-angularjs/">Multiple JSON Data Sources for AngularJS</a>
 * <a href="https://jsfiddle.net/ov165dvc/">AngularJS with Two Data Sources</a>
 
 ## The ReactJS Version
