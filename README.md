@@ -14,12 +14,21 @@ One of the sourcebooks was about a place called the Triangle, and it had info on
 I have digital copies of the books, so I OCR scanned them and fixed the typos. <em>(Yeah, I really did that.)</em> Then I tossed everything into some Google spreadsheets, which I use as a data source. Since this stuff isn't going to change very often and I don't want to hit my Google account on every page load, I copied the JSON results to some files. I just pull them locally in the app.
 
 ## The AngularJS Version
-I have a couple that you can check out.
-<a target="_blank" href="http://briancribb.github.io/STRPG-world-atlas/angularjs/">This is the original version</a>. It has routing and a data service, along with autocomplete via Twitter's Typeahead and an interactive map built with <a target="_blank" href="https://createjs.com/">CreateJS</a>. For a special treat, click on a dot, then click "Origin", then a dot, then "Destination". You'll get a neat line that looks sort of like this fiddle and this other fiddle.
 
-I wrote a few blog posts while building it, which you can see here:
+<a target="_blank" href="http://briancribb.github.io/STRPG-world-atlas/angularjs/">http://briancribb.github.io/STRPG-world-atlas/angularjs/</a>
+
+This is the original version. It has routing and a data service, along with autocomplete via Twitter's Typeahead and an interactive map built with <a target="_blank" href="https://createjs.com/">CreateJS</a>. For a special treat, click on a dot, then click "Origin", then a dot, then "Destination". You'll get a neat line that looks sort of like this fiddle and this other fiddle.
+
+I wrote a few blog posts and fiddles while building it, which you can see here:
 * <a target="_blank" href="http://www.themightycribb.com/moving-dots-on-a-line-with-createjs-or-vanilla-javascript/">Moving Dots on a Line with CreateJS or Vanilla JavaScript</a>
 * <a target="_blank" href="http://www.themightycribb.com/moving-dots-on-a-line-with-createjs-or-vanilla-javascript/">Multiple JSON Data Sources for AngularJS</a>
+* <a target="_blank" href="https://jsfiddle.net/ov165dvc/">AngularJS with Two Data Sources</a>
 
 ## The ReactJS Version
-<a target="_blank" href="http://briancribb.github.io/STRPG-world-atlas/angularjs/">It's almost done.</a>: dfsafaf* <a target="_blank" href="http://briancribb.github.io/STRPG-world-atlas/react/">React</a>: dfsafaf
+<a target="_blank" href="http://briancribb.github.io/STRPG-world-atlas/react/">http://briancribb.github.io/STRPG-world-atlas/react</a>
+
+This one is newer, and it's almost finished. It's more user-friendly, and it's going to have some documentation that will tell the user what the hell I'm doing with the whole thing. This time the map is made with <a target="_blank" href="http://svgjs.com/">SVGJS</a>, and I'm pretty happy with the way it's responding at different sizes. I'm currently using a big data object with setters and getters as a sort of data store, but I want to learn Redux so I'll probably toss that in later.
+
+## Other Versions
+
+After I'm done with React, I'm going to make this thing again in VueJS and then Angular.
