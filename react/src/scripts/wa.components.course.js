@@ -18,7 +18,7 @@
 						<div className="col-sm">
 							<div className="form-group">
 								<small><label>New Destination</label></small>
-								<WA.ACInput name="ac-new-dest" placeholder={WA.methods.getACDisplay(that.props.destination) || "Planet or System"}/>
+								<WA.ACInput name="ac-new-dest" actype="destination" placeholder={WA.methods.getACDisplay(that.props.destination) || "Planet or System"}/>
 							</div>
 						</div>
 					</div>
@@ -80,8 +80,6 @@
 					<p><strong>Test</strong>: Just return the results from the current form values.</p>
 					<p><strong>Plot</strong>: Same as test, but sets the map's origin and destination to the current coordinates.</p>
 					<p><strong>Clear</strong>: Resets the form.</p>
-
-
 				</div>
 				);
 		}

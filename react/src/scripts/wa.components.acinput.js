@@ -17,6 +17,7 @@ WA.ACInput = class extends React.Component {
 	componentDidMount() {
 		//console.log(['ACInput: componentDidMount() - ', this.props]);
 
+		// Using 'component' instead of 'that' to be clear since this will be in the middle of autocomplete code.
 		let component	= this,
 			shouldPan	= (this.props.pan) ? true : false;
 
@@ -52,7 +53,7 @@ WA.ACInput = class extends React.Component {
 					arrSystems.unshift( { name:'|S|' } );
 					matches = matches.concat( arrSystems );
 				}
-				console.log([arrPlanets, arrSystems, matches]);
+				//console.log([arrPlanets, arrSystems, matches]);
 				suggest(matches);
 			},
 			renderItem: function (item, search){
@@ -84,26 +85,23 @@ WA.ACInput = class extends React.Component {
 					WA.methods.map.panToPlace( selectedPlace );
 				}
 
+				/*
 				console.log(
 					[
 						component,
 						evt,
 						item,
 						selectedPlace,
-						('Item: "'+
-							item.getAttribute('data-val')+
-							', Type: "'+
-							item.getAttribute('data-type')+
-							', ID: "'+
-							item.getAttribute('data-id')+
-							'" selected by '+
-							(evt.type == 'keydown' ? 'pressing enter' : 'mouse click')+
-							'.'
-						),
-						('shouldPan: ' + shouldPan)
+						'Item val: '+ item.getAttribute('data-val'),
+						'Item type: '+ item.getAttribute('data-type'),
+						'actype: ' + component.state.actype,
+						'Item ID: '+ item.getAttribute('data-id'),
+						'Selected by: ' + (evt.type == 'keydown' ? 'pressing enter' : 'mouse click'),
+						'shouldPan: ' + shouldPan
 					]
 				);
-				WA.methods.updateLoc({place:selectedPlace, source:component.props.name});
+				*/
+				WA.methods.updateLoc({place:selectedPlace, source:component.props.name, actype: component.state.actype});
 			}
 		});
 	}

@@ -47,12 +47,13 @@ WA.Sort = class extends React.Component {
 
 
 	render() {
-		let rows = this._getRows();
+		let that = this,
+			rows = this._getRows();
 
 		return(
 			<div id="sort" className="sort">
 				<div className="mb-3">
-					<WA.ACInput name="ac-sort" placeholder="Planet or System"/>
+					<WA.ACInput name="ac-sort" placeholder={WA.methods.getACDisplay(that.props.origin) || "Planet or System"} />
 				</div>
 				<table className="table table-dark table-striped table-bordered table-responsive-sm">
 					<thead>

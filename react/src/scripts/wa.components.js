@@ -79,19 +79,30 @@ WA.WorldAtlas = class extends React.Component {
 		WA.methods.updateLoc = function(settings) {
 			// example: {or: placeObject, de:placeObject, source: 'ac-map'}
 
-			let options = $.extend({}, {place:null, type:'origin', source:null}, settings);
+			let options = $.extend({}, {place:null, actype:'origin', source:null}, settings);
 
 			// Set the map marker if a place is defined, otherwise clear it.
 			options.place ? WA.methods.map.markSelected(options.place) : WA.methods.map.clearSelected();
 
 			if (options.place !== null) {
-				$('#map-ac > input').val( WA.methods.getACDisplay(options.place) );
+
+				let obj = {}
+
+				if (options.actype === "destination") {
+					// Set the state and the placeholder will take care of itself.
+					obj.destination = options.place;
+				} else {
+					obj.origin = options.place;
+					obj.destination = null;
+				}
+
+				// Empty all autocomplete inputs when one is used. Then set the origin and destination, letting the ac component put 
+				// any existing value into the placeholder.
+				$( 'input.ac' ).val('');
+				that.setState(obj);
 			}
 
-			that.setState({
-				[options.type]: options.place
-			});
-			console.log(['testing123', that.state]);
+			console.log(['WA.methods.updateLoc()', 'input.ac.'+options.actype, that.state, options]);
 		}
 	}
 
@@ -152,10 +163,10 @@ WA.WorldAtlas = class extends React.Component {
 							</div>
 							<div className="modal-body">
 								<div className="text-center w-100 my-3" role="group" aria-label="First group">
-									<WA.AppNav updateView={this._updateView.bind(this)} view="docs" borderClass=" border-0" iconClass="fa fa-info-circle mr-1" text="Docs"/>
-									<WA.AppNav updateView={this._updateView.bind(this)} view="course" borderClass=" border-0"  iconClass="fa fa-sort mr-1" text="Course"/>
-									<WA.AppNav updateView={this._updateView.bind(this)} view="details" borderClass=" border-0" iconClass="fa fa-rocket mr-1" text="Details"/>
-									<WA.AppNav updateView={this._updateView.bind(this)} view="sort" borderClass=" border-0" iconClass="fa fa-rocket mr-1" text="Sort"/>
+									<WA.AppNav updateView={this._updateView.bind(this)} view="docs" borderClass=" border-0" iconClass="fa fa-book mr-1" text="Docs"/>
+									<WA.AppNav updateView={this._updateView.bind(this)} view="course" borderClass=" border-0"  iconClass="fa fa-rocket mr-1" text="Course"/>
+									<WA.AppNav updateView={this._updateView.bind(this)} view="details" borderClass=" border-0" iconClass="fa fa-info-circle mr-1" text="Details"/>
+									<WA.AppNav updateView={this._updateView.bind(this)} view="sort" borderClass=" border-0" iconClass="fa fa-sort mr-1" text="Sort"/>
 								</div>
 								{markup}
 							</div>
