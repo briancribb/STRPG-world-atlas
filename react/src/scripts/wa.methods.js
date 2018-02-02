@@ -537,7 +537,7 @@ WA.methods = (function () {
 			$('input.form-control.ac').val('');
 
 			// Sets the value for the map's autocomplete
-			$('#map-ac > input').val(system.name + ', ' + planet.name);
+			//$('#map-ac > input').val(system.name + ', ' + planet.name);
 		},
 		map: {
 			currentPlace : null,
@@ -547,7 +547,7 @@ WA.methods = (function () {
 			clickDistance : 15,		// Tolerance distance when the user tries to click on a star.
 			selectedSystem: null,	// Currently selected and marked system. This variable will be used in the details view if it's available.
 			selectHandler : function(evt){
-
+				//console.log('selectHandler(' + evt.type + ')');
 				switch(evt.type) {
 					case 'mousedown' || 'touchstart':
 						this.handleDown(evt);
@@ -598,7 +598,7 @@ WA.methods = (function () {
 						console.log(["Too far away, unmark things.", that.clickDistance]);
 						WA.methods.updateLoc();
 					}
-
+					$('#map-ac > input').val(evt.type);
 				} else {
 					//console.log("Panned or something, no click actions.");
 				}
