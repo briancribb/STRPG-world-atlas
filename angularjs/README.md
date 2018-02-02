@@ -1,5 +1,5 @@
 # STRPG-world-atlas
-A canvas/Bootstrap/AngularJS app using starmap data from the old Star Trek Role-playing Game, published by FASA in the 1980's. The idea was to build my first **AngularJS** app, using subject matter that would be fun for me. The result is an AngularJS application which, althoug imperfect, has taught me a great deal. I'm down to tweaks and improvements now, so the learning is mostly done. I'm done with development aside from occasional tinkering.
+A canvas/Bootstrap/AngularJS app using starmap data from the old Star Trek Role-playing Game, published by FASA in the 1980's. The idea was to build my first **AngularJS** app, using subject matter that would be fun for me. The result is an AngularJS application which, although imperfect, has taught me a great deal. I'm down to tweaks and improvements now, so the learning is mostly done. I'm done with development aside from occasional tinkering.
 
 The subject matter was written for a table-top role-playing game before the Internet came along, so all of the locations have two-dimensional coordinates from a paper map. I'm fully aware of the fact that space coordinates should be three-dimensional, but they're not that way in the original content and I don't want to reinvent the whole map. For now, This map exists in a 2D universe.
 
