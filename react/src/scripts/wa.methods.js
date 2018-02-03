@@ -549,11 +549,15 @@ WA.methods = (function () {
 			selectHandler : function(evt){
 				//console.log('selectHandler(' + evt.type + ')');
 				switch(evt.type) {
-					case 'mousedown' || 'touchstart':
-						this.handleDown(evt);
-						break;
-					case 'mouseup' || 'touchend':
-						this.handleUp(evt);
+					//case 'mousedown' || 'touchstart':
+					//	this.handleDown(evt);
+					//	break;
+					//case 'mouseup' || 'touchend':
+					//	this.handleUp(evt);
+					//	break;
+					case 'tap' || 'pinch':
+						$('#map-ac > input').val(evt.type);
+						//this.handleUp(evt);
 						break;
 					default:
 						// default code block
@@ -598,7 +602,6 @@ WA.methods = (function () {
 						console.log(["Too far away, unmark things.", that.clickDistance]);
 						WA.methods.updateLoc();
 					}
-					$('#map-ac > input').val(evt.type);
 				} else {
 					//console.log("Panned or something, no click actions.");
 				}
@@ -656,7 +659,7 @@ WA.methods = (function () {
 				that.grpSelected.circle(16).fill('none').stroke('#fff').move(-8, -8);
 
 
-				WA.methods.map.panZoomInstance = svgPanZoom('#svg-container', {
+				that.panZoomInstance = svgPanZoom('#svg-container', {
 					//zoomEnabled: true,
 					//controlIconsEnabled: true,
 					//fit: true,
@@ -664,12 +667,12 @@ WA.methods = (function () {
 					//minZoom: 0.1
 					
 					//viewportSelector: '.svg-pan-zoom_viewport',
-					panEnabled: true,
+					//panEnabled: true,
 					controlIconsEnabled: false,
 					zoomEnabled: true,
-					dblClickZoomEnabled: true,
-					mouseWheelZoomEnabled: true,
-					preventMouseEventsDefault: true,
+					dblClickZoomEnabled: false,
+					//mouseWheelZoomEnabled: true,
+					//preventMouseEventsDefault: true,
 					zoomScaleSensitivity: 0.2,
 					minZoom: 1,
 					maxZoom: 5,
@@ -686,15 +689,38 @@ WA.methods = (function () {
 					onPan: function(evt){
 						that.isClicked = false;
 					},
-					//customEventsHandler: eventsHandler,
+					customEventsHandler: WA.methods.map.eventsHandler(),
 					eventsListenerElement: null	
 				});
-
 
 				// Put it in the right spot.
 				WA.methods.map.reset();
 
 				dfd_init.resolve();
+			},
+			eventsHandler: function() {
+				// An object for the panzoom instance.
+				console.log('eventsHandler()');
+				return {
+					haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
+					init: function(options) {
+
+						this.hammertime = new Hammer(
+							options.svgElement,
+							{}
+						);
+						this.hammertime.get('pinch').set({ enable: true });
+						this.hammertime.on('tap pinch', function(evt) {
+							console.log(['hammertime', evt]);
+							//options.instance.zoomIn()
+							WA.methods.map.selectHandler(evt);
+						});
+
+					},
+					destroy: function() {
+						this.hammer.destroy();
+					}
+				};
 			},
 			getSVGBox : function(evt){
 				return document.getElementById('svg-container').getBoundingClientRect();

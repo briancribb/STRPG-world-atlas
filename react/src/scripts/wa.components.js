@@ -64,12 +64,14 @@ WA.WorldAtlas = class extends React.Component {
 		}, 250) );
 
 		// Handle manipulation of SVG map itself.
+		/*
 		$("#svg-container").on( "mousedown touchstart mouseup touchend", function(evt) {
 		//$("#svg-container").on( "click", function(evt) {
 			console.log('event happened.');
 			evt.preventDefault(); // Touch events won't generate mouse events if we prevent default behavior. Prevents double-handling.
 			WA.methods.map.selectHandler(evt);
 		});
+		*/
 	}
 
 
