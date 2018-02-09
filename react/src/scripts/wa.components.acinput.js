@@ -82,7 +82,7 @@ WA.ACInput = class extends React.Component {
 				//console.log(['ACInput: onSelect()', this, component.props]);
 
 				if (shouldPan) {
-					WA.methods.map.panToPlace( selectedPlace );
+					WA.methods.stm.panToPlace( selectedPlace );
 				}
 
 				/*

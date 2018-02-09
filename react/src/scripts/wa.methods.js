@@ -127,8 +127,8 @@ WA.methods = (function () {
 				Once that final bit of work is done, resolve the deferred that was passed into the getData function. This will kick off
 				the React app.
 				*/
-				that.map.init( $.Deferred().done(function(data) {
-					//console.log(['Map is initialized.', WA.methods.map.panZoomInstance]);
+				that.stm.init( $.Deferred().done(function(data) {
+					//console.log(['Map is initialized.', WA.methods.stm.panZoomInstance]);
 					// Resolve the primary initialization Deferred and pass in the final data.
 					dfd_init.resolve(smData);
 				}) );
@@ -539,15 +539,19 @@ WA.methods = (function () {
 			// Sets the value for the map's autocomplete
 			//$('#map-ac > input').val(system.name + ', ' + planet.name);
 		},
-		map: {
+		stm: {
 			currentPlace : null,
 			startingPoint : {x:-440,y:-780},
+			gesture: null,
+			isGesturing: false,
 			coordMod : {x: 100, y: -100},
-			isClicked : false,		// Prevent click handlers from running after the conclusion of a pan.
 			clickDistance : 15,		// Tolerance distance when the user tries to click on a star.
 			selectedSystem: null,	// Currently selected and marked system. This variable will be used in the details view if it's available.
 			selectHandler : function(evt){
-				//console.log('selectHandler(' + evt.type + ')');
+				let that =  WA.methods.stm;
+				//console.log([that, 'selectHandler(' + evt.type + ')', evt, evt.detail.events[0]]);
+
+				$('#map-ac > input').val(evt.type);
 				switch(evt.type) {
 					//case 'mousedown' || 'touchstart':
 					//	this.handleDown(evt);
@@ -555,8 +559,19 @@ WA.methods = (function () {
 					//case 'mouseup' || 'touchend':
 					//	this.handleUp(evt);
 					//	break;
-					case 'tap' || 'pinch':
-						$('#map-ac > input').val(evt.type);
+					case '0-5': // tap
+						that.handleTap(evt);
+						break;
+					case '0-3':
+
+						let stuff = WA.methods.stm.panZoomInstance.getZoom() * evt.detail.events[0].originalEvent.scale;
+						//console.log([that, 'pinch', evt, evt.detail.events[0].originalEvent.scale-1,  WA.methods.stm.panZoomInstance.getZoom(), stuff]);
+
+						//this.handleUp(evt);
+						break;
+					case '0-0':
+						let thing = WA.methods.stm.panZoomInstance.getZoom() * evt.detail.events[0].originalEvent.scale;
+						//console.log([that, 'expand', evt, evt.detail.events[0].originalEvent.scale-1,  WA.methods.stm.panZoomInstance.getZoom(), thing]);
 						//this.handleUp(evt);
 						break;
 					default:
@@ -567,43 +582,32 @@ WA.methods = (function () {
 				// The SVG takes up all available space, but there's navigation at the bottom which lays over it. This line of code uses 
 				// jQuery to get the height of the nav, and then shorten the SVG by that amount. This prevents centered SVG elements from 
 				// looking a little off due to that non-visible portion of the SVG being covered up.
-
-				//$('#starmap').css('bottom', ( $('#map-nav').outerHeight() + 'px' ) );
 				$('#starmap').css({
 					'top'	: $('#map-ac').outerHeight() + 'px',
 					'bottom'		: $('#map-nav').outerHeight() + 'px'
 				});
 			},
-			handleDown : function(evt){
-				this.isClicked = true;
-				//console.log(['-- handleDown()', this]);
-			},
-			handleUp : function(evt){
+			handleTap : function(evt){
 				var that = this;
 
-				if (that.isClicked) {
-					that.isClicked = false;
 
-					var dim = that.getSVGBox();
-					var x = evt.clientX - dim.left,
-						y = evt.clientY - dim.top;
+				var dim = that.getSVGBox();
+				var x = evt.detail.events[0].x - dim.left,
+					y = evt.detail.events[0].y - dim.top;
 
-					var newPoint = that.getMapPoint({x:x, y:y});
-					var nearestSystem = that.sortByDistance( newPoint , WA.methods.getSystems() )[0];
+				var newPoint = that.getMapPoint({x:x, y:y});
+				var nearestSystem = that.sortByDistance( newPoint , WA.methods.getSystems() )[0];
 
-					//var distance = WA.methods.map.getSVGDistance( nearestSystem.distanceFrom );
-					//console.log( [nearestSystem.name, nearestSystem.distanceFrom, distance, newPoint, {x:nearestSystem.x, y:nearestSystem.y}] );
+				//var distance = WA.methods.stm.getSVGDistance( nearestSystem.distanceFrom );
+				//console.log( [nearestSystem.name, nearestSystem.distanceFrom, distance, newPoint, {x:nearestSystem.x, y:nearestSystem.y}] );
 
-					if ( WA.methods.map.getSVGDistance(nearestSystem.distanceFrom) <= that.clickDistance ) {
-						console.log(["Close enough on the SVG, so let's pick a system.", that.clickDistance]);
-						that.selectedSystem = nearestSystem
-						WA.methods.updateLoc({place: nearestSystem, type:'origin', source:'click'});
-					} else {
-						console.log(["Too far away, unmark things.", that.clickDistance]);
-						WA.methods.updateLoc();
-					}
+				if ( WA.methods.stm.getSVGDistance(nearestSystem.distanceFrom) <= that.clickDistance ) {
+					console.log(["Close enough on the SVG, so let's pick a system.", that.clickDistance, x, y]);
+					that.selectedSystem = nearestSystem
+					WA.methods.updateLoc({place: nearestSystem, type:'origin', source:'click'});
 				} else {
-					//console.log("Panned or something, no click actions.");
+					console.log(["Too far away, unmark things.", that.clickDistance, x, y]);
+					WA.methods.updateLoc();
 				}
 			},
 			init: function(dfd_init) {
@@ -681,44 +685,86 @@ WA.methods = (function () {
 					center: false,
 					refreshRate: 'auto',
 					//beforeZoom: function(){},
-					onZoom: function(evt){
-						that.isClicked = false;
-					},
+					//onZoom: function(evt){},
 					//beforePan: function(){},
 					//onPan: function(){},
-					onPan: function(evt){
-						that.isClicked = false;
-					},
-					customEventsHandler: WA.methods.map.eventsHandler(),
+					//onPan: function(evt){},
+					customEventsHandler: WA.methods.stm.eventsHandler(),
 					eventsListenerElement: null	
 				});
 
 				// Put it in the right spot.
-				WA.methods.map.reset();
+				WA.methods.stm.reset();
 
 				dfd_init.resolve();
 			},
 			eventsHandler: function() {
 				// An object for the panzoom instance.
-				console.log('eventsHandler()');
+
 				return {
 					haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
 					init: function(options) {
 
-						this.hammertime = new Hammer(
-							options.svgElement,
-							{}
-						);
-						this.hammertime.get('pinch').set({ enable: true });
-						this.hammertime.on('tap pinch', function(evt) {
-							console.log(['hammertime', evt]);
-							//options.instance.zoomIn()
-							WA.methods.map.selectHandler(evt);
+						var activeRegion = ZingTouch.Region(document.getElementById('svg-container'));
+
+						/*
+						activeRegion.bind(options.svgElement, 'tap', function(evt){
+							//Perform Operations
+							WA.methods.stm.selectHandler(evt);
 						});
+						activeRegion.bind(options.svgElement, 'pinch', function(evt){
+							//Perform Operations
+							WA.methods.stm.selectHandler(evt);
+						});
+						*/
+
+						var func = WA.methods.stm.selectHandler;
+						activeRegion.bind(options.svgElement)
+							.tap(function(evt){
+								console.log(['This is from ZingTouch tap(' + evt.type + ')']);
+								func(evt);
+							})
+							//.pan(function(evt){
+							//	func(evt);
+							//})
+							.pinch(function(evt){
+								console.log(['This is from ZingTouch pinch-(' + evt.type + ')']);
+								func(evt);
+							})
+							.expand(function(evt){
+								console.log(['This is from ZingTouch expand(' + evt.type + ')']);
+								func(evt);
+							});
+
+
+
+							/*
+							For all it's good points, using the ZingTouch lifecycle is a bit awkward. It's extra lines of code, but it's worth it 
+							for the ability to fire off a function at the end of the gesture. This seems to run at the end of any gesture, though.
+							In the Xcode simulator, these pan start and end functions run for pinch and expand as well. The primary difference is 
+							the number of inputs. Pan returns one input, while pinch and zoom return two. Needs more testing.
+							*/
+							var CustomPan = new ZingTouch.Pan();
+							var startPan = CustomPan.start;
+							var endPan = CustomPan.end;
+							CustomPan.start = function(inputs) {
+								console.log(['Pan started, from CustomPan', inputs, inputs.length]);
+
+								return startPan.call(this, inputs);
+							}
+							CustomPan.end = function(inputs) {
+								console.log(['Pan ended, from CustomPan', inputs, inputs.length]);
+
+								return endPan.call(this, inputs);
+							}
+							// Bind the custom pan gesture to the map.
+							activeRegion.bind(options.svgElement, CustomPan, function(evt) {
+								func(evt);
+							});
 
 					},
 					destroy: function() {
-						this.hammer.destroy();
+						//this.hammer.destroy();
 					}
 				};
 			},
@@ -755,7 +801,7 @@ WA.methods = (function () {
 				};
 			},
 			reset : function() {
-				WA.methods.map.panZoomInstance.zoom(2).pan({ x:(this.startingPoint.x*2), y:(this.startingPoint.y*2) });
+				WA.methods.stm.panZoomInstance.zoom(2).pan({ x:(this.startingPoint.x*2), y:(this.startingPoint.y*2) });
 			},
 			getSVGDistance : function(distance) {
 				// Converts a coordinate distance to a distance on the SVG at the current zoom factor.
@@ -777,7 +823,7 @@ WA.methods = (function () {
 					x: -(systemPoint.x) + (box.width/2),
 					y: -(systemPoint.y) + (box.height/2)
 				}
-				//WA.methods.map.panZoomInstance.pan({ x: (-3223 + (box.width/2)), y:(-5274 + (box.height/2)) });
+				//WA.methods.stm.panZoomInstance.pan({ x: (-3223 + (box.width/2)), y:(-5274 + (box.height/2)) });
 
 				console.log([box, systemPoint, panPoint]);
 				this.panZoomInstance.pan(panPoint);

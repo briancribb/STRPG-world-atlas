@@ -58,9 +58,9 @@ WA.WorldAtlas = class extends React.Component {
 		});
 
 		// Run the handler function once before setting it to happen on resize.
-		WA.methods.map.handleResize();
+		WA.methods.stm.handleResize();
 		$(window).resize( _.debounce(function(){
-			WA.methods.map.handleResize();
+			WA.methods.stm.handleResize();
 		}, 250) );
 
 		// Handle manipulation of SVG map itself.
@@ -69,7 +69,7 @@ WA.WorldAtlas = class extends React.Component {
 		//$("#svg-container").on( "click", function(evt) {
 			console.log('event happened.');
 			evt.preventDefault(); // Touch events won't generate mouse events if we prevent default behavior. Prevents double-handling.
-			WA.methods.map.selectHandler(evt);
+			WA.methods.stm.selectHandler(evt);
 		});
 		*/
 	}
@@ -86,7 +86,7 @@ WA.WorldAtlas = class extends React.Component {
 			let options = $.extend({}, {place:null, actype:'origin', source:null}, settings);
 
 			// Set the map marker if a place is defined, otherwise clear it.
-			options.place ? WA.methods.map.markSelected(options.place) : WA.methods.map.clearSelected();
+			options.place ? WA.methods.stm.markSelected(options.place) : WA.methods.stm.clearSelected();
 
 			if (options.place !== null) {
 
@@ -209,17 +209,17 @@ WA.WorldAtlas = class extends React.Component {
 					break;
 				case 'reset':
 					//console.log('reset: ' + evt.target.id);
-					WA.methods.map.reset();
+					WA.methods.stm.reset();
 					break;
 
 				case 'zoom out':
 					//console.log('zoom out: ' + evt.target.id);
-					WA.methods.map.panZoomInstance.zoomOut();
+					WA.methods.stm.panZoomInstance.zoomOut();
 					break;
 
 				case 'zoom in':
 					//console.log('zoom in: ' + evt.target.id);
-					WA.methods.map.panZoomInstance.zoomIn();
+					WA.methods.stm.panZoomInstance.zoomIn();
 					break;
 				default:
 					//console.log('default: ' + evt.target.id);
