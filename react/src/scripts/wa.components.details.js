@@ -33,6 +33,73 @@ WA.Details = class extends React.Component {
 		);
 	}
 
+	_getPlanetaryData(planet) {
+		// This function is only called if the place prop is defined.
+
+		let markup = null;
+
+		return( 
+			<div>
+				{markup}
+			</div>
+		);
+	}
+	_getTecSocialIndex(planet) {
+		// This function is only called if the place prop is defined.
+
+		let markup = null;
+
+		return( 
+			<div>
+				{markup}
+			</div>
+		);
+	}
+	_getTradeProfile(planet) {
+		// This function is only called if the place prop is defined.
+
+		let markup = null;
+
+		return( 
+			<div>
+				{markup}
+			</div>
+		);
+	}
+	_getSize(planet) {
+		// This function is only called if the place prop is defined.
+
+		let markup = null;
+
+		return( 
+			<div>
+				{markup}
+			</div>
+		);
+	}
+	_getSurfaceConditions(planet) {
+		// This function is only called if the place prop is defined.
+
+		let markup = null;
+
+		return( 
+			<div>
+				{markup}
+			</div>
+		);
+	}
+	_getMinerals(planet) {
+		// This function is only called if the place prop is defined.
+
+		let markup = null;
+
+		return( 
+			<div>
+				{markup}
+			</div>
+		);
+	}
+
 
 	render() {
 
@@ -63,7 +130,6 @@ WA.Details = class extends React.Component {
 			}
 
 
-
 			markup =	(
 				<div>
 					<h3>System: {system.name}</h3>
@@ -75,8 +141,13 @@ WA.Details = class extends React.Component {
 							<a className="nav-link" href="#">Planet Two</a>
 						</li>
 					</ul>
-
 					<WA.DetailsCard toggleID="desc" title="Description" colorType="info" textColor="white" bodyContent = {that._getDescription(planet)} />
+					<WA.DetailsCard toggleID="pd" title="Planetary Data" colorType="info" textColor="white" bodyContent = {that._getPlanetaryData(planet)} />
+					<WA.DetailsCard toggleID="tsi" title={"TechSocial Index: " + planet.techSocIndex.rating} colorType="info" textColor="white" bodyContent = {that._getTecSocialIndex(planet)} />
+					<WA.DetailsCard toggleID="trade" title={"Trade Profile: " + planet.tradeProfile.rating} colorType="info" textColor="white" bodyContent = {that._getTradeProfile(planet)} />
+					<WA.DetailsCard toggleID="size" title="Size" colorType="info" textColor="white" bodyContent = {that._getSize(planet)} />
+					<WA.DetailsCard toggleID="surf" title="Surface Conditions" colorType="info" textColor="white" bodyContent = {that._getSurfaceConditions(planet)} />
+					<WA.DetailsCard toggleID="mineral" title="Mineral Content" colorType="info" textColor="white" bodyContent = {that._getMinerals(planet)} />
 				</div>
 			);
 		}

@@ -50,10 +50,10 @@ WA.WorldAtlas = class extends React.Component {
 		// Listening to the modal from here so we'll have access to the React app state.
 		$("body").on({
 			"shown.bs.modal": function() {
-				console.log('Showing the modal.');
+				//console.log('Showing the modal.');
 			},
 			"hidden.bs.modal": function() {
-				console.log('Hiding the modal.');
+				//console.log('Hiding the modal.');
 			}
 		});
 
@@ -106,7 +106,7 @@ WA.WorldAtlas = class extends React.Component {
 				that.setState(obj);
 			}
 
-			console.log(['WA.methods.updateLoc()', 'input.ac.'+options.actype, that.state, options]);
+			//console.log(['WA.methods.updateLoc()', 'input.ac.'+options.actype, that.state, options]);
 		}
 	}
 
