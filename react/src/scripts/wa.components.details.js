@@ -32,7 +32,6 @@ WA.Details = class extends React.Component {
 			</div>
 		);
 	}
-
 	_getPlanetaryData(planet) {
 		// This function is only called if the place prop is defined.
 		return( 
@@ -56,7 +55,7 @@ WA.Details = class extends React.Component {
 	}
 	_getTecSocialIndex(planet) {
 		// This function is only called if the place prop is defined.
-		return( 
+		return(
 			<table className="table table-striped m-0">
 				<tbody>
 					<tr>
@@ -137,15 +136,96 @@ WA.Details = class extends React.Component {
 	}
 	_getTradeProfile(planet) {
 		// This function is only called if the place prop is defined.
-		return( 
-			<table className="table table-striped m-0">
-				<tbody>
-					<tr>
-						<td>REPLACEME</td>
-						<td>{planet.REPLACEME}</td>
-					</tr>
-				</tbody>
-			</table>
+		return(
+			<div>
+				<div className="pt-3 pr-3 pl-3">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In elementum elit est, eu semper dui rutrum eu. Morbi pellentesque tortor a augue dictum euismod. Nullam turpis risus, commodo eu accumsan ac, pharetra eu turpis. Etiam sit amet accumsan erat.</p>
+					<p>Nunc imperdiet nec libero et auctor. Aliquam eu finibus nisl. Fusce laoreet suscipit dolor, et dapibus dolor accumsan vitae. Suspendisse tempor sagittis diam. Nulla venenatis lorem nulla, vitae placerat ligula eleifend eu. Cras vel magna vel magna euismod bibendum.</p>
+				</div>
+				<table className="table table-striped m-0">
+					<thead>
+						<tr>
+							<th>REPLACEME</th>
+							<th>REPLACEME</th>
+							<th>REPLACEME</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colSpan="3">Food and Agricultural Goods</td>
+						</tr>
+						<tr>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+						</tr>
+						<tr>
+							<td colSpan="3">Normal Minerals, Raw Materials</td>
+						</tr>
+						<tr>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+						</tr>
+						<tr>
+							<td colSpan="3">Radioactives, Special Minerals</td>
+						</tr>
+						<tr>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+						</tr>
+						<tr>
+							<td colSpan="3">Drugs and Medicine</td>
+						</tr>
+						<tr>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+						</tr>
+						<tr>
+							<td colSpan="3">Low Tech Manufactured Goods</td>
+						</tr>
+						<tr>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+						</tr>
+						<tr>
+							<td colSpan="3">Medium Tech Manufactured Goods</td>
+						</tr>
+						<tr>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+						</tr>
+						<tr>
+							<td colSpan="3">High Tech Manufactured Goods</td>
+						</tr>
+						<tr>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+						</tr>
+						<tr>
+							<td colSpan="3">Luxury Goods</td>
+						</tr>
+						<tr>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+						</tr>
+						<tr>
+							<td colSpan="3">Population Rating</td>
+						</tr>
+						<tr>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+							<td>REPLACEME</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		);
 	}
 	_getSize(planet) {
