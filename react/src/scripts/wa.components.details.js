@@ -232,16 +232,24 @@ WA.Details = class extends React.Component {
 			<table className="table table-striped m-0">
 				<tbody>
 					<tr>
-						<td>Position</td>
-						<td>3</td>
+						<td>Diameter</td>
+						<td>{planet.diameter}</td>
 					</tr>
 					<tr>
-						<td>Satellites</td>
-						<td>3</td>
+						<td>Circumference</td>
+						<td>{planet.circumference}</td>
 					</tr>
 					<tr>
-						<td>Gravity</td>
-						<td>3</td>
+						<td>Surface Area</td>
+						<td>{planet.surfaceArea}</td>
+					</tr>
+					<tr>
+						<td>Percent Land</td>
+						<td>{planet.percentLand}</td>
+					</tr>
+					<tr>
+						<td>Total Land</td>
+						<td>{planet.landArea}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -253,16 +261,16 @@ WA.Details = class extends React.Component {
 			<table className="table table-striped m-0">
 				<tbody>
 					<tr>
-						<td>Position</td>
-						<td>3</td>
+						<td>Length of Day</td>
+						<td>{planet.dayLength + ' hours'}</td>
 					</tr>
 					<tr>
-						<td>Satellites</td>
-						<td>3</td>
+						<td>Atmospheric Density</td>
+						<td>{planet.atmosDensity}</td>
 					</tr>
 					<tr>
-						<td>Gravity</td>
-						<td>3</td>
+						<td>Climate</td>
+						<td>{planet.climate}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -274,16 +282,24 @@ WA.Details = class extends React.Component {
 			<table className="table table-striped m-0">
 				<tbody>
 					<tr>
-						<td>Position</td>
-						<td>3</td>
+						<td>Normal Metals</td>
+						<td>{planet.minerals.normal + "%"}</td>
 					</tr>
 					<tr>
-						<td>Satellites</td>
-						<td>3</td>
+						<td>Radioactives</td>
+						<td>{planet.minerals.radioactives + "%"}</td>
 					</tr>
 					<tr>
-						<td>Gravity</td>
-						<td>3</td>
+						<td>Gemstones</td>
+						<td>{planet.minerals.gemstones + "%"}</td>
+					</tr>
+					<tr>
+						<td>Industrial Crystals</td>
+						<td>{planet.minerals.crystals + "%"}</td>
+					</tr>
+					<tr>
+						<td>Special Minerals</td>
+						<td>{planet.minerals.special + "%"}</td>
 					</tr>
 				</tbody>
 			</table>
