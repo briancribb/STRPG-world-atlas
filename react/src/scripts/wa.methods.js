@@ -46,6 +46,9 @@ WA.methods = (function () {
 		getTechSocialDetails: function (index, rating) {
 			return smData.techSocialArray[index][rating];
 		},
+		getTradeProfileTypes: function() {
+			//return this.data.tradeProfileTypes;
+		},
 		getACDisplay: function(place) {
 			if (!place) return '';
 

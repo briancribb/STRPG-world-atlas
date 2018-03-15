@@ -144,84 +144,82 @@ WA.Details = class extends React.Component {
 				</div>
 				<table className="table table-striped m-0">
 					<thead>
-						<tr>
-							<th>REPLACEME</th>
-							<th>REPLACEME</th>
-							<th>REPLACEME</th>
+						<tr className=" bg-info text-white text-center">
+							<th>Rating</th>
+							<th>Consumption</th>
+							<th>Price</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td colSpan="3">Food and Agricultural Goods</td>
 						</tr>
-						<tr>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
+						<tr className="text-center">
+							<td>{planet.tradeProfile.agricultural.rating}</td>
+							<td>{planet.tradeProfile.agricultural.consumptionRate}</td>
+							<td>{planet.tradeProfile.agricultural.price}</td>
 						</tr>
 						<tr>
 							<td colSpan="3">Normal Minerals, Raw Materials</td>
 						</tr>
-						<tr>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
+						<tr className="text-center">
+							<td>{planet.tradeProfile.rawMaterials.rating}</td>
+							<td>{planet.tradeProfile.rawMaterials.consumptionRate}</td>
+							<td>{planet.tradeProfile.rawMaterials.price}</td>
 						</tr>
 						<tr>
 							<td colSpan="3">Radioactives, Special Minerals</td>
 						</tr>
-						<tr>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
+						<tr className="text-center">
+							<td>{planet.tradeProfile.radioSpecial.rating}</td>
+							<td>{planet.tradeProfile.radioSpecial.consumptionRate}</td>
+							<td>{planet.tradeProfile.radioSpecial.price}</td>
 						</tr>
 						<tr>
 							<td colSpan="3">Drugs and Medicine</td>
 						</tr>
-						<tr>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
+						<tr className="text-center">
+							<td>{planet.tradeProfile.drugMedicine.rating}</td>
+							<td>{planet.tradeProfile.drugMedicine.consumptionRate}</td>
+							<td>{planet.tradeProfile.drugMedicine.price}</td>
 						</tr>
 						<tr>
 							<td colSpan="3">Low Tech Manufactured Goods</td>
 						</tr>
-						<tr>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
+						<tr className="text-center">
+							<td>{planet.tradeProfile.lowTechMan.rating}</td>
+							<td>{planet.tradeProfile.lowTechMan.consumptionRate}</td>
+							<td>{planet.tradeProfile.lowTechMan.price}</td>
 						</tr>
 						<tr>
 							<td colSpan="3">Medium Tech Manufactured Goods</td>
 						</tr>
-						<tr>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
+						<tr className="text-center">
+							<td>{planet.tradeProfile.mediumTechMan.rating}</td>
+							<td>{planet.tradeProfile.mediumTechMan.consumptionRate}</td>
+							<td>{planet.tradeProfile.mediumTechMan.price}</td>
 						</tr>
 						<tr>
 							<td colSpan="3">High Tech Manufactured Goods</td>
 						</tr>
-						<tr>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
+						<tr className="text-center">
+							<td>{planet.tradeProfile.highTechMan.rating}</td>
+							<td>{planet.tradeProfile.highTechMan.consumptionRate}</td>
+							<td>{planet.tradeProfile.highTechMan.price}</td>
 						</tr>
 						<tr>
 							<td colSpan="3">Luxury Goods</td>
 						</tr>
-						<tr>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
+						<tr className="text-center">
+							<td>{planet.tradeProfile.luxuryGoods.rating}</td>
+							<td>{planet.tradeProfile.luxuryGoods.consumptionRate}</td>
+							<td>{planet.tradeProfile.luxuryGoods.price}</td>
 						</tr>
 						<tr>
 							<td colSpan="3">Population Rating</td>
 						</tr>
-						<tr>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
-							<td>REPLACEME</td>
+						<tr className="text-center">
+							<td>{planet.tradeProfile.population.rating}</td>
 						</tr>
 					</tbody>
 				</table>
