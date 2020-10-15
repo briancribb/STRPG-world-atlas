@@ -1,4 +1,4 @@
-# STRPG-world-atlas
+# strpg-world-atlas
 ## A really nerdy dataset that I'm using to learn frameworks.
 This started as an AngularJS experiment, and I found myself tossing a bunch of other stuff into the mix so I could learn those things too. I mainly just wanted to tinker and I had no specific plan for how the app would work. The result is a terrible user interface with nicely working internal parts.
 
@@ -15,7 +15,7 @@ I have digital copies of the books, so I OCR scanned them and fixed the typos. <
 
 ## The AngularJS Version
 
-[http://briancribb.github.io/STRPG-world-atlas/angularjs/](http://briancribb.github.io/STRPG-world-atlas/angularjs/)
+[http://briancribb.github.io/strpg-world-atlas/angularjs/](http://briancribb.github.io/strpg-world-atlas/angularjs/)
 
 This is the original version. It has routing and a data service, along with autocomplete via Twitter's Typeahead and an interactive map built with <a href="https://createjs.com/">CreateJS</a>. For a special treat, click on a dot, then click "Origin", then a dot, then "Destination". You'll get a neat line that looks sort of like this fiddle and this other fiddle.
 
@@ -32,6 +32,3 @@ I wrote a few blog posts and fiddles while building it, which you can see here:
 This one is newer, and it's almost finished. It's more user-friendly, and it's going to have some documentation that will tell the user what the hell I'm doing with the whole thing. This time the map is made with <a href="http://svgjs.com/">SVGJS</a>, and I'm pretty happy with the way it's responding at different sizes. I'm currently using a big data object with setters and getters as a sort of data store, but I want to learn Redux so I'll probably toss that in later.
 
 Another improvement is the use of <a href="https://goodies.pixabay.com/javascript/auto-complete/demo.html">JavaScript Autocomplete</a>, which I picked up on [plainJS](https://plainjs.com/). It's simple, easy to use, and I highly recommend it.
-
-## Other Versions
-After I'm done with React, I'm going to make this thing again in VueJS and then Angular.
