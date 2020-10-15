@@ -27,7 +27,7 @@ I wrote a few blog posts and fiddles while building it, which you can see here:
 
 
 ## The ReactJS Version
-[http://briancribb.github.io/STRPG-world-atlas/react/](http://briancribb.github.io/STRPG-world-atlas/react/)
+[http://briancribb.github.io/strpg-world-atlas/react/](http://briancribb.github.io/strpg-world-atlas/react/)
 
 This one is newer, and it's almost finished. It's more user-friendly, and it's going to have some documentation that will tell the user what the hell I'm doing with the whole thing. This time the map is made with <a href="http://svgjs.com/">SVGJS</a>, and I'm pretty happy with the way it's responding at different sizes. I'm currently using a big data object with setters and getters as a sort of data store, but I want to learn Redux so I'll probably toss that in later.
 
